@@ -98,6 +98,7 @@ PantallaCarga.prototype = { //Cargar toda la pantalla
         game.load.image('reloj','assets/img/mapaInteractivo/interfaz/reloj.png');
         //Botones de pantallas
         game.load.image('boton_reinicar', 'assets/img/mapaInteractivo/pantallas/boton_reinicar.png');
+        game.load.image('boton_sig', 'assets/img/mapaInteractivo/pantallas/boton_sig.png');
 
         
 
