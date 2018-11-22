@@ -3,18 +3,17 @@ var AMOUNT_PLATAFORMAS = 2;
 var AMOUNT_BASUREROS = 4;
 var AMOUNT_REMOLINOS = 2;
 var pantalla = 1;
-var cant_plat_1 = 8;
+var cant_plat_1_nivel1 = 7;
+var cant_plat_1_nivel2 = 8;
 var cant_tron_1 = 4;
 var cant_bola=17;
 var flagResultEndGame = false;
 var releaseTimers=[];
 var inGameLevel=1;
-
 var GamePlayManglar = function() {};
 
 GamePlayManglar.prototype = {
     init: function(){
-        game.state.start('nivel2');
         game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
         game.scale.pageAlignHorizontally = true;
         game.scale.pageAlignVertically = true;
@@ -156,7 +155,7 @@ GamePlayManglar.prototype = {
         this.plataformas[7] = platBas2;
         
         /*Controloles individuales de plataformas*/    
-        for(var i=1; i<=cant_plat_1; i++){
+        for(var i=1; i<=cant_plat_1_nivel1; i++){
             this.plataformas[i].anchor.setTo(0.5);
             game.physics.p2.enable(this.plataformas[i]);
             switch(i){
@@ -251,7 +250,7 @@ GamePlayManglar.prototype = {
             this.basureros[3].id = 3;
 
             for (var i = 0; i < this.basureros.length; i++) {
-                this.basureros[i].width=(window.innerWidth*17)/100;
+                this.basureros[i].width=(window.innerWidth*14)/100;
                 this.basureros[i].height=(window.innerHeight*10)/100;
                 game.physics.p2.enable(this.basureros[i],true);
                 this.basureros[i].body.motionState=2;
@@ -413,7 +412,7 @@ GamePlayManglar.prototype = {
         }
         
         for(var i=0;i<AMOUNT_REMOLINOS;i++)
-            this.remolinos[i].angle += 10;
+            this.remolinos[i].angle -= 10;
     
         if(!this.flagEndGame){
             var rectBola;
@@ -563,7 +562,7 @@ GamePlayManglar.prototype = {
         flagArrangeBall = false;
         this.flagDropBall=true;
         game.physics.p2.enable(this.bola_basura, true);
-        this.bola_basura.body.setCircle((this.sizeBola*65)/100);
+        this.bola_basura.body.setCircle((this.sizeBola*55)/100);
         this.materialBola = game.physics.p2.createMaterial('materialBola');
         this.bola_basura.body.setMaterial(this.materialBola);
         this.bola_basura.allowRotation=true;
@@ -575,23 +574,6 @@ GamePlayManglar.prototype = {
         currentScore+=100;
         this.scoreText.text = currentScore;
         
-    },
-    showFinalMessage: function(msg){
-        var bgAlpha = game.add.bitmapData(window.innerWidth, window.innerHeight);
-        bgAlpha.ctx.fillStyle = '#FFFFFF';
-        bgAlpha.ctx.fillRect(0,0,window.innerWidth, window.innerHeight);
-        
-        var bg = game.add.sprite(0,0,bgAlpha);
-        bg.alpha = 0.5;
-        
-        var style = {
-            font: 'bold 12pt Arial',
-            fill: '#FFFFFF',
-            align: 'center'
-          }
-        
-        this.textFieldFinalMsg = game.add.text(game.width/2, game.height/2, msg, style);
-        this.textFieldFinalMsg.anchor.setTo(0.5);
     },
 }
 var GamePlayManglarDesktop = {
@@ -1325,7 +1307,7 @@ var nivel2= {
         this.plataformas[8] = platBas2;
         
         /*Controloles individuales de plataformas*/    
-        for(var i=1; i<=cant_plat_1; i++){
+        for(var i=1; i<=cant_plat_1_nivel2; i++){
             this.plataformas[i].anchor.setTo(0.5);
             game.physics.p2.enable(this.plataformas[i]);
             switch(i){
