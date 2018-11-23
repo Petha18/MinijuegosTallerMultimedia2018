@@ -451,12 +451,17 @@ GamePlayManglar.prototype = {
                     currentScore = -1;
                     this.state.start('final');
                 }
-                
             }
-            if(flagArrangeBall){
+            else
+            {
+                if(flagArrangeBall){
                 this.bola_basura.body.y = 0;
                 this.bola_basura.body.x = (window.innerWidth*72)/100;
-            }
+                this.bola_basura.body.allowGravity=false;
+                this.bola_basura.body.velocity.y=0;
+                }
+            } 
+            
         }
     },
     tocandoTronco: function(tronco){
@@ -555,9 +560,6 @@ GamePlayManglar.prototype = {
         }
         return true;
     },
-    render:function(){
-
-    },
     onTap: function(){
         flagArrangeBall = false;
         this.flagDropBall=true;
@@ -565,6 +567,7 @@ GamePlayManglar.prototype = {
         this.bola_basura.body.setCircle((this.sizeBola*55)/100);
         this.materialBola = game.physics.p2.createMaterial('materialBola');
         this.bola_basura.body.setMaterial(this.materialBola);
+        this.bola_basura.body.allowGravity=true;
         this.bola_basura.allowRotation=true;
         var plataformaBola = game.physics.p2.createContactMaterial(this.materialBola, this.materialPlataforma, { friction: -3 });
         var mundoBola = game.physics.p2.createContactMaterial(this.materialBola, this.worldMaterial, { friction: 0 });
@@ -572,8 +575,7 @@ GamePlayManglar.prototype = {
     },
     increaseScore:function(){
         currentScore+=100;
-        this.scoreText.text = currentScore;
-        
+        this.scoreText.text = currentScore;    
     },
 }
 var GamePlayManglarDesktop = {
@@ -1615,9 +1617,11 @@ var nivel2= {
                 switch(this.bola_basura.spawnSite){
                     case 1:this.bola_basura.body.y = 0;
                     this.bola_basura.body.x = (window.innerWidth*90)/100;
+                    this.bola_basura.body.allowGravity=false;
                     break;
                     case 2:this.bola_basura.body.y = 0;
                     this.bola_basura.body.x = (window.innerWidth*10)/100;
+                    this.bola_basura.body.allowGravity=false;
                     break;
                     default:;
                 }
@@ -1754,9 +1758,6 @@ var nivel2= {
         }
         return true;
     },
-    render:function(){
-
-    },
     onTap: function(){
         flagArrangeBall = false;
         if(this.bola_basura.spawnSite==1){
@@ -1771,6 +1772,7 @@ var nivel2= {
         this.materialBola = game.physics.p2.createMaterial('materialBola');
         this.bola_basura.body.setMaterial(this.materialBola);
         this.bola_basura.allowRotation=true;
+        this.bola_basura.body.allowGravity=true;
         var plataformaBola = game.physics.p2.createContactMaterial(this.materialBola, this.materialPlataforma, { friction: -3 });
         var mundoBola = game.physics.p2.createContactMaterial(this.materialBola, this.worldMaterial, { friction: 0 });
         var troncoBola=game.physics.p2.createContactMaterial(this.materialBola, this.materialTronco, { friction:1, restitution:0.5});
