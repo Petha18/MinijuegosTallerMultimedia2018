@@ -1,69 +1,69 @@
 {
   "frames": {
-    "Button_46": {
+    "AB1": {
+      "trimmed": true,
+      "rotated": false,
+      "frame": {
+        "x": 64,
+        "y": 3,
+        "w": 29,
+        "h": 31
+      },
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 29,
+        "h": 31
+      },
+      "sourceSize": {
+        "w": 29,
+        "h": 31
+      }
+    },
+    "AB2": {
       "trimmed": true,
       "rotated": false,
       "frame": {
         "x": 2,
         "y": 2,
-        "w": 176,
-        "h": 178
+        "w": 29,
+        "h": 32
       },
       "spriteSourceSize": {
         "x": 0,
         "y": 0,
-        "w": 176,
-        "h": 178
+        "w": 29,
+        "h": 32
       },
       "sourceSize": {
-        "w": 176,
-        "h": 178
+        "w": 29,
+        "h": 32
       }
     },
-    "Button_47": {
+    "AB4": {
       "trimmed": true,
       "rotated": false,
       "frame": {
-        "x": 180,
+        "x": 33,
         "y": 2,
-        "w": 176,
-        "h": 178
+        "w": 29,
+        "h": 32
       },
       "spriteSourceSize": {
         "x": 0,
         "y": 0,
-        "w": 176,
-        "h": 178
+        "w": 29,
+        "h": 32
       },
       "sourceSize": {
-        "w": 176,
-        "h": 178
-      }
-    },
-    "Button_48": {
-      "trimmed": true,
-      "rotated": false,
-      "frame": {
-        "x": 358,
-        "y": 2,
-        "w": 176,
-        "h": 178
-      },
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 176,
-        "h": 178
-      },
-      "sourceSize": {
-        "w": 176,
-        "h": 178
+        "w": 29,
+        "h": 32
       }
     }
   },
   "meta": {
     "app": "Phaser Editor",
     "version": "1",
-    "image": "butonMenu.png"
+    "image": "caminando abajo.png"
   }
 }
