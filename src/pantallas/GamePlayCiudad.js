@@ -22,6 +22,7 @@ GamePlayCiudad = {
         game.load.atlasJSONArray('personajeCaminandoArriba', 'assets/img/recolectaBasura/personajeCaminandoArriba.png', 'assets/img/recolectaBasura/personajeCaminandoArriba.json');
         game.load.atlasJSONArray('personajeCaminandoDerecha', 'assets/img/recolectaBasura/personajeCaminandoDerecha.png', 'assets/img/recolectaBasura/personajeCaminandoDerecha.json');
         game.load.atlasJSONArray('personajeCaminandoIzquierda', 'assets/img/recolectaBasura/personajeCaminandoIzquierda.png', 'assets/img/recolectaBasura/personajeCaminandoIzquierda.json');
+        game.load.atlasJSONArray('personajeCaminandoAbajo', 'assets/img/recolectaBasura/PersonajeCaminandoAbajo.png', 'assets/img/recolectaBasura/PersonajeCaminandoAbajo.json');
    
         //#endregion 
     //#region Desechos
@@ -83,34 +84,51 @@ GamePlayCiudad = {
         // this.estrellasMenuVacia.anchor.setTo(0.5);
         // this.estrellasMenuVacia.scale.setTo(0.5);
         this.estrellasMenuLlena = game.add.group();
-        puntajeGlobal = localStorage.getItem("Puntaje");
+        PuntajeLvl1 = localStorage.getItem("PuntajeLvl1");
       
         
 
         this.nivel1 = game.add.button(window.innerWidth/3.5,window.innerHeight/2.2, 'nivelDesbloqueado', this.level1, this,'desbloqueado001','desbloqueado001','desbloqueado002');
         this.nivel1.scale.setTo(0.8);
         this.nivel1.anchor.setTo(0.5);
-        this.estrellaMenuVacia = this.estrellasMenuVacia.create(window.innerWidth/3.4,window.innerHeight/1.7, 'estrellaVacia');
-        // this.estrellasMenuVacia.children[0].anchor.setTo(0.5);
-        // this.estrellasMenuVacia.children[0].scale.setTo(0.5);
-        if(puntajeGlobal>200){
+         if(PuntajeLvl1>=100 && PuntajeLvl1<400){
         this.estrellaMenuLlena = this.estrellasMenuLlena.create(window.innerWidth/6,window.innerHeight/1.7, 'estrellaLlena');
-        this.estrellasMenuLlena.children[0].anchor.setTo(0.5);
-        this.estrellasMenuLlena.children[0].scale.setTo(0.5);
+        this.estrellaMenuVacia = this.estrellasMenuVacia.create(window.innerWidth/3.4,window.innerHeight/1.7, 'estrellaVacia');
+        this.estrellaMenuVacia = this.estrellasMenuVacia.create(window.innerWidth/2.4,window.innerHeight/1.7, 'estrellaVacia');
+       
+        }
+        else if(PuntajeLvl1>=400 && PuntajeLvl1<700){
+        this.estrellaMenuLlena = this.estrellasMenuLlena.create(window.innerWidth/6,window.innerHeight/1.7, 'estrellaLlena');
+        this.estrellaMenuLlena = this.estrellasMenuLlena.create(window.innerWidth/3.4,window.innerHeight/1.7, 'estrellaLlena');
+        this.estrellaMenuVacia = this.estrellasMenuVacia.create(window.innerWidth/2.4,window.innerHeight/1.7, 'estrellaVacia');
+       
+        }
+        else if(PuntajeLvl1 >=700){
+            this.estrellaMenuLlena = this.estrellasMenuLlena.create(window.innerWidth/6,window.innerHeight/1.7, 'estrellaLlena');
+        this.estrellaMenuLlena = this.estrellasMenuLlena.create(window.innerWidth/3.4,window.innerHeight/1.7, 'estrellaLlena');
+        this.estrellaMenuLlena = this.estrellasMenuLlena.create(window.innerWidth/2.4,window.innerHeight/1.7, 'estrellaLlena');
+        
         }
         else{
             this.estrellaMenuVacia = this.estrellasMenuVacia.create(window.innerWidth/6,window.innerHeight/1.7, 'estrellaVacia');
-            // this.estrellasMenuVacia.children[1].anchor.setTo(0.5);
-            // this.estrellasMenuVacia.children[1].scale.setTo(0.5);
+            this.estrellaMenuVacia = this.estrellasMenuVacia.create(window.innerWidth/3.4,window.innerHeight/1.7, 'estrellaVacia');
+            this.estrellaMenuVacia = this.estrellasMenuVacia.create(window.innerWidth/2.4,window.innerHeight/1.7, 'estrellaVacia');
+           
         }
-        this.estrellaMenuVacia = this.estrellasMenuVacia.create(window.innerWidth/2.4,window.innerHeight/1.7, 'estrellaVacia');
-        // this.estrellasMenuVacia.children[2].anchor.setTo(0.5);
-        // this.estrellasMenuVacia.children[2].scale.setTo(0.5);
-       
+        
+       if(PuntajeLvl1 >=700){
+        this.nivel2 = game.add.button(window.innerWidth/1.4,window.innerHeight/2.2,  'nivelDesbloqueado', this.level2, this,'desbloqueado001','desbloqueado001','desbloqueado002');
+        this.nivel2.inputEnabled = true;
+        this.nivel2.scale.setTo(0.8);
+        this.nivel2.anchor.setTo(0.5);
+       }
+       else{
         this.nivel2 = game.add.button(window.innerWidth/1.4,window.innerHeight/2.2, 'nivelBloqueado', this.level2, this,'bloqueado001','bloqueado001','bloqueado002-13');
         this.nivel2.inputEnabled = false;
         this.nivel2.scale.setTo(0.8);
         this.nivel2.anchor.setTo(0.5);
+       }
+        
         this.estrellaMenuVacia = this.estrellasMenuVacia.create(window.innerWidth/1.4,window.innerHeight/1.7, 'estrellaVacia');
         // this.estrellasMenuVacia.children[3].anchor.setTo(0.5);
         // this.estrellasMenuVacia.children[3].scale.setTo(0.5);
@@ -152,6 +170,11 @@ GamePlayCiudad = {
             this.estrellasMenuVacia.children[x].anchor.setTo(0.5);
         this.estrellasMenuVacia.children[x].scale.setTo(0.5);
         }
+        for(x=0;x<this.estrellasMenuLlena.length;x++){
+            this.estrellasMenuLlena.children[x].anchor.setTo(0.5);
+        this.estrellasMenuLlena.children[x].scale.setTo(0.5);
+        }
+        
         this.botonAtras = game.add.button(window.innerWidth/13,window.innerHeight/22, 'botonAtras', this.salir, this,'001-02','001-02','002-02');
         this.botonAtras.scale.setTo(0.22);
         this.botonAtras.anchor.setTo(0.5);
@@ -247,8 +270,8 @@ restart: function() {// Metodo para reiniciar el juego
 
 gameOver: function() { // Metodo que termian el juego
     stateGame = STATE_GAME_GAME_OVER;
-    puntajeGlobal= this.currentScore;
-    localStorage.setItem("Puntaje", puntajeGlobal);
+    PuntajeLvl1= this.currentScore;
+    localStorage.setItem("PuntajeLvl1", PuntajeLvl1);
     this.desecho.kill();
     this.persona.kill();
     this.tiempo.kill();
@@ -594,35 +617,38 @@ level2:function(){
     this.crearPersona(12);
     this.desecho = game.add.group();
     this.desecho.inputEnableChildren = true;
-    this.scoreF = game.add.sprite(2, 60, 'scoreFondo');
-    this.scoreF.scale.setTo(0.6);
-    this.tiempo = game.add.sprite(2, 10, 'tiempo');
-    this.tiempo.scale.setTo(0.09);
+    this.scoreF = game.add.sprite(window.innerWidth/10, window.innerWidth/6, 'scoreFondo');
+    this.scoreF.scale.setTo(0.8);
+    this.tiempo = game.add.sprite(window.innerWidth/180, window.innerWidth/36, 'tiempo');
+    this.tiempo.scale.setTo(0.8);
     var style = {
-        font: 'bold 25pt Arial',
+        font: 'bold 20pt Arial',
         fill: 'white',
         align: 'center'
     }
     this.currentScore = 0;
-    this.textfield = game.add.text(107, 92, this.currentScore.toString(), style);
+    this.textfield = game.add.text(window.innerWidth/3, window.innerHeight/7.3, this.currentScore.toString(), style);
     this.textfield.anchor.setTo(0.5)
-    this.bar = game.add.sprite(50, 21, 'barraTiempo');
+    this.bar = game.add.sprite(window.innerWidth/6.8, window.innerHeight/29, 'barraTiempo');
+    this.bar.scale.setTo(0.8);
     this.bar.anchor.setTo(0);
     // darle tamaÃ±o a la barra
-    this.bar.width = 118;
-    this.bar.height = 20;
+    this.bar.width = window.innerWidth/2.6;
+    // this.bar.height = 20;
 
     this.startLevel2();
 },
 startLevel2:function(){
     stateGame = STATE_GAME_LEVEL2;
     
-    // this.loopMusic.loop = true;
-    // this.loopMusic.play();
+    if(reproducir){
+        this.loopMusic.loop = true;
+        this.loopMusic.play();
+    }
+    
     this.bar.width = game.width;
     this.personasRe = [];
     this.personasMuertas = [];
-
     // game.time.events.loop(Phaser.Timer.SECOND, this.pintarDesecho, this);
     for (i = 0; i < numeroPersonas; i++) {
         if (this.persona.children[i].rumbo == 0) {
@@ -698,6 +724,7 @@ update: function() {
                 //#endregion
             break;
             case STATE_GAME_LEVEL2:
+            this.barraTiempo(-0.2);
             for (i = 0; i < numeroPersonas; i++) {
                 if (this.persona.children[i].caminando && this.persona.children[i].y >= window.innerHeight/1.5 && this.persona.children[i].rumbo == 0) {
                     this.persona.children[i].y -= this.persona.children[i].aumentarY;
@@ -747,7 +774,7 @@ var direccion = 0;
 var sonido = true;
 var menu = false;
 var reproducir = true;
-var puntajeGlobal;
+var PuntajeLvl1;
 // Variables Globales
 
 game.state.add("gameplayCiudad", GamePlayCiudad);
