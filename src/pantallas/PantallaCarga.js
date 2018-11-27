@@ -18,10 +18,10 @@ PantallaCarga.prototype = { //Cargar toda la pantalla
     },
 
     //Para cargar la musica del juego
-    /* loadBgm: function () {
-       game.load.audio('dangerous', 'assets/bgm/Dangerous.mp3');
-       game.load.audio('exit', 'assets/bgm/Exit the Premises.mp3');
-     },*/
+    loadBgm: function() {
+        //game.load.audio('dangerous', 'assets/bgm/Dangerous.mp3');
+
+    },
 
     // cargar background de las pantallas
     loadImages: function() {
@@ -120,7 +120,7 @@ PantallaCarga.prototype = { //Cargar toda la pantalla
         this.loadScripts();
         this.loadImages();
         this.loadFonts();
-        //this.loadBgm();   -----> llama a cargar la musica
+        this.loadBgm();
 
     },
 
