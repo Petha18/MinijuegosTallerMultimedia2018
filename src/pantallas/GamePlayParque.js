@@ -14,6 +14,7 @@ var permitirDisparo=true;
 var nivel2_lock=true;
 var nivel3_lock=true;
 var nivel4_lock=true;
+var velocidadBarra;
 
 var basureros_array = [{ id: 0, idImage: 'basureroOrganico', x: 0, y: 250, ruta: 'assets/img/juegoBasketball/basureros/BasureroOrganico.png' },
     { id: 1, idImage: 'basureroVidrio', x: 0, y: 250, ruta: 'assets/img/juegoBasketball/basureros/BasureroVidrio.png' },
@@ -72,7 +73,7 @@ var desechoEspecial = [{ id: 5, idImage: 'desechoEspecial1', x: 0, y: 250, ruta:
     { id: 5, idImage: 'desechoEspecial6', x: 0, y: 250, ruta: 'assets/img/juegoBasketball/Basura/ManejoEspecial2.png' }
 ];
 //Estos son arreglos con las caracteristicas de cada uno de los basureros estas caracteristicas
-//se utilizan para las opciones de Phaser 
+//se utilizan para las opciones de Phaser
 
 
 GameOverManager = {
@@ -91,7 +92,7 @@ GameOverManager = {
         game.load.image('3e', 'assets/img/juegoBasketball/gameover/3estrella.png');
          game.load.image('marcoP', 'assets/img/juegoBasketball/gameover/marcoPuntos.png');
         game.load.spritesheet('salir_inicio', 'assets/img/juegoBasketball/FondoInicio/BtnSalir.png',646,202,2);
-//Pr4eload se encarga de precargar los elementos del juego
+        //Pr4eload se encarga de precargar los elementos del juego
     },
     create: function() {
         this.style = {
@@ -99,7 +100,7 @@ GameOverManager = {
             fill: '#00000',
             align: 'center',
         }
-        
+
          this.sfxGameOver = game.add.audio('aplausos');
         // this.sfxGameOver.play();
          this.gameOver();
@@ -135,7 +136,7 @@ GameOverManager = {
     },
     restart:function(){
 game.state.start('gameplayParque');
-//Este metodo reinicia el juego.
+  //Este metodo reinicia el juego.
     },
     gameOver:function(){
 
@@ -155,7 +156,7 @@ this.scoreText.anchor.setTo(0.5);
 this.scoreText.text = puntaje;
 
 //ESte metodo contiene todas las funciones del GAMEOVER
-           
+
 },
 colocarEstrellas:function(){
 if(puntaje>=100&&puntaje<400){
@@ -213,7 +214,7 @@ GamePlayParque.prototype = {
         game.load.spritesheet("BotonMenu", 'assets/img/juegoBasketball/botonPlay.png', 178, 176, 3);
         game.load.image('line', 'assets/img/juegoBasketball/charge.png');
         game.load.image('shot', 'assets/img/juegoBasketball/shots.png');
-        
+
         game.load.image('v', 'assets/img/juegoBasketball/circulos/simboloBasuraVidrio.png');
         game.load.image('p', 'assets/img/juegoBasketball/circulos/simboloBasuraPapelYCarton.png');
         game.load.image('te', 'assets/img/juegoBasketball/circulos/simboloBasuraTratoEspecial.png');
@@ -317,7 +318,7 @@ GamePlayParque.prototype = {
         this.btn_salir.anchor.setTo(0.5);
         this.btn_salir.width=window.innerWidth*35/100;
         this.btn_salir.height=window.innerWidth*13/100;
-         
+
          if(nivel2_lock){
          this.level_2.inputEnabled = false;
          this.candado_nivel2=game.add.sprite(window.innerWidth/2, window.innerHeight*37/100,'candado');
@@ -348,7 +349,7 @@ GamePlayParque.prototype = {
         // se crean las variables globales por asi decirlo
     },
     mostrarInstrucciones:function(){
-        
+
         if(this.clicked){
             this.btn_instrucciones.destroy();
         this.click.play();
@@ -388,12 +389,25 @@ GamePlayParque.prototype = {
   nivel3_lock=false;
    }
     },
+    desbloquearNivel4:function(){
+   if(puntaje>=400)
+   {
+  nivel4_lock=false;
+   }
+    },
 
     cambiarAnivel2:function(){
   this.nivel2=true;
   this.nivel1=false;
   this.onTap();
- 
+
+    },
+    cambiarAnivel3:function(){
+  this.nivel2=false;
+  this.nivel1=false;
+  this.nivel3=true;
+  this.onTap();
+
     },
  cambiarAnivel4:function(){
   this.nivel4=true;
@@ -402,7 +416,8 @@ GamePlayParque.prototype = {
   this.onTap();
     },
     salir:function(){
-// este metodo queda aca para los demas desarrolladores
+        game.state.start("PlanetasMenu");
+
     },
     onTap: function() {
         if (this.flag) {
@@ -410,7 +425,7 @@ GamePlayParque.prototype = {
            this.level_2.destroy();
            this.btn_salir.destroy();
            this.btn_instrucciones.destroy();
-           
+
             this.fondo = game.add.sprite(0, 0, 'background');
            // this.fondo.scale.setTo(0.478, 0.484);
             this.fondo.width = window.innerWidth;
@@ -418,7 +433,7 @@ GamePlayParque.prototype = {
             //SECCION DE ESCALADO+*****************************************************************
             this.scaleBasureroHeight=window.innerHeight*16/100;
             this.scaleBasureroWidth=window.innerWidth*16/100;
-            
+
             this.scaleDistInYBasurero=window.innerHeight*19/100;
 
             this.scaleLineWidth=window.innerWidth*77/100;
@@ -483,7 +498,7 @@ GamePlayParque.prototype = {
             this.derecha2=true;
             this.izquierda2=false;
             this.desechoMonitoreado;
-           
+
             this.loopMusic = game.add.audio('loopMusic');
             this.boom=game.add.audio('boom');
              this.btn_home=game.add.button(window.innerWidth*94/100, window.innerHeight*4/100, 'home', this.restart, this, 1,2);
@@ -506,7 +521,7 @@ GamePlayParque.prototype = {
 
         //Aqui estan todas las cosas necesarias para iniciar el juego
     },
-    restart:function(){    
+    restart:function(){
 game.state.start('gameplayParque');
 //Este metodo reinicia el juego.
     },
@@ -516,7 +531,7 @@ game.state.start('gameplayParque');
         this.loopMusic.loop = true;
         this.loopMusic.play();
         this.buttonPlay.visible = false;
-        
+
         this.buttonPlay.destroy();
         this.crearSecuenciaDesecho();
         this.crearpoolDesechos();
@@ -524,7 +539,7 @@ game.state.start('gameplayParque');
         this.agregarDesechos();
 
         //Se inicia el juego.
-        
+
     },
     sumarPuntos: function() {
         puntaje += 100;
@@ -547,24 +562,27 @@ game.state.start('gameplayParque');
            if(this.nivel2){
         objeto.body.velocity.setTo(0, -window.innerHeight*75/100);
          }
-           if(this.nivel4){
+        if(this.nivel3){
         objeto.body.velocity.setTo(0, -window.innerHeight*80/100);
+         }
+           if(this.nivel4){
+        objeto.body.velocity.setTo(0, -window.innerHeight*85/100);
          }
         //Logra hacer que el desecho salga disparado
     },
      monitorearDesecho:function(){
      if(this.desechoMonitoreado.y<window.innerHeight*2/100){
-     
+
         var x = game.rnd.integerInRange(window.innerWidth*10/100,window.innerWidth*90/100);
         var y = game.rnd.integerInRange(window.innerHeight*20/100,window.innerHeight*60/100);
-       
-        this.contaminacion=game.add.sprite(x,y,this.desechoMonitoreado.key);         
+
+        this.contaminacion=game.add.sprite(x,y,this.desechoMonitoreado.key);
         this.contaminacion.width=window.innerWidth*8/100;
         this.contaminacion.height=window.innerWidth*11/100;
         this.restarBarra(window.innerWidth*3/100)
         this.lanzado=false;
         //Persigue la posicion del desecho lanzado y si lo falla reubica el desecho en el campo
-         
+
      }
     },
     restarBarra: function(resta) {
@@ -583,7 +601,7 @@ game.state.start('gameplayParque');
             this.valor = 0;
 
         }
-        
+
         this.desecho.children[this.valor - 1].reset(window.innerWidth/2, window.innerHeight-125);
         this.desecho.children[this.valor-1].reset(this.can.x,this.can.top);
         this.desecho.children[this.valor].visible = false;
@@ -592,7 +610,7 @@ game.state.start('gameplayParque');
         this.tiros+=1;
         this.agregarDetalles();
         this.imprimirTipos(this.desecho.children[this.valor]);
-        //Lanza todos los desechos 
+        //Lanza todos los desechos
     }
     },
 
@@ -605,7 +623,7 @@ game.state.start('gameplayParque');
     this.tiros=0;
     permitirDisparo=true;
  }
-       //Limita el numero de disparos consecutivos a 3 
+       //Limita el numero de disparos consecutivos a 3
     },
     agregarDetalles: function() {
         this.desechoLayer=this.desecho.children[this.valor].reset(this.can.x, this.can.top);
@@ -629,8 +647,8 @@ game.state.start('gameplayParque');
             this.tipoBasuraLayer.anchor.setTo(0.5);
             this.tipoBasuraLayer.width=window.innerWidth*10/100;
             this.tipoBasuraLayer.height=window.innerWidth*10/100;
-            
-            
+
+
             this.change=game.world.bringToTop(this.desechoLayer.key);
         }
         if (objeto.id == 1) {
@@ -640,7 +658,7 @@ game.state.start('gameplayParque');
             this.tipoBasuraLayer.anchor.setTo(0.5);
             this.tipoBasuraLayer.width=window.innerWidth*10/100;
             this.tipoBasuraLayer.height=window.innerWidth*10/100;
- 
+
  this.change=game.world.bringToTop(this.desechoLayer.key);
         }
         if (objeto.id == 2) {
@@ -650,7 +668,7 @@ game.state.start('gameplayParque');
             this.tipoBasuraLayer.anchor.setTo(0.5);
             this.tipoBasuraLayer.width=window.innerWidth*10/100;
             this.tipoBasuraLayer.height=window.innerWidth*10/100;
-             
+
              this.change=game.world.bringToTop(this.desechoLayer.key);
         }
         if (objeto.id == 3) {
@@ -669,7 +687,7 @@ game.state.start('gameplayParque');
             this.tipoBasuraLayer.anchor.setTo(0.5);
             this.tipoBasuraLayer.width=window.innerWidth*10/100;
             this.tipoBasuraLayer.height=window.innerWidth*10/100;
-            
+
             this.change=game.world.bringToTop(this.desechoLayer.key);
         }
         if (objeto.id == 5) {
@@ -679,7 +697,7 @@ game.state.start('gameplayParque');
             this.tipoBasuraLayer.anchor.setTo(0.5);
             this.tipoBasuraLayer.width=window.innerWidth*10/100;
             this.tipoBasuraLayer.height=window.innerWidth*10/100;
-            
+
             this.change=game.world.bringToTop(this.desechoLayer.key);
         }
 
@@ -700,7 +718,7 @@ game.state.start('gameplayParque');
             this.basureros[i] = this.basurero;
 
         }
-        
+
     },
     getBoundsBasurero: function(currentBasurero) {
         var x0 = currentBasurero.x - Math.abs(currentBasurero.width) / 4;
@@ -767,7 +785,7 @@ game.state.start('gameplayParque');
         this.agregarDetalles();
 
         this.imprimirTipos(this.desecho.children[this.valor]);
-        
+
     },
 
     crearSecuenciaDesecho: function() {
@@ -864,7 +882,7 @@ game.state.start('gameplayParque');
     if(this.derecha2)
     {
       this.manito.x+=window.innerWidth*0.25/100;
-     
+
       if( this.manito.x>window.innerWidth/2-window.innerWidth*8/100){
         this.derecha2=false;
         this.izquierda2=true;
@@ -891,6 +909,10 @@ game.state.start('gameplayParque');
         }
     },
     compararObjetos: function(objeto1, objeto2, int1, int2x) {
+        if(this.nivel1){velocidadBarra=7}
+        if(this.nivel2){velocidadBarra=5}
+        if(this.nivel3){velocidadBarra=3}
+        if(this.nivel4){velocidadBarra=3}
         if (objeto1.id == objeto2.id) {
             this.sumarPuntos();
             this.cien.visible = true;
@@ -900,6 +922,7 @@ game.state.start('gameplayParque');
             tween.start();
             this.lanzado=false;
             this.desecho.children[int1].kill();
+            console.log(""+velocidadBarra);
 
         } else {
             this.restarPuntos();
@@ -918,11 +941,11 @@ game.state.start('gameplayParque');
             this.contaminacion = game.add.sprite(x, y, this.desecho.children[int1].key);
             this.contaminacion.width=window.innerWidth*8/100;
             this.contaminacion.height=window.innerWidth*12/100;
-          
+
         }
 
     },
-    
+
     update: function() {
         switch (stateGame) {
             case STATE_GAME_NONE:
@@ -950,17 +973,23 @@ game.state.start('gameplayParque');
             case STATE_GAME_PLAYING:
                 this.moverMan();
                 this.regularDisparos();
-                
-               
+
+
                 if(this.nivel1){
                 this.desbloquearNivel2();
                 this.moverBasureros(window.innerWidth*0.4/100);
                 }
-                
+
                 if(this.nivel2){
                this.moverCan();
                this.desbloquearNivel3();
                this.moverBasureros(window.innerWidth*0.46/100);
+           }
+                if(this.nivel3){
+               this.moverCan();
+               this.desbloquearNivel4();
+               this.moverBasureros(window.innerWidth*0.46/100);
+               this.restarBarra(window.innerWidth*0.01/100);
            }
            if(this.nivel4){
              //this.moverBarra();
@@ -998,7 +1027,7 @@ game.state.start('gameplayParque');
                      var rectDesecho = this.getBoundsDesecho(this.desecho.children[i]);
                      var rectBarra = this.getBoundsBarra(this.barra);
                      if (this.desecho.children[i].visible && this.isRectanglesOverlapping2(rectDesecho, rectBarra)) {
-                           this.desecho.children[i].visible = false;   
+                           this.desecho.children[i].visible = false;
 
                      }
                  }
@@ -1011,7 +1040,7 @@ game.state.start('gameplayParque');
 
 //var game = new Phaser.Game(500, 800, Phaser.AUTO);
 //var game = new Phaser.Game("100%", "100%", Phaser.AUTO);
-game.state.add("GamePlayParque", GamePlayParque);
+game.state.add("gameplayParque", GamePlayParque);
 //game.state.add("InicioParque", empezarJuego);
 game.state.add("gameOver", GameOverManager);
 //game.state.start("gameplay");

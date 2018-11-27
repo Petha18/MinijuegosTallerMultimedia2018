@@ -62,6 +62,9 @@ PantallaCarga.prototype = { //Cargar toda la pantalla
         //Fondo
         //Fondo
         game.load.image('fondoLimpio', 'assets/img/mapaInteractivo/fondo/fondo_limpio.png');
+        game.load.image('fondoGanar', 'assets/img/mapaInteractivo/fondo/fondoGanaste.png');
+        game.load.image('fondoPerder', 'assets/img/mapaInteractivo/fondo/fondoPerdiste.png');
+        game.load.image('fondoInicio', 'assets/img/mapaInteractivo/fondo/fondoInicio.png');
         game.load.image('fondoDesktop', 'assets/img/mapaInteractivo/fondo/fondoPC.png');
 
         //Plataformas sprites
@@ -79,24 +82,16 @@ PantallaCarga.prototype = { //Cargar toda la pantalla
         game.load.image('tronco3', 'assets/img/mapaInteractivo/troncos/tronco2.png');
         //Basureros
         game.load.spritesheet('basureros', 'assets/img/mapaInteractivo/basureros/basureros2.png', 129, 142);
-
-        //Basuras spritesheet
-        game.load.spritesheet('organicas', 'assets/img/mapaInteractivo/basuras/organicas.png', 168, 168);
-
         //Basura
         game.load.spritesheet('basuras', 'assets/img/mapaInteractivo/basuras/basuras.png', 170.12, 172);
-        //Troncos sprites
-        game.load.image('tronco', 'assets/img/mapaInteractivo/troncos/tronco_diagonal.png');
-        game.load.image('tronco_flat', 'assets/img/mapaInteractivo/troncos/tronco_flat.png');
-        game.load.image('tronco_abajo', 'assets/img/mapaInteractivo/troncos/tronco_down.png');
-        //Basureros
-        game.load.spritesheet('basureros', 'assets/img/mapaInteractivo/basureros/basureros2.png', 129, 142);
         //Remolinos
         game.load.image('remolino', 'assets/img/mapaInteractivo/remolinos/remolino.png');
+        //lagarto
+        game.load.spritesheet('lagarto','assets/img/mapaInteractivo/lagarto/lagarto.png',690.5,348);
         //Barra de tiempo
         game.load.image('barraTiempo', 'assets/img/mapaInteractivo/interfaz/barraTiempo.png');
         //Reloj
-        game.load.image('reloj', 'assets/img/mapaInteractivo/interfaz/reloj.png');
+        game.load.image('reloj','assets/img/mapaInteractivo/interfaz/reloj.png');
         //Botones de pantallas
         game.load.image('boton_reinicar', 'assets/img/mapaInteractivo/pantallas/boton_reinicar.png');
 
