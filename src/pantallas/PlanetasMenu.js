@@ -10,10 +10,10 @@ PlanetasMenu.prototype = {
     create: function() {
         this.rectangles = [];
 
-        this.FondoInicio = game.add.sprite(0, 0, 'fondoEstrellado');
-        this.FondoInicio2 = game.add.sprite(window.innerWidth, 0, 'fondoEstrellado');
-        this.FondoInicio3 = game.add.sprite(window.innerWidth * 2, 0, 'fondoEstrellado');
-        this.FondoInicio4 = game.add.sprite(window.innerWidth * 3, 0, 'fondoEstrellado');
+        this.FondoInicio = game.add.sprite(0, 0, 'fondoPlanetaCiudad');
+        this.FondoInicio2 = game.add.sprite(window.innerWidth, 0, 'fondoPlanetaParque');
+        this.FondoInicio3 = game.add.sprite(window.innerWidth * 2, 0, 'fondoPlanetaPlaya');
+        this.FondoInicio4 = game.add.sprite(window.innerWidth * 3, 0, 'fondoPlanetaManglar');
         this.FondoInicio.width = window.innerWidth;
         this.FondoInicio.height = window.innerHeight;
 
@@ -29,9 +29,9 @@ PlanetasMenu.prototype = {
         var PrimerPlaneta = (window.innerWidth / 2) - 130;
 
         this.rectangles.push(game.add.button(planetas(1), this.game.world.centerY - 150, 'mundo1', clickMundo01, this));
-        this.rectangles.push(game.add.button(planetas(2) + window.innerWidth / 2, this.game.world.centerY - 75, 'mundo2', clickMundo02, this));
-        this.rectangles.push(game.add.button(planetas(3) + window.innerWidth, this.game.world.centerY - 120, 'mundo3', clickMundo03, this));
-        this.rectangles.push(game.add.button(planetas(4) + window.innerWidth + window.innerWidth / 2, this.game.world.centerY - 150, 'mundo4', clickMundo04, this));
+        this.rectangles.push(game.add.button(planetas(2) + window.innerWidth / 2 + 10, this.game.world.centerY - 130, 'mundo2', clickMundo02, this));
+        this.rectangles.push(game.add.button(planetas(3) + window.innerWidth, this.game.world.centerY - 100, 'mundo3', clickMundo03, this));
+        this.rectangles.push(game.add.button(planetas(4) + window.innerWidth + window.innerWidth / 2, this.game.world.centerY - 135, 'mundo4', clickMundo04, this));
 
         this.game.world.setBounds(0, 0, window.innerWidth * 4, this.game.height);
 
@@ -40,7 +40,7 @@ PlanetasMenu.prototype = {
         this.game.input.onUp.add(this.endMove, this);
         this.game.input.addMoveCallback(this.moveCamera, this);
 
-        botonVolver = game.add.button(20, window.innerHeight - 70, 'volverPrincipalPlanetas', volverMenuPrincipalClick, this, 0);
+        botonVolver = game.add.button(20, window.innerHeight - 80, 'volverPrincipalPlanetas', volverMenuPrincipalClick, this, 0);
         botonVolver.fixedToCamera = true;
     },
     update: function() {
@@ -75,39 +75,47 @@ PlanetasMenu.prototype = {
 };
 
 function calcularMov(i, j) {
+    var bool = true;
     if (i > j && this.estado == "1") //Corre derecha
     {
         //console.log(j + " " + window.innerWidth);
+        bool = true;
+        //smothScroll(j, window.innerWidth + 10, bool);
         this.game.camera.x = window.innerWidth + 10;
         this.estado = "2";
         return 0;
     }
 
     if (i > j && this.estado == "2") {
+        bool = true;
         this.game.camera.x = window.innerWidth * 2;
         this.estado = "3";
         return 0;
     }
 
     if (i < j && this.estado == "2") {
+        bool = false;
         this.game.camera.x = 0;
         this.estado = "1";
         return 0;
     }
 
     if (i > j && this.estado == "3") {
+        bool = true;
         this.game.camera.x = window.innerWidth * 3;
         this.estado = "4";
         return 0;
     }
 
     if (i < j && this.estado == "3") {
+        bool = false;
         this.game.camera.x = window.innerWidth + 10;
         this.estado = "2";
         return 0;
     }
     if (i < j && this.estado == "4") //Corre derecha
     {
+        bool = false;
         this.game.camera.x = window.innerWidth * 2;
         this.estado = "3";
         return 0;
