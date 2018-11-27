@@ -52,6 +52,7 @@ GamePlayManglar.prototype = {
   create: function(){
     if(!music.isPlaying){
       music.play();
+      music.volume=1;
     }
       /********************************Materiales del juego*******************************************/
       game.physics.startSystem(Phaser.Physics.P2JS);
@@ -1129,6 +1130,7 @@ var nivel2= {
     create: function(){
       if(!music.isPlaying){
         music.play();
+        music.volume=1;
       }
 
         /********************************Materiales del juego*******************************************/
@@ -1728,6 +1730,7 @@ var nivel3 = {
     create: function(){
       if(!music.isPlaying){
         music.play();
+        music.volume=1;
       }
         /********************************Materiales del juego*******************************************/
         game.physics.startSystem(Phaser.Physics.P2JS);
