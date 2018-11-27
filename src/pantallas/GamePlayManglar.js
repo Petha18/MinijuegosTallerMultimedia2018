@@ -50,6 +50,9 @@ GamePlayManglar.prototype = {
       flagTimer = false;
   },
   create: function(){
+    if(!music.isPlaying){
+      music.play();
+    }
       /********************************Materiales del juego*******************************************/
       game.physics.startSystem(Phaser.Physics.P2JS);
       game.physics.p2.gravity.y = GRAVEDAD_Y;
@@ -1124,7 +1127,10 @@ var nivel2= {
         flagTimer = false;
     },
     create: function(){
-          music.play();
+      if(!music.isPlaying){
+        music.play();
+      }
+
         /********************************Materiales del juego*******************************************/
         if (game.scale.isGameLandscape ) {
             game.state.start('gameplayManglarDesktop');
@@ -1739,7 +1745,9 @@ var nivel3 = {
 
     },
     create: function(){
-          music.play();
+      if(!music.isPlaying){
+        music.play();
+      }
         /********************************Materiales del juego*******************************************/
         game.physics.startSystem(Phaser.Physics.P2JS);
         game.physics.p2.gravity.y = GRAVEDAD_Y;
@@ -2284,6 +2292,7 @@ var estadoPrincipal={
         sfxPerder = game.add.audio('aww');
         music.loop = true;
         music.play();
+        music.isPlaying=true;
         fondo.width = window.innerWidth;
         fondo.height = window.innerHeight;
 		var boton1 = this.add.button(window.innerWidth/2, (window.innerHeight*50)/100, 'boton1', this.iniciarEtapa1, this);
@@ -2377,7 +2386,8 @@ var estadoFinal={
     },
     menuJuego: function(){
       music.stop();
-        this.state.start('inicio');
+      music.isPlaying=false;
+      this.state.start('inicio');
 
     },
 }
