@@ -51,7 +51,7 @@ GamePlayManglar.prototype = {
       flagTimer = false;
   },
   create: function(){
-    if(music.isPlaying==false){
+    if(music.isPlaying==true){
       music.play();
       music.volume=1;
     }
@@ -1153,7 +1153,7 @@ var nivel2= {
         flagTimer = false;
     },
     create: function(){
-      if(music.isPlaying==false){
+      if(music.isPlaying==true){
         music.play();
         music.volume=1;
       }
@@ -1772,7 +1772,7 @@ var nivel3 = {
         flagTimer = false;
     },
     create: function(){
-      if(music.isPlaying==false){
+      if(music.isPlaying==true){
         music.play();
         music.volume=1;
       }
