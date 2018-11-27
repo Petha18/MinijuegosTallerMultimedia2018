@@ -90,7 +90,7 @@ function clickMundo02() {
 function clickMundo03() {
     if (this.xInicial == this.xFinal) {
         game.state.start("GamePlayManglar");
-        //game.state.start('inicio');
+        game.state.start('inicio');
     }
 }
 
