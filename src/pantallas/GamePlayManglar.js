@@ -1735,6 +1735,7 @@ var nivel3 = {
 
         //Remolino
         game.load.image('remolinoMorado','assets/img/mapaInteractivo/remolinos/remolinoMorado.png');
+        game.load.spritesheet('lagarto','assets/img/mapaInteractivo/lagarto/lagartoReversa.png',716,351);
 
     },
     create: function(){
@@ -1923,10 +1924,13 @@ var nivel3 = {
         this.basureros[3].body.angle = -90;
 
         //Lagarto
-        this.lagarto = game.add.sprite((window.innerWidth*80)/100,(window.innerHeight*40)/100,'lagarto',0);
+        this.lagarto = game.add.sprite((window.innerWidth*100)/100,(window.innerHeight*50)/100,'lagarto',0);
+        this.lagarto.anchor.setTo(0.5);
         this.lagarto.width = (window.innerWidth*50)/100;
         this.lagarto.height = (window.innerHeight*20)/100;
-        this.lagarto.angle = 36;
+        this.lagarto.x=window.innerWidth;
+
+        //this.lagarto.angle = 36;
 
         //Barra tiempo
         this.barraTiempo = game.add.sprite(0,(window.innerHeight*6)/100,'barraTiempo');
