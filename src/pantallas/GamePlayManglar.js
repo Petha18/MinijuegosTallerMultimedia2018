@@ -1913,7 +1913,7 @@ var nivel3 = {
         this.basureros[3].body.angle = -90;
 
         //Lagarto
-        this.lagarto = game.add.sprite((window.innerWidth*100)/100,(window.innerHeight*50)/100,'lagarto',0);
+        this.lagarto = game.add.sprite((window.innerWidth*100)/100,(window.innerHeight*50)/100,'lagartoReversa',0);
         this.lagarto.anchor.setTo(0.5);
         this.lagarto.width = (window.innerWidth*50)/100;
         this.lagarto.height = (window.innerHeight*20)/100;

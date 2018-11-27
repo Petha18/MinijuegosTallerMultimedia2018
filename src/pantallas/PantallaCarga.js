@@ -105,7 +105,7 @@ PantallaCarga.prototype = { //Cargar toda la pantalla
 
         //Remolino
         game.load.image('remolinoMorado','assets/img/mapaInteractivo/remolinos/remolinoMorado.png');
-        game.load.spritesheet('lagarto','assets/img/mapaInteractivo/lagarto/lagartoReversa.png',716,351);
+        game.load.spritesheet('lagartoReversa','assets/img/mapaInteractivo/lagarto/lagartoReversa.png',716,351);
 
         game.load.image('boton1','assets/img/mapaInteractivo/botones/botonNivel1.png');
         game.load.image('boton2','assets/img/mapaInteractivo/botones/botonNivel2.png');
