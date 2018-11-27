@@ -50,6 +50,9 @@ GamePlayManglar.prototype = {
       flagTimer = false;
   },
   create: function(){
+    if(!music.isPlaying){
+      music.play();
+    }
       /********************************Materiales del juego*******************************************/
       game.physics.startSystem(Phaser.Physics.P2JS);
       game.physics.p2.gravity.y = GRAVEDAD_Y;
@@ -1124,7 +1127,10 @@ var nivel2= {
         flagTimer = false;
     },
     create: function(){
-          music.play();
+      if(!music.isPlaying){
+        music.play();
+      }
+
         /********************************Materiales del juego*******************************************/
         if (game.scale.isGameLandscape ) {
             game.state.start('gameplayManglarDesktop');
@@ -1719,26 +1725,10 @@ var nivel3 = {
         currentScore = 0;
         flagTimer = false;
     },
-    preload: function(){
-        //Fondo
-        game.load.image('fondoLimpio','assets/img/fondo/LimpioMovil.png');
-
-        //Plataformas sprites
-        game.load.image('plat0','assets/img/mapaInteractivo/plataformas/nivel3/plat0.png');
-        game.load.image('plat1','assets/img/mapaInteractivo/plataformas/nivel3/plat1.png');
-        game.load.image('plat2','assets/img/mapaInteractivo/plataformas/nivel3/plat2.png');
-        game.load.image('plat3','assets/img/mapaInteractivo/plataformas/nivel3/plat3.png');
-        game.load.image('plat4','assets/img/mapaInteractivo/plataformas/nivel3/plat4.png');
-        game.load.image('platFondo','assets/img/mapaInteractivo/plataformas/nivel3/platFondo.png');
-        game.load.image('platBloqueo','assets/img/mapaInteractivo/plataformas/platBloqueo.png');
-
-
-        //Remolino
-        game.load.image('remolinoMorado','assets/img/mapaInteractivo/remolinos/remolinoMorado.png');
-
-    },
     create: function(){
-          music.play();
+      if(!music.isPlaying){
+        music.play();
+      }
         /********************************Materiales del juego*******************************************/
         game.physics.startSystem(Phaser.Physics.P2JS);
         game.physics.p2.gravity.y = GRAVEDAD_Y;
@@ -1923,10 +1913,13 @@ var nivel3 = {
         this.basureros[3].body.angle = -90;
 
         //Lagarto
-        this.lagarto = game.add.sprite((window.innerWidth*80)/100,(window.innerHeight*40)/100,'lagarto',0);
+        this.lagarto = game.add.sprite((window.innerWidth*100)/100,(window.innerHeight*50)/100,'lagarto',0);
+        this.lagarto.anchor.setTo(0.5);
         this.lagarto.width = (window.innerWidth*50)/100;
         this.lagarto.height = (window.innerHeight*20)/100;
-        this.lagarto.angle = 36;
+        this.lagarto.x=window.innerWidth;
+
+        //this.lagarto.angle = 36;
 
         //Barra tiempo
         this.barraTiempo = game.add.sprite(0,(window.innerHeight*6)/100,'barraTiempo');
@@ -2256,21 +2249,16 @@ var estadoPrincipal={
         game.scale.pageAlignHorizontally = true;
         game.scale.pageAlignVertically = true;
 	},
-	preload:function(){
-    game.load.audio('loopMusica', 'assets/Sonidos/Principal.mp3');
-    game.load.audio('win', 'assets/Sonidos/aplausos.wav');
-    game.load.audio('aww', 'assets/Sonidos/sfxPerder.wav');
-
-	},
 	create:function(){
         var fondo = game.add.sprite(0,0,'fondoInicio');
         var anchoBoton=(window.innerWidth*45)/100;
         var largoBoton=(window.innerHeight*10)/100;
-        music = game.add.audio('loopMusics');
+        music = game.add.audio('loopMusica');
         sfxGanar = game.add.audio('win');
         sfxPerder = game.add.audio('aww');
         music.loop = true;
         music.play();
+        music.isPlaying=true;
         fondo.width = window.innerWidth;
         fondo.height = window.innerHeight;
 		var boton1 = this.add.button(window.innerWidth/2, (window.innerHeight*50)/100, 'boton1', this.iniciarEtapa1, this);
@@ -2285,10 +2273,18 @@ var estadoPrincipal={
         boton3.anchor.setTo(0.5);
         boton3.width=anchoBoton;
         boton3.height=largoBoton;
-        var botonSalir = this.add.button(window.innerWidth/2, (window.innerHeight*90)/100, 'boton_mundos',this.salir, this);
+        var botonSalir = this.add.button(window.innerWidth*30/100, (window.innerHeight*90)/100, 'boton_mundos',this.salir, this);
         botonSalir.anchor.setTo(0.5);
         botonSalir.width = (window.innerWidth*30)/100;
         botonSalir.height = (window.innerWidth*11)/100;
+        var botonInstru = this.add.button(window.innerWidth*70/100, (window.innerHeight*90)/100, 'botonInstrucciones',this.mostrarInstrucciones, this);
+        botonInstru.anchor.setTo(0.5);
+        botonInstru.width = (window.innerWidth*30)/100;
+        botonInstru.height = (window.innerWidth*11)/100;
+        var botonSonido = this.add.button(window.innerWidth*15/100, (window.innerHeight*5)/100, 'botonSonido',this.toggleSound, this);
+        botonSonido.anchor.setTo(0.5);
+        botonSonido.width = (window.innerWidth*20)/100;
+        botonSonido.height = (window.innerWidth*11)/100;
 	},
 	iniciarEtapa1: function(){
         this.state.start('GamePlayManglar');
@@ -2300,7 +2296,20 @@ var estadoPrincipal={
         this.state.start('nivel3');
     },
     salir:function(){
+      music.stop();
       game.state.start("PlanetasMenu");
+    },
+    mostrarInstrucciones:function(){
+      game.state.start('instrucciones')
+    },
+    toggleSound:function(){
+      if (music.isPlaying) {
+        music.stop();
+      }
+      else{
+        music.play();
+      }
+
     },
 }
 var estadoFinal={
@@ -2355,8 +2364,37 @@ var estadoFinal={
 
     },
     menuJuego: function(){
-        this.state.start('inicio');
+      music.stop();
+      music.isPlaying=false;
+      this.state.start('inicio');
+
     },
+}
+var estadoInstrucciones={
+  init: function(){
+      game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+      game.scale.pageAlignHorizontally = true;
+      game.scale.pageAlignVertically = true;
+  },
+  create:function(){
+
+      var fondo;
+      var anchoBoton=(window.innerWidth*35)/100;
+      var largoBoton=(window.innerHeight*8)/100;
+
+      fondo = game.add.sprite(0,0,'fondoIstrucciones');
+      fondo.width = window.innerWidth;
+      fondo.height = window.innerHeight;
+      var botonMenu = this.add.button(window.innerWidth*50/100,(window.innerHeight*95/100), 'boton_salir', this.menuInicio, this);
+      botonMenu.anchor.setTo(0.5);
+      botonMenu.width=anchoBoton;
+      botonMenu.height=largoBoton;
+  },
+  menuInicio: function(){
+    music.stop();
+      this.state.start('inicio');
+
+  },
 }
 
 
@@ -2364,5 +2402,6 @@ game.state.add('gameplayManglarDesktop',GamePlayManglarDesktop);
 game.state.add('GamePlayManglar', GamePlayManglar);
 game.state.add('nivel2', nivel2);
 game.state.add('nivel3', nivel3);
+game.state.add('instrucciones', estadoInstrucciones);
 game.state.add('inicio', estadoPrincipal);
 game.state.add('final', estadoFinal);

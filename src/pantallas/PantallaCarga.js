@@ -93,7 +93,33 @@ PantallaCarga.prototype = { //Cargar toda la pantalla
         //Reloj
         game.load.image('reloj', 'assets/img/mapaInteractivo/interfaz/reloj.png');
         //Botones de pantallas
-        game.load.image('boton_reinicar', 'assets/img/mapaInteractivo/pantallas/boton_reinicar.png');
+        //Plataformas sprites
+        game.load.image('plat0','assets/img/mapaInteractivo/plataformas/nivel3/plat0.png');
+        game.load.image('plat1','assets/img/mapaInteractivo/plataformas/nivel3/plat1.png');
+        game.load.image('plat2','assets/img/mapaInteractivo/plataformas/nivel3/plat2.png');
+        game.load.image('plat3','assets/img/mapaInteractivo/plataformas/nivel3/plat3.png');
+        game.load.image('plat4','assets/img/mapaInteractivo/plataformas/nivel3/plat4.png');
+        game.load.image('platFondo','assets/img/mapaInteractivo/plataformas/nivel3/platFondo.png');
+        game.load.image('platBloqueo','assets/img/mapaInteractivo/plataformas/platBloqueo.png');
+
+
+        //Remolino
+        game.load.image('remolinoMorado','assets/img/mapaInteractivo/remolinos/remolinoMorado.png');
+        game.load.spritesheet('lagarto','assets/img/mapaInteractivo/lagarto/lagartoReversa.png',716,351);
+
+        game.load.image('boton1','assets/img/mapaInteractivo/botones/botonNivel1.png');
+        game.load.image('boton2','assets/img/mapaInteractivo/botones/botonNivel2.png');
+        game.load.image('boton3','assets/img/mapaInteractivo/botones/botonNivel3.png');
+        game.load.image('boton_salir','assets/img/mapaInteractivo/botones/botonSalir.png');
+        game.load.image('boton_reinicar','assets/img/mapaInteractivo/botones/botonReinicio.png');
+        game.load.image('boton_sig', 'assets/img/mapaInteractivo/botones/botonSalir.png');
+        game.load.image('boton_mundos','assets/img/mapaInteractivo/botones/botonMundos.png');
+        game.load.image('botonInstrucciones','assets/img/mapaInteractivo/botones/botonInstrucciones.png');
+        game.load.image('botonSonido','assets/img/mapaInteractivo/botones/botonSonido.png');
+        game.load.image('fondoIstrucciones','assets/img/mapaInteractivo/fondo/instruccionesTrasfall.png');
+        game.load.audio('loopMusica', 'assets/Sonidos/Principal.mp3');
+        game.load.audio('win', 'assets/Sonidos/aplausos.wav');
+        game.load.audio('aww', 'assets/Sonidos/sfxPerder.wav');
 
         //Ciudad
         //#region Personaje
@@ -102,7 +128,7 @@ PantallaCarga.prototype = { //Cargar toda la pantalla
         game.load.atlasJSONArray('personajeCaminandoIzquierda', 'assets/img/recolectaBasura/personajeCaminandoIzquierda.png', 'assets/img/recolectaBasura/personajeCaminandoIzquierda.json');
         game.load.atlasJSONArray('personajeCaminandoAbajo', 'assets/img/recolectaBasura/PersonajeCaminandoAbajo.png', 'assets/img/recolectaBasura/PersonajeCaminandoAbajo.json');
 
-        //#endregion 
+        //#endregion
         //#region Desechos
         game.load.image('manzana', 'assets/img/recolectaBasura/manzana.png');
         game.load.image('celular', 'assets/img/recolectaBasura/celular.png');
@@ -123,7 +149,7 @@ PantallaCarga.prototype = { //Cargar toda la pantalla
         game.load.atlasJSONArray('audio', 'assets/img/recolectaBasura/audio.png', 'assets/img/recolectaBasura/audio.json');
         game.load.atlasJSONArray('ajustes', 'assets/img/recolectaBasura/ajustes.png', 'assets/img/recolectaBasura/ajustes.json');
         game.load.image('instruccionesJuego', 'assets/img/recolectaBasura/instruccionesJuego.png');
-        //#endregion   
+        //#endregion
         //#region Botones
         game.load.spritesheet("botonRecargar", 'assets/img/recolectaBasura/recargar.png', 2);
         game.load.atlasJSONArray('botonAtras', 'assets/img/recolectaBasura/btnAtras.png', 'assets/img/recolectaBasura/btnAtras.json');
