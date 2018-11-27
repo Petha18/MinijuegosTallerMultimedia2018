@@ -134,6 +134,13 @@ PantallaCarga.prototype = { //Cargar toda la pantalla
         game.load.atlasJSONArray('botonAtras', 'assets/img/recolectaBasura/btnAtras.png', 'assets/img/recolectaBasura/btnAtras.json');
 
         //#endregion
+        game.load.image('boton1', 'assets/img/mapaInteractivo/botones/botonNivel1.png');
+        game.load.image('boton2', 'assets/img/mapaInteractivo/botones/botonNivel2.png');
+        game.load.image('boton3', 'assets/img/mapaInteractivo/botones/botonNivel3.png');
+        game.load.image('boton_salir', 'assets/img/mapaInteractivo/botones/botonSalir.png');
+        game.load.image('boton_reinicar', 'assets/img/mapaInteractivo/botones/botonReinicio.png');
+        game.load.image('boton_sig', 'assets/img/mapaInteractivo/botones/botonSalir.png');
+        game.load.image('boton_mundos', 'assets/img/mapaInteractivo/botones/botonMundos.png');
     },
 
     loadFonts: function() {
