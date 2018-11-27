@@ -100,47 +100,7 @@ PantallaCarga.prototype = { //Cargar toda la pantalla
         //Botones de pantallas
         game.load.image('boton_reinicar', 'assets/img/mapaInteractivo/pantallas/boton_reinicar.png');
 
-        //Ciudad
-        //#region Personaje
-        game.load.atlasJSONArray('personajeCaminandoArriba', 'assets/img/recolectaBasura/personajeCaminandoArriba.png', 'assets/img/recolectaBasura/personajeCaminandoArriba.json');
-        game.load.atlasJSONArray('personajeCaminandoDerecha', 'assets/img/recolectaBasura/personajeCaminandoDerecha.png', 'assets/img/recolectaBasura/personajeCaminandoDerecha.json');
-        game.load.atlasJSONArray('personajeCaminandoIzquierda', 'assets/img/recolectaBasura/personajeCaminandoIzquierda.png', 'assets/img/recolectaBasura/personajeCaminandoIzquierda.json');
-        game.load.atlasJSONArray('personajeCaminandoAbajo', 'assets/img/recolectaBasura/PersonajeCaminandoAbajo.png', 'assets/img/recolectaBasura/PersonajeCaminandoAbajo.json');
 
-        //#endregion 
-        //#region Desechos
-        game.load.image('manzana', 'assets/img/recolectaBasura/manzana.png');
-        game.load.image('celular', 'assets/img/recolectaBasura/celular.png');
-        game.load.image('botella', 'assets/img/recolectaBasura/botella.png');
-        game.load.image('vasoCarton', 'assets/img/recolectaBasura/carton.png');
-        game.load.image('espejo', 'assets/img/recolectaBasura/espejo.png');
-        game.load.image('lata', 'assets/img/recolectaBasura/lata.png');
-
-        //#endregion
-        //#region Mapas
-        game.load.image('mapaLVL1', 'assets/img/recolectaBasura/mapa3.png');
-        game.load.image('mapaLVL2', 'assets/img/recolectaBasura/mapaLVL2.png');
-        //#endregion
-        //#region Seleccion de niveles
-        game.load.atlasJSONArray('nivelDesbloqueado', 'assets/img/recolectaBasura/nivelesDesbloqueados.png', 'assets/img/recolectaBasura/nivelesDesbloqueados.json');
-        game.load.atlasJSONArray('nivelBloqueado', 'assets/img/recolectaBasura/nivelesBloqueados.png', 'assets/img/recolectaBasura/nivelesBloqueados.json');
-        game.load.atlasJSONArray('instrucciones', 'assets/img/recolectaBasura/instrucciones.png', 'assets/img/recolectaBasura/instrucciones.json');
-        game.load.atlasJSONArray('audio', 'assets/img/recolectaBasura/audio.png', 'assets/img/recolectaBasura/audio.json');
-        game.load.atlasJSONArray('ajustes', 'assets/img/recolectaBasura/ajustes.png', 'assets/img/recolectaBasura/ajustes.json');
-        game.load.image('instruccionesJuego', 'assets/img/recolectaBasura/instruccionesJuego.png');
-        //#endregion   
-        //#region Botones
-        game.load.spritesheet("botonRecargar", 'assets/img/recolectaBasura/recargar.png', 2);
-        game.load.atlasJSONArray('botonAtras', 'assets/img/recolectaBasura/btnAtras.png', 'assets/img/recolectaBasura/btnAtras.json');
-
-        //#endregion
-        game.load.image('boton1', 'assets/img/mapaInteractivo/botones/botonNivel1.png');
-        game.load.image('boton2', 'assets/img/mapaInteractivo/botones/botonNivel2.png');
-        game.load.image('boton3', 'assets/img/mapaInteractivo/botones/botonNivel3.png');
-        game.load.image('boton_salir', 'assets/img/mapaInteractivo/botones/botonSalir.png');
-        game.load.image('boton_reinicar', 'assets/img/mapaInteractivo/botones/botonReinicio.png');
-        game.load.image('boton_sig', 'assets/img/mapaInteractivo/botones/botonSalir.png');
-        game.load.image('boton_mundos', 'assets/img/mapaInteractivo/botones/botonMundos.png');
     },
 
     loadFonts: function() {
