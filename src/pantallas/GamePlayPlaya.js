@@ -11,6 +11,7 @@ var cartaClickeada1nombre;
 var mismaCarta=0;
 var play=false;
 var first_click=false;
+
 //Arreglos
 
 
@@ -53,10 +54,20 @@ GamePlayPlaya.prototype = {
         // this.endGame=false;
     },
     preload: function() {
-        game.load.image('backgroundPlaya', 'assets/img/playa/fondo1.png');
-        game.load.image('boton_play', 'assets/img/playa/inicio.png');
-        game.load.spritesheet('cuadros1', 'assets/img/playa/cuadros1.png', 184, 299);
-        
+        game.load.image('background', 'assets/img/playa/images/fondo1.png');
+        game.load.image('boton_play', 'assets/img/playa/images/inicio.png');
+        game.load.spritesheet('cuadros1', 'assets/img/playa/images/cuadros1.png', 184, 299);
+        game.load.image('background_inicio', 'assets/img/playa/images/start_screen.png');
+        game.load.spritesheet('boton_start', 'assets/img/playa/images/boton_inicio.png', 74, 29);
+        game.load.image('boton_inst', 'assets/img/playa/images/instrucciones.png');
+        game.load.image('inst_screen', 'assets/img/playa/images/reglas.png');
+        game.load.image('boton_back', 'assets/img/playa/images/back.png');
+        game.load.image('recarga', 'assets/img/playa/images/reload.png');
+        game.load.image('home', 'assets/img/playa/images/home.png');
+        game.load.image('pausa', 'assets/img/playa/images/pausa.png');
+        game.load.image('pausa_screen', 'assets/img/playa/images/pausa_screen.png');
+        game.load.image('resume', 'assets/img/playa/images/resume.png');
+
         game.load.image('victoria0', 'assets/img/playa/images/victoria.png');
         game.load.image('victoria1', 'assets/img/playa/images/victoria1.png');
         game.load.image('victoria2', 'assets/img/playa/images/victoria2.png');
@@ -69,24 +80,31 @@ GamePlayPlaya.prototype = {
     },
     
     create: function() {
-        console.log("22"+play);
-        //var fondo = game.add.sprite(0, 0, 'boton_play');
+        game.time.events.remove(this.timerGameOver);
+        game.paused=false;
+        var style = {
+            font: '20pt Impact',
+            fill: '#FF4000'
+          }
     
-        var fondo = game.add.sprite(0, 0, 'backgroundPlaya');
-        fondo.width = window.innerWidth;
-        fondo.height = window.innerHeight;
-        this.cartas = game.add.group();
-        this.cartas.inputEnableChildren = true;
-        var numero=0;
-
+        var fondo_inicio = game.add.sprite(0, 0, 'background_inicio');
+        fondo_inicio.width = window.innerWidth;
+        fondo_inicio.height = window.innerHeight;
         
-            game.input.onDown.add(this.onTap, this);
+        boton_start = game.add.button(window.innerWidth/1.52, window.innerHeight/1.15, 'boton_start', this.onTap, this);
+        boton_inst = game.add.button(window.innerWidth/1.12, window.innerHeight/1.15, 'boton_inst', this.showInstrucciones, this);
         
 //    var indices={};
    var tipo=[0,0,1,1,2,2,3,3,4,4,5,5,6,6,7,7];
 
 
    if(play){
+    var fondo = game.add.sprite(0, 0, 'background');
+    fondo.width = window.innerWidth;
+    fondo.height = window.innerHeight;
+    this.cartas = game.add.group();
+    this.cartas.inputEnableChildren = true;
+    var numero=0;
     do{
         this.posicionCarta = Math.floor(Math.random() * (16 - 0)) + 0;
         // console.log(this.posicionCarta);
@@ -166,12 +184,14 @@ GamePlayPlaya.prototype = {
         }, this);
     
         this.currentScore = 0;
-        this.scoreText = game.add.text(window.innerWidth/4, 3, '0');
+        this.scoreText = game.add.text(window.innerWidth/4, 3, '0', style);
         
-      this.pintarPuntos=  game.add.text(window.innerWidth/50, 2, 'Pares: ');
-       this.pintarTiempo= game.add.text(window.innerWidth/3.2, window.innerHeight-80, 'Tiempo: ');
+        boton_pausa = game.add.button(window.innerWidth/1.12, 2, 'pausa', this.stop_game, this);
+
+      this.pintarPuntos=  game.add.text(window.innerWidth/50, 2, 'Pares: ', style);
+       this.pintarTiempo= game.add.text(window.innerWidth/3.6, window.innerHeight-70, 'Tiempo: ', style);
            this.totalTime = 150;
-            this.timerText = game.add.text(window.innerWidth/1.6, window.innerHeight -80, this.totalTime+'');
+            this.timerText = game.add.text(window.innerWidth/1.7, window.innerHeight -70, this.totalTime+'', style);
             this.timerGameOver = game.time.events.loop(Phaser.Timer.SECOND,function(){
                 console.log("timer");
                 this.totalTime--;
@@ -190,8 +210,7 @@ GamePlayPlaya.prototype = {
             }, this);
     };
 
-    
-
+        
 },
 
     onTap:function(){
@@ -203,6 +222,29 @@ GamePlayPlaya.prototype = {
         };
        
         console.log("escucha el lalalala click "+play);
+    },
+
+    stop_game:function(){
+        game.paused=true;
+        this.cartas.kill();
+        this.show_pausa();
+    },
+
+    continue_game:function(){
+        game.paused=false;
+        this.cartas.revive();
+        boton_pausa.revive();
+        pausa_screen.kill();
+        boton_home.kill();
+        boton_reload.kill();
+        boton_resume.kill();
+        bg.kill();
+    },
+
+    return_home:function(){
+        play=false;
+        first_click=false;
+        this.create();
     },
 
     pierdeTiempo:function(){
@@ -249,18 +291,7 @@ GamePlayPlaya.prototype = {
         
         var victoria_screen = game.add.sprite(window.innerWidth/2, window.innerHeight/2, 'victoria'+num_pantalla);
         victoria_screen.anchor.setTo(0.5);
-        
-        /*var style = {
-            font: 'bold 60pt Arial',
-            fill: '#FFFFFF',
-            align: 'center'
-          }*/
-        
-        /*this.textFieldFinalMsg = game.add.text(game.width/2, game.height/2, msg, style);
-        this.textFieldFinalMsg.anchor.setTo(0.5);
-        this.textFieldFinalMsg.scale.setTo(0.6);*/
-
-        
+        boton_pausa.kill();
     },
 
     showFinalMessageFail:function(msg){
@@ -279,6 +310,46 @@ GamePlayPlaya.prototype = {
         
         var derrota_screen = game.add.sprite(window.innerWidth/2, window.innerHeight/2, 'derrota'+num_pantalla);
         derrota_screen.anchor.setTo(0.5); 
+
+        boton_home = game.add.button((window.innerWidth/2)+15, (window.innerHeight/2)+115, 'home', this.return_home, this);
+        boton_reload = game.add.button((window.innerWidth/2)+49, (window.innerHeight/2)+115, 'recarga', this.create, this);
+        boton_pausa.kill();
+    },
+
+    showInstrucciones:function(msg){
+
+        var bgAlpha = game.add.bitmapData(game.width, game.height);
+        bgAlpha.ctx.fillStyle = '#000000';
+        bgAlpha.ctx.fillRect(0,0,game.width, game.height);
+        
+        var bg = game.add.sprite(0,0,bgAlpha);
+        bg.alpha = 0.5;
+        
+        var instrucciones_screen = game.add.sprite(window.innerWidth/2, window.innerHeight/2, 'inst_screen');
+        instrucciones_screen.anchor.setTo(0.5);
+        instrucciones_screen.width = window.innerWidth;
+        instrucciones_screen.height = window.innerHeight; 
+
+        boton_back = game.add.button(window.innerWidth/1.12, window.innerHeight/1.15, 'boton_back', this.create, this);
+    },
+
+    show_pausa:function(msg){
+        var bgAlpha = game.add.bitmapData(game.width, game.height);
+        bgAlpha.ctx.fillStyle = '#000000';
+        bgAlpha.ctx.fillRect(0,0,game.width, game.height);
+
+        bg = game.add.sprite(0,0,bgAlpha);
+        bg.alpha = 0.5;
+
+        pausa_screen = game.add.sprite(window.innerWidth/2, window.innerHeight/2, 'pausa_screen');
+        pausa_screen.anchor.setTo(0.5);
+        boton_home = game.add.button((window.innerWidth/2)-49, (window.innerHeight/2)+115, 'home', this.return_home, this);
+        boton_reload = game.add.button((window.innerWidth/2)-15, (window.innerHeight/2)+115, 'recarga', this.create, this);
+        boton_resume = game.add.button((window.innerWidth/2)+20, (window.innerHeight/2)+115, 'resume', this.continue_game, this);
+        
+           
+        
+        boton_pausa.kill();
     },
     
     update: function() {

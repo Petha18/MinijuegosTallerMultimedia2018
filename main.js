@@ -14,7 +14,7 @@ var game = new Phaser.Game("100%", "100%", Phaser.CANVAS),
 Main.prototype = {
 
     preload: function() {
-        game.load.image('stars', 'assets/img/pantallaCarga/background.png');
+        game.load.image('stars', 'assets/img/pantallaCarga/pantallaCargaInicial_2.png');
         //game.load.image('loading','assets/img/pantallaCarga/loading.png');
         game.load.image('brand', 'assets/img/pantallaCarga/logoITM.png');
 
@@ -23,7 +23,7 @@ Main.prototype = {
         game.load.script('splash', 'src/pantallas/PantallaCarga.js');
     },
 
-    create: function() {    
+    create: function() {
         game.state.add('PantallaCarga', PantallaCarga);
         game.state.start('PantallaCarga');
     }
