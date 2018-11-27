@@ -32,7 +32,6 @@ PantallaCarga.prototype = { //Cargar toda la pantalla
         game.load.spritesheet('botonConfiguracion', 'assets/img/menuPrincipal/configMenuPrincipal.png', 52, 52);
 
         //Pantalla de
-        game.load.image('menu-bg', 'assets/img/menuPrincipal/menu-bg.jpg');
         game.load.image('botonUniversal', 'assets/img/pantallaNiveles/planetas.png');
         game.load.image('fondoPlanetaPlaya', 'assets/img/pantallaNiveles/playa_03.png');
         game.load.image('fondoPlanetaParque', 'assets/img/pantallaNiveles/parque_02.png');
