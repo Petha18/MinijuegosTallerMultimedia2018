@@ -33,15 +33,15 @@ MenuPrincipal.prototype = {
         }
         //this.fondo = game.add.sprite(0, posicionY, 'menu-principal-bg'); // this.fondo.width = escalarAncho;
         //this.fondo.height = escalarAlto;
-        this.FondoInicio = game.add.sprite(0, 0, 'background_inicio');
+        this.FondoInicio = game.add.sprite(0, 0, 'menu-principal-bg');
         this.FondoInicio.width = window.innerWidth;
         this.FondoInicio.height = window.innerHeight;
 
         botonesX = window.innerWidth / 2 - 95;
         if (window.innerHeight > 590) {
             //console.log("HOLA celulares grandes");
-            botonJugarY = window.innerHeight / 2 + 15;
-            botonSalirY = window.innerHeight / 2 + 95;
+            botonJugarY = window.innerHeight / 2 + 60;
+            botonSalirY = window.innerHeight / 2 + 145;
             botonConfigY = window.innerHeight - 125;
 
             if (window.innerWidth > 750) {
@@ -95,7 +95,7 @@ function clickSalir() {
 }
 
 function menuConfigClick() {
-    game.state.start("MenuConfiguracion");
+    //game.state.start("MenuConfiguracion");
 }
 
 //Phaser.Utils.mixinPrototype(MenuPrincipal.prototype);

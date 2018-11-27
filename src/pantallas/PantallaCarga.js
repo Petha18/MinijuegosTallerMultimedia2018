@@ -32,9 +32,11 @@ PantallaCarga.prototype = { //Cargar toda la pantalla
         game.load.spritesheet('botonConfiguracion', 'assets/img/menuPrincipal/configMenuPrincipal.png', 52, 52);
 
         //Pantalla de
-        game.load.image('menu-bg', 'assets/img/menuPrincipal/menu-bg.jpg');
         game.load.image('botonUniversal', 'assets/img/pantallaNiveles/planetas.png');
-        game.load.image('fondoEstrellado', 'assets/img/pantallaNiveles/fondoEstrellado.jpg');
+        game.load.image('fondoPlanetaPlaya', 'assets/img/pantallaNiveles/playa_03.png');
+        game.load.image('fondoPlanetaParque', 'assets/img/pantallaNiveles/parque_02.png');
+        game.load.image('fondoPlanetaManglar', 'assets/img/pantallaNiveles/manglar_04,1.png');
+        game.load.image('fondoPlanetaCiudad', 'assets/img/pantallaNiveles/ciudad_01.png');
 
         game.load.image('background_inicio', 'assets/img/juegoBasketball/FondoInicio/FondoInicio.png');
 
@@ -49,9 +51,9 @@ PantallaCarga.prototype = { //Cargar toda la pantalla
 
 
         game.load.spritesheet('mundo1', 'assets/img/pantallaNiveles/Ciudad.png', 265, 257);
-        game.load.spritesheet('mundo2', 'assets/img/pantallaNiveles/Playa.png', 265, 186);
-        game.load.spritesheet('mundo3', 'assets/img/pantallaNiveles/Manglar.png', 265, 223);
-        game.load.spritesheet('mundo4', 'assets/img/pantallaNiveles/ciudad.png', 265, 257);
+        game.load.spritesheet('mundo3', 'assets/img/pantallaNiveles/Playa.png', 265, 186);
+        game.load.spritesheet('mundo4', 'assets/img/pantallaNiveles/Manglar.png', 265, 223);
+        game.load.spritesheet('mundo2', 'assets/img/pantallaNiveles/parque.png', 265, 257);
 
         /*********Interactua mapa********/
         //Fondo
@@ -78,10 +80,6 @@ PantallaCarga.prototype = { //Cargar toda la pantalla
         //Basuras spritesheet
         game.load.spritesheet('organicas', 'assets/img/mapaInteractivo/basuras/organicas.png', 168, 168);
 
-
-        // game.load.image('fondoLimpio', 'assets/img/fondo/fondo_limpio.png');
-        //Plataformas sprites
-
         //Basura
         game.load.spritesheet('basuras', 'assets/img/mapaInteractivo/basuras/basuras.png', 170.12, 172);
         //Troncos sprites
@@ -89,35 +87,15 @@ PantallaCarga.prototype = { //Cargar toda la pantalla
         game.load.image('tronco_flat', 'assets/img/mapaInteractivo/troncos/tronco_flat.png');
         game.load.image('tronco_abajo', 'assets/img/mapaInteractivo/troncos/tronco_down.png');
         //Basureros
-        game.load.spritesheet('basureros', 'assets/img/mapaInteractivo/basureros/basureros2.png',129,142);
+        game.load.spritesheet('basureros', 'assets/img/mapaInteractivo/basureros/basureros2.png', 129, 142);
         //Remolinos
         game.load.image('remolino', 'assets/img/mapaInteractivo/remolinos/remolino.png');
         //Barra de tiempo
         game.load.image('barraTiempo', 'assets/img/mapaInteractivo/interfaz/barraTiempo.png');
         //Reloj
-        game.load.image('reloj','assets/img/mapaInteractivo/interfaz/reloj.png');
+        game.load.image('reloj', 'assets/img/mapaInteractivo/interfaz/reloj.png');
         //Botones de pantallas
         game.load.image('boton_reinicar', 'assets/img/mapaInteractivo/pantallas/boton_reinicar.png');
-
-        
-
-        //////////*Keylor*//////////////
-        //stateGame = STATE_GAME_LOADING;
-        /*    game.load.image('background', 'assets/img/recolectaBasura/bg.jpg');
-            game.load.atlasJSONArray('personajeCaminando', 'assets/img/recolectaBasura/top_walk.png', 'Assets/img/recolectaBasura/top_walk.json');
-            game.load.atlasJSONArray('personajeCaminandoArriba', 'assets/img/recolectaBasura/personajeCaminandoArriba.png', 'Assets/img/recolectaBasura/personajeCaminandoArriba.json');
-            game.load.atlasJSONArray('personajeCaminandoDerecha', 'assets/img/recolectaBasura/personajeCaminandoDerecha.png', 'Assets/img/recolectaBasura/personajeCaminandoDerecha.json');
-            game.load.image('manzana', 'assets/img/recolectaBasura/manzana.png');
-            game.load.spritesheet("BotonPlay", 'assets/img/recolectaBasura/botonPlay.png', 178, 176, 3);
-            game.load.image('mapa', 'assets/img/recolectaBasura/mapa2.png');
-            game.load.image('scoreFondo', 'assets/img/recolectaBasura/score.png');
-            game.load.image('tiempo', 'assets/img/recolectaBasura/time.png');
-            game.load.image('barraTiempo', 'assets/img/recolectaBasura/timeBar.png');
-            game.load.image('statsFinal', 'assets/img/recolectaBasura/stats.png');
-            game.load.image('recargar', 'assets/img/recolectaBasura/Reload.png');
-            game.load.image('estrella', 'assets/img/recolectaBasura/estrella.png');
-            game.load.audio('loopMusic', 'assets/Sonidos/Principal.mp3');
-            game.load.audio('aplausos', 'assets/Sonidos/aplausos.wav');*/
     },
 
     loadFonts: function() {
@@ -131,22 +109,14 @@ PantallaCarga.prototype = { //Cargar toda la pantalla
     },
 
     init: function() { //orientacion x ,orientacion y, Recibe la img llamada en main.js(brand y loading)
-        this.logo = game.make.sprite(game.world.centerX, game.world.centerY, 'brand');
-        utils.centerGameObjects([this.logo]);
+
     },
 
     preload: function() {
         game.scale.forceOrientation(false, true);
-        game.add.sprite(0, 0, 'stars');
-
-        if (window.innerWidth < 630) {
-            escalar = window.innerWidth / 1000;
-        } else {
-            escalar = window.innerWidth / 1400;
-        }
-
-        game.add.existing(this.logo).scale.setTo(escalar);
-
+        this.FondoInicio = game.add.sprite(0, 0, 'stars');
+        this.FondoInicio.width = window.innerWidth;
+        this.FondoInicio.height = window.innerHeight;
         this.loadScripts();
         this.loadImages();
         this.loadFonts();
@@ -177,6 +147,6 @@ PantallaCarga.prototype = { //Cargar toda la pantalla
 
         setTimeout(function() {
             game.state.start("MenuPrincipal");
-        }, 1000);
+        }, 1500);
     }
 };
