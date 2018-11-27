@@ -2273,7 +2273,7 @@ var nivel3 = {
         this.scoreText.text = currentScore;
       }
       else{
-        currentScore+=100;
+        currentScore+=300;
         this.scoreText.text = currentScore;
       }
 
