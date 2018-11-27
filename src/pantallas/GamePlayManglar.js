@@ -1725,25 +1725,6 @@ var nivel3 = {
         currentScore = 0;
         flagTimer = false;
     },
-    preload: function(){
-        //Fondo
-        game.load.image('fondoLimpio','assets/img/fondo/LimpioMovil.png');
-
-        //Plataformas sprites
-        game.load.image('plat0','assets/img/mapaInteractivo/plataformas/nivel3/plat0.png');
-        game.load.image('plat1','assets/img/mapaInteractivo/plataformas/nivel3/plat1.png');
-        game.load.image('plat2','assets/img/mapaInteractivo/plataformas/nivel3/plat2.png');
-        game.load.image('plat3','assets/img/mapaInteractivo/plataformas/nivel3/plat3.png');
-        game.load.image('plat4','assets/img/mapaInteractivo/plataformas/nivel3/plat4.png');
-        game.load.image('platFondo','assets/img/mapaInteractivo/plataformas/nivel3/platFondo.png');
-        game.load.image('platBloqueo','assets/img/mapaInteractivo/plataformas/platBloqueo.png');
-
-
-        //Remolino
-        game.load.image('remolinoMorado','assets/img/mapaInteractivo/remolinos/remolinoMorado.png');
-        game.load.spritesheet('lagarto','assets/img/mapaInteractivo/lagarto/lagartoReversa.png',716,351);
-
-    },
     create: function(){
       if(!music.isPlaying){
         music.play();
@@ -2269,18 +2250,34 @@ var estadoPrincipal={
         game.scale.pageAlignVertically = true;
 	},
 	preload:function(){
-    game.load.image('boton1','assets/img/mapaInteractivo/botones/botonNivel1.png');
-    game.load.image('boton2','assets/img/mapaInteractivo/botones/botonNivel2.png');
-    game.load.image('boton3','assets/img/mapaInteractivo/botones/botonNivel3.png');
-    game.load.image('boton_salir','assets/img/mapaInteractivo/botones/botonSalir.png');
-    game.load.image('boton_reinicar','assets/img/mapaInteractivo/botones/botonReinicio.png');
-    game.load.image('boton_sig', 'assets/img/mapaInteractivo/botones/botonSalir.png');
-    game.load.image('boton_mundos','assets/img/mapaInteractivo/botones/botonMundos.png');
-    game.load.image('botonInstrucciones','assets/img/mapaInteractivo/botones/botonInstrucciones.png');
-    game.load.image('fondoIstrucciones','assets/img/mapaInteractivo/fondo/instruccionesTrasfall.png');
-    game.load.audio('loopMusica', 'assets/Sonidos/Principal.mp3');
-    game.load.audio('win', 'assets/Sonidos/aplausos.wav');
-    game.load.audio('aww', 'assets/Sonidos/sfxPerder.wav');
+
+            //Plataformas sprites
+            game.load.image('plat0','assets/img/mapaInteractivo/plataformas/nivel3/plat0.png');
+            game.load.image('plat1','assets/img/mapaInteractivo/plataformas/nivel3/plat1.png');
+            game.load.image('plat2','assets/img/mapaInteractivo/plataformas/nivel3/plat2.png');
+            game.load.image('plat3','assets/img/mapaInteractivo/plataformas/nivel3/plat3.png');
+            game.load.image('plat4','assets/img/mapaInteractivo/plataformas/nivel3/plat4.png');
+            game.load.image('platFondo','assets/img/mapaInteractivo/plataformas/nivel3/platFondo.png');
+            game.load.image('platBloqueo','assets/img/mapaInteractivo/plataformas/platBloqueo.png');
+
+
+            //Remolino
+            game.load.image('remolinoMorado','assets/img/mapaInteractivo/remolinos/remolinoMorado.png');
+            game.load.spritesheet('lagarto','assets/img/mapaInteractivo/lagarto/lagartoReversa.png',716,351);
+
+            game.load.image('boton1','assets/img/mapaInteractivo/botones/botonNivel1.png');
+            game.load.image('boton2','assets/img/mapaInteractivo/botones/botonNivel2.png');
+            game.load.image('boton3','assets/img/mapaInteractivo/botones/botonNivel3.png');
+            game.load.image('boton_salir','assets/img/mapaInteractivo/botones/botonSalir.png');
+            game.load.image('boton_reinicar','assets/img/mapaInteractivo/botones/botonReinicio.png');
+            game.load.image('boton_sig', 'assets/img/mapaInteractivo/botones/botonSalir.png');
+            game.load.image('boton_mundos','assets/img/mapaInteractivo/botones/botonMundos.png');
+            game.load.image('botonInstrucciones','assets/img/mapaInteractivo/botones/botonInstrucciones.png');
+            game.load.image('botonSonido','assets/img/mapaInteractivo/botones/botonSonido.png');
+            game.load.image('fondoIstrucciones','assets/img/mapaInteractivo/fondo/instruccionesTrasfall.png');
+            game.load.audio('loopMusica', 'assets/Sonidos/Principal.mp3');
+            game.load.audio('win', 'assets/Sonidos/aplausos.wav');
+            game.load.audio('aww', 'assets/Sonidos/sfxPerder.wav');
 
 	},
 	create:function(){
@@ -2315,6 +2312,10 @@ var estadoPrincipal={
         botonInstru.anchor.setTo(0.5);
         botonInstru.width = (window.innerWidth*30)/100;
         botonInstru.height = (window.innerWidth*11)/100;
+        var botonSonido = this.add.button(window.innerWidth*15/100, (window.innerHeight*5)/100, 'botonSonido',this.toggleSound, this);
+        botonSonido.anchor.setTo(0.5);
+        botonSonido.width = (window.innerWidth*20)/100;
+        botonSonido.height = (window.innerWidth*11)/100;
 	},
 	iniciarEtapa1: function(){
         this.state.start('GamePlayManglar');
@@ -2331,7 +2332,16 @@ var estadoPrincipal={
     },
     mostrarInstrucciones:function(){
       game.state.start('instrucciones')
-    }
+    },
+    toggleSound:function(){
+      if (music.isPlaying) {
+        music.stop();
+      }
+      else{
+        music.play();
+      }
+
+    },
 }
 var estadoFinal={
     init: function(){
