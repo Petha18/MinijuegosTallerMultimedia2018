@@ -2257,8 +2257,8 @@ var estadoPrincipal={
         game.scale.pageAlignVertically = true;
 	},
 	preload:function(){
-    game.load.audio('loopMusic', 'assets/Sonidos/Principal.mp3');
-    game.load.audio('aplausos', 'assets/Sonidos/aplausos.wav');
+    game.load.audio('loopMusica', 'assets/Sonidos/Principal.mp3');
+    game.load.audio('win', 'assets/Sonidos/aplausos.wav');
     game.load.audio('aww', 'assets/Sonidos/sfxPerder.wav');
 
 	},
@@ -2266,8 +2266,8 @@ var estadoPrincipal={
         var fondo = game.add.sprite(0,0,'fondoInicio');
         var anchoBoton=(window.innerWidth*45)/100;
         var largoBoton=(window.innerHeight*10)/100;
-        music = game.add.audio('loopMusic');
-        sfxGanar = game.add.audio('aplausos');
+        music = game.add.audio('loopMusica');
+        sfxGanar = game.add.audio('win');
         sfxPerder = game.add.audio('aww');
         music.loop = true;
         music.play();
