@@ -2363,6 +2363,7 @@ var estadoFinal={
 
     },
     menuJuego: function(){
+      music.stop();
         this.state.start('inicio');
 
     },
