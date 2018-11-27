@@ -520,13 +520,26 @@ GamePlayManglar.prototype = {
       var troncoBola=game.physics.p2.createContactMaterial(this.materialBola, this.materialTronco, { friction:1});
   },
   increaseScore:function(){
+    if(this.tipoBola==3||this.tipoBola==2){
+      currentScore+=200;
+      this.scoreText.text = currentScore;
+    }
+    else{
       currentScore+=100;
       this.scoreText.text = currentScore;
+    }
+
 
   },
   decreaseScore:function(){
+    if(this.tipoBola==3||this.tipoBola==2){
+      currentScore-=200;
+      this.scoreText.text = currentScore;
+    }
+    else{
       currentScore-=100;
       this.scoreText.text = currentScore;
+    }
 
   },
 }
@@ -1709,12 +1722,24 @@ var nivel2= {
         var troncoBola=game.physics.p2.createContactMaterial(this.materialBola, this.materialTronco, { friction:1, restitution:0.5});
     },
     increaseScore:function(){
+      if(this.tipoBola==3||this.tipoBola==2){
+        currentScore+=200;
+        this.scoreText.text = currentScore;
+      }
+      else{
         currentScore+=100;
         this.scoreText.text = currentScore;
+      }
     },
     decreaseScore:function(){
+      if(this.tipoBola==3||this.tipoBola==2){
+        currentScore-=200;
+        this.scoreText.text = currentScore;
+      }
+      else{
         currentScore-=100;
         this.scoreText.text = currentScore;
+      }
 
     },
 }
@@ -2243,13 +2268,25 @@ var nivel3 = {
         this.bola_basura.body.mass=1;
     },
     increaseScore:function(){
+      if(this.tipoBola==3||this.tipoBola==0){
+        currentScore+=200;
+        this.scoreText.text = currentScore;
+      }
+      else{
         currentScore+=100;
         this.scoreText.text = currentScore;
+      }
 
     },
     decreaseScore:function(){
+      if(this.tipoBola==3||this.tipoBola==0){
+        currentScore-=200;
+        this.scoreText.text = currentScore;
+      }
+      else{
         currentScore-=100;
         this.scoreText.text = currentScore;
+      }
 
     },
 }
@@ -2305,7 +2342,7 @@ var estadoPrincipal={
         }
 
         if (localStorage.getItem("PuntajeTrashLvl2")!=null) {
-          if (localStorage.getItem("PuntajeTrashLvl2")>=600) {
+          if (localStorage.getItem("PuntajeTrashLvl2")>=700) {
             boton3.visible=true;
           }
         }
@@ -2399,48 +2436,6 @@ var estadoFinal={
           textMaximo.fontSize=15;
           textMaximo.anchor.setTo(0.5);
         }
-
-        switch (currentLevel) {
-          case 1:
-            if (localStorage.getItem('PuntajeTrashLvl1')==null) {
-              PuntajeTrashLvl1=currentScore;
-            }else{
-              var score=localStorage.getItem('PuntajeTrashLvl1');
-              if(currentScore>score){PuntajeTrashLvl1=currentScore;}
-              else{PuntajeTrashLvl1=score}
-            }
-            localStorage.setItem("PuntajeTrashLvl1", PuntajeTrashLvl1);
-            var maxScore=localStorage.getItem("PuntajeTrashLvl1");
-            //textMaximo=game.add.text(window.innerWidth/2,(window.innerHeight/2)-150,'Tu puntaje máximo es: '+maxScore);
-            break;
-          case 2:
-          if (localStorage.getItem('PuntajeTrashLvl2')==null) {PuntajeTrashLvl1=currentScore;}
-          else{
-            var score=localStorage.getItem('PuntajeTrashLvl2');
-            if(currentScore>score){PuntajeTrashLvl2=currentScore;}
-            else{PuntajeTrashLvl2=score}
-            }
-
-            localStorage.setItem("PuntajeTrashLvl2", PuntajeTrashLvl2);
-            var maxScore=localStorage.getItem("PuntajeTrashLvl2");
-            //textMaximo=game.add.text(window.innerWidth/2,(window.innerHeight/2)-100,'Tu puntaje máximo es: '+maxScore);
-            break;
-          case 3:
-          if (localStorage.getItem('PuntajeTrashLvl3')==null) {PuntajeTrashLvl3=currentScore;}
-          else{
-            var score=localStorage.getItem('PuntajeTrashLvl3');
-            if(currentScore>score){PuntajeTrashLvl3=currentScore;}
-            else{PuntajeTrashLvl3=score}
-            }
-            localStorage.setItem("PuntajeTrashLvl3", PuntajeTrashLvl3);
-            var maxScore=localStorage.getItem("PuntajeTrashLvl3");
-            //textMaximo=game.add.text(window.innerWidth/2,(window.innerHeight/2)-100,'Tu puntaje máximo es: '+maxScore);
-          break;
-          default:
-
-        }
-
-
 
         fondo.width = window.innerWidth;
         fondo.height = window.innerHeight;
