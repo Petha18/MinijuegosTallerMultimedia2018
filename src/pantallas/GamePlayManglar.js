@@ -18,7 +18,8 @@ var colisionRemolino = false;
 var faseActual = 0;
 var segundosTroncoTrampa = 0;
 var currentLevel=0;
-var music, sfxGanar,sfxPerder;
+var music;
+var PuntajeTrashLvl1, PuntajeTrashLvl2, PuntajeTrashLvl3;
 
 var GamePlayManglar = function() {};
 
@@ -347,9 +348,9 @@ GamePlayManglar.prototype = {
                   var rectRemolino = this.getBounds(this.remolinos[i]);
                   if(this.isRectanglesOverlapping(rectBola,rectRemolino)){
                       if(i==0)
-                          speedLaunch = -2000;
+                          speedLaunch = -500;
                       else if(i==1)
-                          speedLaunch = +2000;
+                          speedLaunch = 500;
                   }
               }
       if(speedLaunch<1000)
@@ -372,12 +373,16 @@ GamePlayManglar.prototype = {
                  if (this.isRectanglesOverlapping(rectBola,rectBas)) {
                      if(flagSetNewBall){
                      if(this.tipoBola==this.basureros[i].id){
-                          this.createBola();
-                          this.increaseScore();
-                          this.barraTiempo.width += 10;
+                       this.increaseScore();
+                       this.barraTiempo.width += 10;
+                       this.createBola();
+
                       }
                      else
-                          this.createBola();
+                        this.decreaseScore();
+                        this.barraTiempo.width -= 10;
+                        this.createBola();
+
                      }
                      flagArrangeBall = true;
                      flagSetNewBall = true;
@@ -402,6 +407,8 @@ GamePlayManglar.prototype = {
           if(flagArrangeBall){
               this.bola_basura.body.y = 0;
               this.bola_basura.body.x = (window.innerWidth*72)/100;
+              this.bola_basura.body.velocity.x=0;
+              this.bola_basura.body.velocity.y=0;
           }
     }
   },
@@ -514,6 +521,11 @@ GamePlayManglar.prototype = {
   },
   increaseScore:function(){
       currentScore+=100;
+      this.scoreText.text = currentScore;
+
+  },
+  decreaseScore:function(){
+      currentScore-=100;
       this.scoreText.text = currentScore;
 
   },
@@ -1505,7 +1517,9 @@ var nivel2= {
                            this.barraTiempo.width += 10;
                        }
                       else
-                           this.createBola();
+                          this.decreaseScore();
+                          this.createBola();
+                          this.barraTiempo.width -= 10;
                       }
                       flagArrangeBall = true;
                       flagSetNewBall = true;
@@ -1697,6 +1711,11 @@ var nivel2= {
     increaseScore:function(){
         currentScore+=100;
         this.scoreText.text = currentScore;
+    },
+    decreaseScore:function(){
+        currentScore-=100;
+        this.scoreText.text = currentScore;
+
     },
 }
 
@@ -2099,12 +2118,16 @@ var nivel3 = {
                    if (this.isRectanglesOverlapping(rectBola,rectBas)) {
                        if(flagSetNewBall){
                        if(this.tipoBola==this.basureros[i].id){
-                            this.createBola();
-                            this.increaseScore();
-                            this.barraTiempo.width += 10;
+                         this.increaseScore();
+                         this.barraTiempo.width += 10;
+                         this.createBola();
+
                         }
                        else
+                            this.decreaseScore();
+                            this.barraTiempo.width -= 10;
                             this.createBola();
+
                        }
                        flagArrangeBall = true;
                        flagSetNewBall = true;
@@ -2130,10 +2153,8 @@ var nivel3 = {
             if(flagArrangeBall){
                 this.bola_basura.body.y = (window.innerHeight*2)/100;
                 this.bola_basura.body.x = (window.innerWidth*82)/100;
-                this.physics.p2.gravity.y = GRAVEDAD_Y;
-                this.physics.p2.gravity.x = 0;
-                this.bola_basura.body.motionState=2;
-                this.bola_basura.body.mass=0;
+                this.bola_basura.body.velocity.x=0;
+                this.bola_basura.body.velocity.y=0;
             }
 
         }
@@ -2226,22 +2247,10 @@ var nivel3 = {
         this.scoreText.text = currentScore;
 
     },
-    showFinalMessage: function(msg){
-        var bgAlpha = game.add.bitmapData(window.innerWidth, window.innerHeight);
-        bgAlpha.ctx.fillStyle = '#FFFFFF';
-        bgAlpha.ctx.fillRect(0,0,window.innerWidth, window.innerHeight);
+    decreaseScore:function(){
+        currentScore-=100;
+        this.scoreText.text = currentScore;
 
-        var bg = game.add.sprite(0,0,bgAlpha);
-        bg.alpha = 0.5;
-
-        var style = {
-            font: 'bold 12pt Arial',
-            fill: '#FFFFFF',
-            align: 'center'
-          }
-
-        this.textFieldFinalMsg = game.add.text(game.width/2, game.height/2, msg, style);
-        this.textFieldFinalMsg.anchor.setTo(0.5);
     },
 }
 
@@ -2257,8 +2266,6 @@ var estadoPrincipal={
         var anchoBoton=(window.innerWidth*45)/100;
         var largoBoton=(window.innerHeight*10)/100;
         music = game.add.audio('loopMusica');
-        sfxGanar = game.add.audio('win');
-        sfxPerder = game.add.audio('aww');
         music.loop = true;
         music.play();
         music.isPlaying=true;
@@ -2272,10 +2279,12 @@ var estadoPrincipal={
         boton2.anchor.setTo(0.5);
         boton2.width=anchoBoton;
         boton2.height=largoBoton;
+        boton2.visible=false;
         var boton3 = this.add.button(window.innerWidth/2, (window.innerHeight*74)/100, 'boton3', this.iniciarEtapa3, this);
         boton3.anchor.setTo(0.5);
         boton3.width=anchoBoton;
         boton3.height=largoBoton;
+        boton3.visible=false;
         var botonSalir = this.add.button(window.innerWidth*30/100, (window.innerHeight*90)/100, 'boton_mundos',this.salir, this);
         botonSalir.anchor.setTo(0.5);
         botonSalir.width = (window.innerWidth*30)/100;
@@ -2288,6 +2297,18 @@ var estadoPrincipal={
         botonSonido.anchor.setTo(0.5);
         botonSonido.width = (window.innerWidth*20)/100;
         botonSonido.height = (window.innerWidth*11)/100;
+
+        if (localStorage.getItem("PuntajeTrashLvl1")!=null) {
+          if (localStorage.getItem("PuntajeTrashLvl1")>=500) {
+            boton2.visible=true;
+          }
+        }
+
+        if (localStorage.getItem("PuntajeTrashLvl2")!=null) {
+          if (localStorage.getItem("PuntajeTrashLvl2")>=600) {
+            boton3.visible=true;
+          }
+        }
 	},
 	iniciarEtapa1: function(){
         this.state.start('GamePlayManglar');
@@ -2322,21 +2343,104 @@ var estadoFinal={
         game.scale.pageAlignVertically = true;
     },
     create:function(){
-
         var fondo;
         var anchoBoton=(window.innerWidth*35)/100;
         var largoBoton=(window.innerHeight*8)/100;
         if(currentScore < 0){
            fondo = game.add.sprite(0,0,'fondoPerder');
-           sfxPerder.play();
            music.volume=0.25;
         }
         else{
            fondo = game.add.sprite(0,0,'fondoGanar');
-          var text=game.add.text(window.innerWidth/2,(window.innerHeight/2)-100,'Tu puntaje: '+currentScore);
+          var text=game.add.text(window.innerWidth/2,(window.innerHeight/2)-100,'Reciclaste: '+currentScore+" puntos");
+          var textMaximo="";
           text.anchor.setTo(0.5);
-          sfxGanar.play();
+          switch (currentLevel) {
+            case 1:
+              if (localStorage.getItem('PuntajeTrashLvl1')==null) {
+                PuntajeTrashLvl1=currentScore;
+              }else{
+                var score=localStorage.getItem('PuntajeTrashLvl1');
+                if(currentScore>score){PuntajeTrashLvl1=currentScore;}
+                else{PuntajeTrashLvl1=score}
+              }
+              localStorage.setItem("PuntajeTrashLvl1", PuntajeTrashLvl1);
+              var maxScore=localStorage.getItem("PuntajeTrashLvl1");
+              textMaximo=game.add.text(window.innerWidth/2,(window.innerHeight/2)-75,'Tu puntaje máximo es: '+maxScore);
+              break;
+            case 2:
+            if (localStorage.getItem('PuntajeTrashLvl2')==null) {
+              PuntajeTrashLvl2=currentScore; localStorage.setItem("PuntajeTrashLvl2", PuntajeTrashLvl2);
+            }
+            else{
+              var score=localStorage.getItem('PuntajeTrashLvl2');;
+              if(currentScore>score){PuntajeTrashLvl2=currentScore;}
+              else{PuntajeTrashLvl2=score}
+              }
+
+              localStorage.setItem("PuntajeTrashLvl2", PuntajeTrashLvl2);
+              var maxScore2=localStorage.getItem("PuntajeTrashLvl2");
+              textMaximo=game.add.text(window.innerWidth/2,(window.innerHeight/2)-75,'Tu puntaje máximo es: '+maxScore2);
+              break;
+            case 3:
+            if (localStorage.getItem('PuntajeTrashLvl3')==null) {PuntajeTrashLvl3=currentScore;}
+            else{
+              var score=localStorage.getItem('PuntajeTrashLvl3');
+              if(currentScore>score){PuntajeTrashLvl3=currentScore;}
+              else{PuntajeTrashLvl3=score}
+              }
+              localStorage.setItem("PuntajeTrashLvl3", PuntajeTrashLvl3);
+              var maxScore3=localStorage.getItem("PuntajeTrashLvl3");
+              textMaximo=game.add.text(window.innerWidth/2,(window.innerHeight/2)-75,'Tu puntaje máximo es: '+maxScore3);
+            break;
+            default:
+
+          }
+          textMaximo.fontSize=15;
+          textMaximo.anchor.setTo(0.5);
         }
+
+        switch (currentLevel) {
+          case 1:
+            if (localStorage.getItem('PuntajeTrashLvl1')==null) {
+              PuntajeTrashLvl1=currentScore;
+            }else{
+              var score=localStorage.getItem('PuntajeTrashLvl1');
+              if(currentScore>score){PuntajeTrashLvl1=currentScore;}
+              else{PuntajeTrashLvl1=score}
+            }
+            localStorage.setItem("PuntajeTrashLvl1", PuntajeTrashLvl1);
+            var maxScore=localStorage.getItem("PuntajeTrashLvl1");
+            //textMaximo=game.add.text(window.innerWidth/2,(window.innerHeight/2)-150,'Tu puntaje máximo es: '+maxScore);
+            break;
+          case 2:
+          if (localStorage.getItem('PuntajeTrashLvl2')==null) {PuntajeTrashLvl1=currentScore;}
+          else{
+            var score=localStorage.getItem('PuntajeTrashLvl2');
+            if(currentScore>score){PuntajeTrashLvl2=currentScore;}
+            else{PuntajeTrashLvl2=score}
+            }
+
+            localStorage.setItem("PuntajeTrashLvl2", PuntajeTrashLvl2);
+            var maxScore=localStorage.getItem("PuntajeTrashLvl2");
+            //textMaximo=game.add.text(window.innerWidth/2,(window.innerHeight/2)-100,'Tu puntaje máximo es: '+maxScore);
+            break;
+          case 3:
+          if (localStorage.getItem('PuntajeTrashLvl3')==null) {PuntajeTrashLvl3=currentScore;}
+          else{
+            var score=localStorage.getItem('PuntajeTrashLvl3');
+            if(currentScore>score){PuntajeTrashLvl3=currentScore;}
+            else{PuntajeTrashLvl3=score}
+            }
+            localStorage.setItem("PuntajeTrashLvl3", PuntajeTrashLvl3);
+            var maxScore=localStorage.getItem("PuntajeTrashLvl3");
+            //textMaximo=game.add.text(window.innerWidth/2,(window.innerHeight/2)-100,'Tu puntaje máximo es: '+maxScore);
+          break;
+          default:
+
+        }
+
+
 
         fondo.width = window.innerWidth;
         fondo.height = window.innerHeight;
