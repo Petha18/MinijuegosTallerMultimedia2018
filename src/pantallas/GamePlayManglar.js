@@ -2301,6 +2301,7 @@ var estadoPrincipal={
     },
     salir:function(){
       game.state.start("PlanetasMenu");
+	   musica.stop();
     },
 }
 var estadoFinal={
