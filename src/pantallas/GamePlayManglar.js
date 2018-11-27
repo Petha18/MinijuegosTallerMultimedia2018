@@ -51,7 +51,7 @@ GamePlayManglar.prototype = {
       flagTimer = false;
   },
   create: function(){
-    if(!music.isPlaying){
+    if(music.isPlaying==false){
       music.play();
       music.volume=1;
     }
@@ -1153,7 +1153,7 @@ var nivel2= {
         flagTimer = false;
     },
     create: function(){
-      if(!music.isPlaying){
+      if(music.isPlaying==false){
         music.play();
         music.volume=1;
       }
@@ -1772,7 +1772,7 @@ var nivel3 = {
         flagTimer = false;
     },
     create: function(){
-      if(!music.isPlaying){
+      if(music.isPlaying==false){
         music.play();
         music.volume=1;
       }
@@ -1818,7 +1818,7 @@ var nivel3 = {
         this.remolino2.height = (window.innerHeight*10)/100;
         this.remolino2.anchor.setTo(0.5);
 
-        this.remolino3 = game.add.sprite((window.innerWidth*66)/100,(window.innerHeight*73)/100,'remolinoMorado');
+        this.remolino3 = game.add.sprite((window.innerWidth*69)/100,(window.innerHeight*73)/100,'remolinoMorado');
         this.remolino3.width = (window.innerHeight*10)/100;
         this.remolino3.height = (window.innerHeight*10)/100;
         this.remolino3.anchor.setTo(0.5);
@@ -2004,8 +2004,8 @@ var nivel3 = {
                     this.troncos[i].height = (window.innerHeight*3)/100;
                     game.physics.p2.enable(this.troncos[i]);
                     this.troncos[i].body.angle=90;
-                    this.troncos[i].body.clearShapes();
-                    this.troncos[i].body.addRectangle((this.troncos[i].width*96)/100,(this.troncos[i].height*75)/100);
+                    //this.troncos[i].body.clearShapes();
+                    //this.troncos[i].body.addRectangle((this.troncos[i].width*96)/100,(this.troncos[i].height*75)/100);
                 break;
                 case 3:
                     this.troncos[i]=game.add.sprite((window.innerWidth*58)/100,(window.innerHeight*83)/100,"tronco");
@@ -2013,8 +2013,8 @@ var nivel3 = {
                     this.troncos[i].height = (window.innerHeight*3)/100;
                     game.physics.p2.enable(this.troncos[i]);
                     this.troncos[i].body.angle=-28;
-                    this.troncos[i].body.clearShapes();
-                    this.troncos[i].body.addRectangle((this.troncos[i].width*96)/100,(this.troncos[i].height*75)/100);
+                    //this.troncos[i].body.clearShapes();
+                    //this.troncos[i].body.addRectangle((this.troncos[i].width*96)/100,(this.troncos[i].height*75)/100);
                 break;
                 default:
                 break;
@@ -2109,7 +2109,7 @@ var nivel3 = {
                 if(i==0)
                     speedLaunch = -20000;
                 else if(i==1)
-                    speedLaunch = +2000;
+                    speedLaunch = +1000;
                 else if(i==3)
                     colisionMorado = true;
             }
@@ -2268,7 +2268,7 @@ var nivel3 = {
         this.bola_basura.body.mass=1;
     },
     increaseScore:function(){
-      if(this.tipoBola==3||this.tipoBola==0){
+      if(this.tipoBola==2||this.tipoBola==0){
         currentScore+=200;
         this.scoreText.text = currentScore;
       }
@@ -2366,9 +2366,11 @@ var estadoPrincipal={
     toggleSound:function(){
       if (music.isPlaying) {
         music.stop();
+        music.isPlaying=false;
       }
       else{
         music.play();
+        music.isPlaying=true;
       }
 
     },
