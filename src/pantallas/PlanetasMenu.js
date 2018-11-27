@@ -140,22 +140,23 @@ function clickMundo01() {
 
 function clickMundo02() {
     if (this.xInicial == this.xFinal) {
-        game.state.start("GamePlayPlaya");
-        game.state.start("gameplayPlaya");
+        game.state.start("GamePlayParque");
+        //game.state.start("InicioParque");
     }
 }
 
 function clickMundo03() {
     if (this.xInicial == this.xFinal) {
-        game.state.start("GamePlayManglar");
-        game.state.start('inicio');
+        game.state.start("GamePlayPlaya");
+        game.state.start("gameplayPlaya");
     }
+
 }
 
 function clickMundo04() {
     if (this.xInicial == this.xFinal) {
-        game.state.start("GamePlayParque");
-        //game.state.start("InicioParque");
+        game.state.start("GamePlayManglar");
+        game.state.start('inicio');
     }
 }
 
