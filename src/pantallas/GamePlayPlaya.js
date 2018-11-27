@@ -176,7 +176,7 @@ GamePlayPlaya.prototype = {
         boton_return_menu = game.add.button(window.innerWidth/1.12, (window.innerHeight/2)+210, 'home_principal', volverMenuPrincipalConfig, this);
 
         function volverMenuPrincipalConfig () {
-            game.state.start("MenuPrincipal", Phaser.Plugin.StateTransition.Out.SlideLeft, Phaser.Plugin.StateTransition.In.SlideBottom); 
+            game.state.start("MenuPrincipal"); 
             this.musica.stop();
             music_play=false;
         }
