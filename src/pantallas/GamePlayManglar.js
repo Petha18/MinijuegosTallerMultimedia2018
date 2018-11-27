@@ -2266,7 +2266,7 @@ var estadoPrincipal={
         var fondo = game.add.sprite(0,0,'fondoInicio');
         var anchoBoton=(window.innerWidth*45)/100;
         var largoBoton=(window.innerHeight*10)/100;
-        music = game.add.audio('loopMusica');
+        music = game.add.audio('loopMusics');
         sfxGanar = game.add.audio('win');
         sfxPerder = game.add.audio('aww');
         music.loop = true;
@@ -2301,7 +2301,6 @@ var estadoPrincipal={
     },
     salir:function(){
       game.state.start("PlanetasMenu");
-	   musica.stop();
     },
 }
 var estadoFinal={
