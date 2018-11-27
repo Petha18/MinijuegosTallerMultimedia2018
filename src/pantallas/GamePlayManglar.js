@@ -2257,8 +2257,15 @@ var estadoPrincipal={
         game.scale.pageAlignVertically = true;
 	},
 	preload:function(){
-    game.load.audio('loopMusic', 'assets/Sonidos/Principal.mp3');
-    game.load.audio('aplausos', 'assets/Sonidos/aplausos.wav');
+    game.load.image('boton1','assets/img/mapaInteractivo/botones/botonNivel1.png');
+    game.load.image('boton2','assets/img/mapaInteractivo/botones/botonNivel2.png');
+    game.load.image('boton3','assets/img/mapaInteractivo/botones/botonNivel3.png');
+    game.load.image('boton_salir','assets/img/mapaInteractivo/botones/botonSalir.png');
+    game.load.image('boton_reinicar','assets/img/mapaInteractivo/botones/botonReinicio.png');
+    game.load.image('boton_sig', 'assets/img/mapaInteractivo/botones/botonSalir.png');
+    game.load.image('boton_mundos','assets/img/mapaInteractivo/botones/botonMundos.png');
+    game.load.audio('loopMusica', 'assets/Sonidos/Principal.mp3');
+    game.load.audio('win', 'assets/Sonidos/aplausos.wav');
     game.load.audio('aww', 'assets/Sonidos/sfxPerder.wav');
 
 	},
@@ -2266,8 +2273,8 @@ var estadoPrincipal={
         var fondo = game.add.sprite(0,0,'fondoInicio');
         var anchoBoton=(window.innerWidth*45)/100;
         var largoBoton=(window.innerHeight*10)/100;
-        music = game.add.audio('loopMusic');
-        sfxGanar = game.add.audio('aplausos');
+        music = game.add.audio('loopMusica');
+        sfxGanar = game.add.audio('win');
         sfxPerder = game.add.audio('aww');
         music.loop = true;
         music.play();
@@ -2300,6 +2307,7 @@ var estadoPrincipal={
         this.state.start('nivel3');
     },
     salir:function(){
+      music.stop();
       game.state.start("PlanetasMenu");
     },
 }
@@ -2356,6 +2364,7 @@ var estadoFinal={
     },
     menuJuego: function(){
         this.state.start('inicio');
+
     },
 }
 
