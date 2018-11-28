@@ -25,520 +25,523 @@ var GamePlayManglar = function() {};
 
 //nivel 1
 GamePlayManglar.prototype = {
-    init: function() {
-        game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
-        game.scale.pageAlignHorizontally = true;
-        game.scale.pageAlignVertically = true;
-        game.scale.setGameSize(window.innerWidth, window.innerHeight);
-        game.world.setBounds(0, 0, window.innerWidth, window.innerHeight);
-        game.scale.forcePortrait = true;
-        game.scale.refresh();
+  init: function(){
+  game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+      game.scale.pageAlignHorizontally = true;
+      game.scale.pageAlignVertically = true;
+      game.scale.setGameSize(window.innerWidth, window.innerHeight);
+      game.world.setBounds(0, 0, window.innerWidth, window.innerHeight);
+      game.scale.forcePortrait=true;
+      game.scale.refresh();
 
-        //Resetear valores
-        currentLevel = 1;
-        AMOUNT_BASUREROS = 4;
-        AMOUNT_REMOLINOS = 2;
-        cant_tron = 4;
-        cant_plat = 7;
-        flagDropBall = false;
-        flagEndGame = false;
-        flagResultEndGame = false;
-        segundosLagarto = 0;
-        ballNeeded = false;
-        flagArrangeBall = false;
-        flagSetNewBall = true;
-        currentScore = 0;
-        flagTimer = false;
-    },
-    create: function() {
-        if (!music.isPlaying) {
-            music.play();
-            music.volume = 1;
-        }
-        /********************************Materiales del juego*******************************************/
-        game.physics.startSystem(Phaser.Physics.P2JS);
-        game.physics.p2.gravity.y = GRAVEDAD_Y;
-        this.worldMaterial = game.physics.p2.createMaterial('worldMaterial');
-        game.physics.p2.setWorldMaterial(this.worldMaterial, true, true, true, true);
-        this.materialPlataforma = game.physics.p2.createMaterial('materialPlataforma');
-        this.materialTronco = game.physics.p2.createMaterial('materialTronco');
-        this.materialBasurero = game.physics.p2.createMaterial('materialBasurero');
+      //Resetear valores
+      currentLevel=1;
+      AMOUNT_BASUREROS = 4;
+      AMOUNT_REMOLINOS = 2;
+      cant_tron = 4;
+      cant_plat = 7;
+      flagDropBall = false;
+      flagEndGame = false;
+      flagResultEndGame=false;
+      segundosLagarto = 0;
+      ballNeeded = false;
+      flagArrangeBall = false;
+      flagSetNewBall = true;
+      currentScore = 0;
+      flagTimer = false;
+  },
+  create: function(){
+    if(music.isPlaying==true){
+      music.play();
+      music.volume=1;
+    }
+      /********************************Materiales del juego*******************************************/
+      game.physics.startSystem(Phaser.Physics.P2JS);
+      game.physics.p2.gravity.y = GRAVEDAD_Y;
+      this.worldMaterial = game.physics.p2.createMaterial('worldMaterial');
+      game.physics.p2.setWorldMaterial(this.worldMaterial, true, true, true, true);
+      this.materialPlataforma = game.physics.p2.createMaterial('materialPlataforma');
+      this.materialTronco = game.physics.p2.createMaterial('materialTronco');
+      this.materialBasurero = game.physics.p2.createMaterial('materialBasurero');
 
-        //Array de troncos
-        this.troncos = [];
-        //Array de plataformas
-        this.plataformas = [];
-        //Array de basureros
-        this.basureros = [];
-        //Array de remolino
-        this.remolinos = [];
+      //Array de troncos
+      this.troncos=[];
+      //Array de plataformas
+      this.plataformas=[];
+      //Array de basureros
+      this.basureros=[];
+      //Array de remolino
+      this.remolinos=[];
 
-        //Fondo
-        var fondo = game.add.sprite(0, 0, 'fondoLimpio');
-        fondo.width = window.innerWidth;
-        fondo.height = window.innerHeight;
+      //Fondo
+      var fondo = game.add.sprite(0,0,'fondoLimpio');
+      fondo.width = window.innerWidth;
+      fondo.height = window.innerHeight;
 
-        //Remolino
-        this.remolino0 = game.add.sprite((window.innerWidth * 52) / 100, (window.innerHeight * 14) / 100, 'remolino');
-        this.remolino0.width = (window.innerHeight * 10) / 100;
-        this.remolino0.height = (window.innerHeight * 10) / 100;
-        this.remolino0.anchor.setTo(0.5);
+      //Remolino
+      this.remolino0 = game.add.sprite((window.innerWidth*52)/100,(window.innerHeight*14)/100,'remolino');
+      this.remolino0.width = (window.innerHeight*10)/100;
+      this.remolino0.height = (window.innerHeight*10)/100;
+      this.remolino0.anchor.setTo(0.5);
 
-        this.remolino1 = game.add.sprite((window.innerWidth * 78) / 100, (window.innerHeight * 48) / 100, 'remolino');
-        this.remolino1.width = (window.innerHeight * 10) / 100;
-        this.remolino1.height = (window.innerHeight * 10) / 100;
-        this.remolino1.anchor.setTo(0.5);
+      this.remolino1 = game.add.sprite((window.innerWidth*78)/100,(window.innerHeight*48)/100,'remolino');
+      this.remolino1.width = (window.innerHeight*10)/100;
+      this.remolino1.height = (window.innerHeight*10)/100;
+      this.remolino1.anchor.setTo(0.5);
 
-        this.remolinos[0] = this.remolino0;
-        this.remolinos[1] = this.remolino1;
+      this.remolinos[0] = this.remolino0;
+      this.remolinos[1] = this.remolino1;
 
-        //Bola
-        frameBola = Math.floor(Math.random() * 17);
-        /*Size de la bola*/
-        sizeBola = (window.innerHeight * 6) / 100;
+      //Bola
+      frameBola = Math.floor(Math.random() * 17);
+      /*Size de la bola*/
+      sizeBola = (window.innerHeight*6)/100;
 
-        this.bola_basura = game.add.sprite(window.innerWidth - 100, 0, 'basuras', frameBola);
+      this.bola_basura=game.add.sprite(window.innerWidth-100,0,'basuras',frameBola);
 
-        if (frameBola < 5)
-            this.tipoBola = 1;
-        else if (frameBola > 4 && frameBola < 10)
-            this.tipoBola = 0;
-        else if (frameBola > 9 && frameBola < 14)
-            this.tipoBola = 2;
-        else
-            this.tipoBola = 3;
+      if(frameBola < 5)
+          this.tipoBola = 1;
+      else if(frameBola > 4 && frameBola < 10)
+          this.tipoBola = 0;
+      else if(frameBola > 9 && frameBola < 14)
+          this.tipoBola = 2;
+      else
+          this.tipoBola = 3;
 
-        this.bola_basura.width = sizeBola;
-        this.bola_basura.height = sizeBola;
+      this.bola_basura.width = sizeBola;
+      this.bola_basura.height = sizeBola;
 
-        //Plataformas
-        var platLimpio1 = game.add.sprite(window.innerWidth, (window.innerHeight * 13) / 100, 'platLimpio1');
-        platLimpio1.width = (window.innerWidth * 25) / 100;
-        platLimpio1.height = (window.innerHeight * 3) / 100;
-        platLimpio1.x = (window.innerWidth) - (platLimpio1.width / 3.5);
+      //Plataformas
+      var platLimpio1 = game.add.sprite(window.innerWidth,(window.innerHeight*13)/100,'platLimpio1');
+      platLimpio1.width = (window.innerWidth*25)/100;
+      platLimpio1.height = (window.innerHeight*3)/100;
+      platLimpio1.x=(window.innerWidth)-(platLimpio1.width/3.5);
 
-        var platLimpio2 = game.add.sprite((window.innerWidth * 44.5) / 100, (window.innerHeight * 18.8) / 100, 'platLimpio2');
-        platLimpio2.width = (window.innerWidth * 38) / 100;
-        platLimpio2.height = (window.innerHeight * 3) / 100;
+      var platLimpio2 = game.add.sprite((window.innerWidth*44.5)/100,(window.innerHeight*18.8)/100,'platLimpio2');
+      platLimpio2.width = (window.innerWidth*38)/100;
+      platLimpio2.height = (window.innerHeight*3)/100;
 
-        var platLimpio3 = game.add.sprite((window.innerWidth * 45) / 100, (window.innerHeight * 45) / 100, 'platLimpio3');
-        platLimpio3.width = (window.innerWidth * 50) / 100;
-        platLimpio3.height = (window.innerHeight * 3) / 100;
+      var platLimpio3 = game.add.sprite((window.innerWidth*45)/100,(window.innerHeight*45)/100,'platLimpio3');
+      platLimpio3.width = (window.innerWidth*50)/100;
+      platLimpio3.height = (window.innerHeight*3)/100;
 
-        var platLimpio4 = game.add.sprite((window.innerWidth * 42) / 100, (window.innerHeight * 70) / 100, 'platLimpio4');
-        platLimpio4.width = (window.innerWidth * 48) / 100;
-        platLimpio4.height = (window.innerHeight * 3) / 100;
+      var platLimpio4 = game.add.sprite((window.innerWidth*42)/100,(window.innerHeight*70)/100,'platLimpio4');
+      platLimpio4.width = (window.innerWidth*48)/100;
+      platLimpio4.height = (window.innerHeight*3)/100;
 
-        var platLimpio5 = game.add.sprite((window.innerWidth * 42) / 100, (window.innerHeight * 88) / 100, 'platLimpio5');
-        platLimpio5.width = (window.innerWidth * 58) / 100;
-        platLimpio5.height = (window.innerHeight * 3) / 100;
+      var platLimpio5 = game.add.sprite((window.innerWidth*42)/100,(window.innerHeight*88)/100,'platLimpio5');
+      platLimpio5.width = (window.innerWidth*58)/100;
+      platLimpio5.height = (window.innerHeight*3)/100;
 
-        var platBas1 = game.add.sprite(window.innerWidth, (window.innerHeight * 37) / 100, 'platBas1');
-        platBas1.width = (window.innerWidth * 65) / 100;
-        platBas1.height = (window.innerHeight * 3) / 100;
+      var platBas1= game.add.sprite(window.innerWidth,(window.innerHeight*37)/100,'platBas1');
+      platBas1.width = (window.innerWidth*65)/100;
+      platBas1.height = (window.innerHeight*3)/100;
 
-        var platBas2 = game.add.sprite((window.innerWidth * 0) / 100, (window.innerHeight * 81) / 100, 'platBas2');
-        platBas2.width = (window.innerWidth * 40) / 100;
-        platBas2.height = (window.innerHeight * 3) / 100;
+      var platBas2= game.add.sprite((window.innerWidth*0)/100,(window.innerHeight*81)/100,'platBas2');
+      platBas2.width = (window.innerWidth*40)/100;
+      platBas2.height = (window.innerHeight*3)/100;
 
-        this.plataformas[1] = platLimpio1;
-        this.plataformas[2] = platLimpio2;
-        this.plataformas[3] = platLimpio3;
-        this.plataformas[4] = platLimpio4;
-        this.plataformas[5] = platLimpio5;
-        this.plataformas[6] = platBas1;
-        this.plataformas[7] = platBas2;
+      this.plataformas[1] = platLimpio1;
+      this.plataformas[2] = platLimpio2;
+      this.plataformas[3] = platLimpio3;
+      this.plataformas[4] = platLimpio4;
+      this.plataformas[5] = platLimpio5;
+      this.plataformas[6] = platBas1;
+      this.plataformas[7] = platBas2;
 
-        /*Controles individuales de plataformas*/
-        for (var i = 1; i <= cant_plat; i++) {
-            this.plataformas[i].anchor.setTo(0.5);
-            game.physics.p2.enable(this.plataformas[i]);
-            switch (i) {
-                case 1:
-                    this.plataformas[i].body.angle = -25;
-                    break;
-                case 2:
-                    this.plataformas[i].body.angle = 10;
-                    break;
-                case 3:
-                    this.plataformas[i].body.angle = 30;
-                    break;
-                case 4:
-                    this.plataformas[i].body.angle = -10;
-                    break;
-                case 5:
-                    this.plataformas[i].body.angle = -13;
-                    break;
-            }
-            this.plataformas[i].body.setMaterial(this.materialPlataforma);
-            this.plataformas[i].body.motionState = 2;
-            this.plataformas[i].body.mass = 0;
-        }
+      /*Controles individuales de plataformas*/
+      for(var i=1; i<=cant_plat; i++){
+          this.plataformas[i].anchor.setTo(0.5);
+          game.physics.p2.enable(this.plataformas[i]);
+          switch(i){
+              case 1:
+                      this.plataformas[i].body.angle=-25;
+              break;
+              case 2:
+                      this.plataformas[i].body.angle=10;
+              break;
+              case 3:
+                      this.plataformas[i].body.angle=30;
+              break;
+              case 4:
+                      this.plataformas[i].body.angle=-10;
+              break;
+              case 5:
+                      this.plataformas[i].body.angle=-13;
+              break;
+          }
+          this.plataformas[i].body.setMaterial(this.materialPlataforma);
+          this.plataformas[i].body.motionState=2;
+          this.plataformas[i].body.mass=0;
+      }
 
-        //BASUREROS
-        this.bolaCollisionGroup = game.physics.p2.createCollisionGroup();
-        this.basureroCollisionGroup = game.physics.p2.createCollisionGroup();
-
-
-        var basurero_0 = game.add.sprite((window.innerWidth * 74) / 100, (window.innerHeight * 31) / 100, 'basureros');
-        basurero_0.frame = 0;
-        var basurero_1 = game.add.sprite((window.innerWidth * 10) / 100, (window.innerHeight * 53) / 100, 'basureros');
-        basurero_1.frame = 1;
-        var basurero_2 = game.add.sprite((window.innerWidth * 9) / 100, (window.innerHeight * 75) / 100, 'basureros');
-        basurero_2.frame = 2;
-        var basurero_3 = game.add.sprite((window.innerWidth * 84) / 100, (window.innerHeight * 91) / 100, 'basureros');
-        basurero_3.frame = 3;
-
-        this.basureros[0] = basurero_0;
-        this.basureros[0].id = 0;
-        this.basureros[1] = basurero_1;
-        this.basureros[1].id = 1;
-        this.basureros[2] = basurero_2;
-        this.basureros[2].id = 2;
-        this.basureros[3] = basurero_3;
-        this.basureros[3].id = 3;
-
-        for (var i = 0; i < this.basureros.length; i++) {
-            this.basureros[i].width = (window.innerWidth * 17) / 100;
-            this.basureros[i].height = (window.innerHeight * 10) / 100;
-            game.physics.p2.enable(this.basureros[i], true);
-            this.basureros[i].body.motionState = 2;
-            this.basureros[i].body.mass = 0;
-            this.basureros[i].body.clearShapes();
-            this.basureros[i].body.setMaterial(this.materialBasurero);
-
-        }
-
-        //Lagarto
-        this.lagarto = game.add.sprite((window.innerWidth * -2) / 100, (window.innerHeight * 76) / 100, 'lagarto', 0);
-        this.lagarto.width = (window.innerWidth * 50) / 100;
-        this.lagarto.height = (window.innerHeight * 20) / 100;
+      //BASUREROS
+      this.bolaCollisionGroup = game.physics.p2.createCollisionGroup();
+      this.basureroCollisionGroup = game.physics.p2.createCollisionGroup();
 
 
-        //Barra tiempo
-        this.barraTiempo = game.add.sprite(0, (window.innerHeight * 6) / 100, 'barraTiempo');
-        this.barraTiempo.width = (window.innerWidth * 22) / 100;
-        this.barraTiempo.height = (window.innerHeight * 1) / 100;
+       var basurero_0 = game.add.sprite((window.innerWidth*74)/100,(window.innerHeight*31)/100,'basureros');
+          basurero_0.frame = 0;
+          var basurero_1 = game.add.sprite((window.innerWidth*10)/100,(window.innerHeight*53)/100,'basureros');
+          basurero_1.frame = 1;
+          var basurero_2 = game.add.sprite((window.innerWidth*9)/100,(window.innerHeight*75)/100,'basureros');
+          basurero_2.frame = 2;
+          var basurero_3 = game.add.sprite((window.innerWidth*84)/100,(window.innerHeight*91)/100,'basureros');
+          basurero_3.frame = 3;
 
-        //Reloj
-        this.reloj = game.add.sprite(0, (window.innerHeight * 8) / 100, 'reloj');
-        this.reloj.width = (window.innerWidth * 5) / 100;
-        this.reloj.height = (window.innerHeight * 4) / 100;
+          this.basureros[0] = basurero_0;
+          this.basureros[0].id = 0;
+          this.basureros[1] = basurero_1;
+          this.basureros[1].id = 1;
+          this.basureros[2] = basurero_2;
+          this.basureros[2].id = 2;
+          this.basureros[3] = basurero_3;
+          this.basureros[3].id = 3;
 
-        //Troncos
+          for (var i = 0; i < this.basureros.length; i++) {
+              this.basureros[i].width=(window.innerWidth*17)/100;
+              this.basureros[i].height=(window.innerHeight*10)/100;
+              game.physics.p2.enable(this.basureros[i],true);
+              this.basureros[i].body.motionState=2;
+              this.basureros[i].body.mass=0;
+              this.basureros[i].body.clearShapes();
+              this.basureros[i].body.setMaterial(this.materialBasurero);
+
+          }
+
+      //Lagarto
+      this.lagarto = game.add.sprite((window.innerWidth*-2)/100,(window.innerHeight*76)/100,'lagarto',0);
+      this.lagarto.width = (window.innerWidth*50)/100;
+      this.lagarto.height = (window.innerHeight*20)/100;
 
 
-        /*Controloes individuales de cada tronco*/
-        for (var i = 0; i < cant_tron; i++) {
-            switch (i) {
-                case 0:
-                    this.troncos[i] = game.add.sprite((window.innerWidth * 72.5) / 100, (window.innerHeight * 18.6) / 100, "tronco")
-                    this.troncos[i].width = (window.innerWidth * 18) / 100;
-                    this.troncos[i].height = (window.innerHeight * 3.5) / 100;
-                    game.physics.p2.enable(this.troncos[i]);
-                    this.troncos[i].body.angle = -15;
-                    this.troncos[i].body.clearShapes();
-                    this.troncos[i].body.addRectangle((this.troncos[i].width * 96) / 100, (this.troncos[i].height * 75) / 100);
-                    break;
-                case 1:
-                    this.troncos[i] = game.add.sprite((window.innerWidth * 14.5) / 100, (window.innerHeight * 34) / 100, "tronco2")
-                    this.troncos[i].width = (window.innerWidth * 26) / 100;
-                    this.troncos[i].height = (window.innerHeight * 3.5) / 100;
-                    game.physics.p2.enable(this.troncos[i]);
-                    this.troncos[i].body.angle = 34;
-                    break;
-                case 2:
-                    this.troncos[i] = game.add.sprite((window.innerWidth * 82) / 100, (window.innerHeight * 64) / 100, "tronco")
-                    this.troncos[i].width = (window.innerWidth * 30) / 100;
-                    this.troncos[i].height = (window.innerHeight * 3) / 100;
-                    game.physics.p2.enable(this.troncos[i]);
-                    if (this.isPixel2XL) {
-                        this.troncos[i].body.y = (window.innerHeight * 66) / 100;
-                    }
-                    this.troncos[i].body.angle = -15;
-                    this.troncos[i].body.clearShapes();
-                    this.troncos[i].body.addRectangle((this.troncos[i].width * 96) / 100, (this.troncos[i].height * 75) / 100);
-                    break;
-                case 3:
-                    this.troncos[i] = game.add.sprite((window.innerWidth * 83) / 100, (window.innerHeight * 81) / 100, "tronco")
-                    this.troncos[i].width = (window.innerWidth * 30) / 100;
-                    this.troncos[i].height = (window.innerHeight * 3) / 100;
-                    game.physics.p2.enable(this.troncos[i]);
-                    if (this.isPixel2XL) {
-                        this.troncos[i].body.y = (window.innerHeight * 83) / 100;
-                    }
-                    this.troncos[i].body.angle = -15;
-                    this.troncos[i].body.clearShapes();
-                    this.troncos[i].body.addRectangle((this.troncos[i].width * 96) / 100, (this.troncos[i].height * 75) / 100);
-                    break;
+      //Barra tiempo
+      this.barraTiempo = game.add.sprite(0,(window.innerHeight*6)/100,'barraTiempo');
+      this.barraTiempo.width = (window.innerWidth*22)/100;
+      this.barraTiempo.height = (window.innerHeight*1)/100;
 
-                default:
-                    break;
-            }
-            this.troncos[i].body.setMaterial(this.materialPlataforma);
-            this.troncos[i].name = i;
-            this.troncos[i].inputEnabled = true;
-            this.troncos[i].body.motionState = 2;
-            this.troncos[i].body.mass = 0;
-            this.troncos[i].activado = false;
-            this.troncos[i].events.onInputDown.add(this.tocandoTronco, this);
-        }
+      //Reloj
+      this.reloj = game.add.sprite(0,(window.innerHeight*8)/100,'reloj');
+      this.reloj.width = (window.innerWidth*5)/100;
+      this.reloj.height = (window.innerHeight*4)/100;
 
-        var style = {
-            font: 'bold ' + ((window.innerWidth * 6) / 100) + 'pt Arial',
-            fill: '#FFFFFF',
-            align: 'center'
-        }
+      //Troncos
 
-        this.scoreText = game.add.text(0, 0, '0', style);
 
-        var plataformaMundo = game.physics.p2.createContactMaterial(this.materialPlataforma, this.worldMaterial, { friction: 0 });
-        game.input.onDown.add(this.onTap, this);
+      /*Controloes individuales de cada tronco*/
+      for (var i = 0; i < cant_tron; i++) {
+          switch(i){
+              case 0:
+                  this.troncos[i]=game.add.sprite((window.innerWidth*72.5)/100,(window.innerHeight*18.6)/100,"tronco")
+                  this.troncos[i].width = (window.innerWidth*18)/100;
+                  this.troncos[i].height = (window.innerHeight*3.5)/100;
+                  game.physics.p2.enable(this.troncos[i]);
+                  this.troncos[i].body.angle=-15;
+                  this.troncos[i].body.clearShapes();
+                  this.troncos[i].body.addRectangle((this.troncos[i].width*96)/100,(this.troncos[i].height*75)/100);
+              break;
+              case 1:
+                  this.troncos[i]=game.add.sprite((window.innerWidth*14.5)/100,(window.innerHeight*34)/100,"tronco2")
+                  this.troncos[i].width = (window.innerWidth*26)/100;
+                  this.troncos[i].height = (window.innerHeight*3.5)/100;
+                  game.physics.p2.enable(this.troncos[i]);
+                  this.troncos[i].body.angle=34;
+              break;
+              case 2:
+                  this.troncos[i]=game.add.sprite((window.innerWidth*82)/100,(window.innerHeight*64)/100,"tronco")
+                  this.troncos[i].width = (window.innerWidth*30)/100;
+                  this.troncos[i].height = (window.innerHeight*3)/100;
+                  game.physics.p2.enable(this.troncos[i]);
+                  if(this.isPixel2XL){
+                      this.troncos[i].body.y=(window.innerHeight*66)/100;
+                  }
+                  this.troncos[i].body.angle=-15;
+                  this.troncos[i].body.clearShapes();
+                  this.troncos[i].body.addRectangle((this.troncos[i].width*96)/100,(this.troncos[i].height*75)/100);
+              break;
+              case 3:
+                  this.troncos[i]=game.add.sprite((window.innerWidth*83)/100,(window.innerHeight*81)/100,"tronco")
+                  this.troncos[i].width = (window.innerWidth*30)/100;
+                  this.troncos[i].height = (window.innerHeight*3)/100;
+                  game.physics.p2.enable(this.troncos[i]);
+                  if(this.isPixel2XL){
+                      this.troncos[i].body.y=(window.innerHeight*83)/100;
+                  }
+                  this.troncos[i].body.angle=-15;
+                  this.troncos[i].body.clearShapes();
+                  this.troncos[i].body.addRectangle((this.troncos[i].width*96)/100,(this.troncos[i].height*75)/100);
+              break;
 
-    },
-    createBola: function() {
-        flagDropBall = false;
-        flagArrangeBall = true;
-        flagSetNewBall = true;
+              default:
+              break;
+          }
+          this.troncos[i].body.setMaterial(this.materialPlataforma);
+          this.troncos[i].name = i;
+          this.troncos[i].inputEnabled = true;
+          this.troncos[i].body.motionState=2;
+          this.troncos[i].body.mass=0;
+          this.troncos[i].activado = false;
+          this.troncos[i].events.onInputDown.add(this.tocandoTronco,this);
+      }
 
-        frameBola = Math.floor(Math.random() * 17);
-        this.bola_basura.frame = frameBola;
-        this.checkBola(frameBola);
-    },
-    checkBola: function(tipoBola) {
-        if (tipoBola < 5)
-            this.tipoBola = 1;
-        else if (tipoBola > 4 && tipoBola < 10)
-            this.tipoBola = 0;
-        else if (tipoBola > 9 && tipoBola < 14)
-            this.tipoBola = 2;
-        else
-            this.tipoBola = 3;
-    },
-    update: function() {
-        //Reducir tiempo
-        if (flagTimer)
-            this.barraTiempo.width -= 0.05;
-
-        //Checar fin de juego
-        if (this.barraTiempo.width <= 0)
-            this.state.start('final');
-
-        //Animación lagarto
-        segundosLagarto++;
-
-        if (segundosLagarto == 28) {
-            if (this.lagarto.frame == 0)
-                this.lagarto.frame = 1;
-            else
-                this.lagarto.frame = 0;
-
-            segundosLagarto = 0;
+      var style = {
+          font: 'bold '+((window.innerWidth*6)/100)+'pt Arial',
+          fill: '#FFFFFF',
+          align: 'center'
         }
 
+      this.scoreText = game.add.text(0, 0, '0', style);
 
-        this.physics.p2.gravity.x = 0;
-        this.physics.p2.gravity.y = GRAVEDAD_Y;
+      var plataformaMundo = game.physics.p2.createContactMaterial(this.materialPlataforma, this.worldMaterial, { friction: 0 });
+      game.input.onDown.add(this.onTap, this);
 
-        var speedLaunch = 0;
+  },
+  createBola: function(){
+      flagDropBall = false;
+      flagArrangeBall = true;
+      flagSetNewBall = true;
 
-        //Checa colisiones con remolinos
-        for (var i = 0; i < AMOUNT_REMOLINOS; i++) {
-            var rectBola = this.getBounds(this.bola_basura);
-            var rectRemolino = this.getBounds(this.remolinos[i]);
-            if (this.isRectanglesOverlapping(rectBola, rectRemolino)) {
-                if (i == 0)
-                    speedLaunch = -500;
-                else if (i == 1)
-                    speedLaunch = 500;
-            }
-        }
-        if (speedLaunch < 1000)
-            this.physics.p2.gravity.x = speedLaunch;
-        else
-            this.physics.p2.gravity.y = speedLaunch;
+      frameBola = Math.floor(Math.random() * 17);
+      this.bola_basura.frame = frameBola;
+      this.checkBola(frameBola);
+  },
+  checkBola: function(tipoBola){
+      if(tipoBola < 5)
+          this.tipoBola = 1;
+      else if(tipoBola > 4 && tipoBola < 10)
+          this.tipoBola = 0;
+      else if(tipoBola > 9 && tipoBola < 14)
+          this.tipoBola = 2;
+      else
+          this.tipoBola = 3;
+  },
+  update: function(){
+      //Reducir tiempo
+      if(flagTimer)
+          this.barraTiempo.width -= 0.05;
 
-        for (var i = 0; i < AMOUNT_REMOLINOS; i++)
-            this.remolinos[i].angle += 10;
+      //Checar fin de juego
+      if(this.barraTiempo.width <= 0)
+          this.state.start('final');
 
-        if (!flagEndGame) {
-            var rectBola;
-            var rectLagarto;
-            if (flagDropBall) {
-                flagTimer = true;
-                for (var i = 0; i < AMOUNT_BASUREROS; i++) {
-                    rectBola = this.getBounds(this.bola_basura);
-                    var rectBas = this.getBounds(this.basureros[i]);
+      //Animación lagarto
+      segundosLagarto++;
 
-                    if (this.isRectanglesOverlapping(rectBola, rectBas)) {
-                        if (flagSetNewBall) {
-                            if (this.tipoBola == this.basureros[i].id) {
-                                this.increaseScore();
-                                this.barraTiempo.width += 10;
-                                this.createBola();
+      if(segundosLagarto==28){
+          if(this.lagarto.frame == 0)
+              this.lagarto.frame = 1;
+          else
+              this.lagarto.frame = 0;
 
-                            } else
-                                this.decreaseScore();
-                            this.barraTiempo.width -= 10;
-                            this.createBola();
-
-                        }
-                        flagArrangeBall = true;
-                        flagSetNewBall = true;
-                    }
-                }
-
-                if (this.bola_basura.body.velocity.x > 0) {
-                    this.bola_basura.body.rotation += 0.1;
-                }
-                if (this.bola_basura.body.velocity.x < 0) {
-                    this.bola_basura.body.rotation -= 0.1;
-                }
-
-                //Checa colisiones con el lagarto
-                rectLagarto = this.getBounds(this.lagarto);
-                if (this.isRectanglesOverlapping(rectBola, rectLagarto)) {
-                    currentScore = -1;
-                    this.state.start('final');
-                }
-
-            }
-            if (flagArrangeBall) {
-                this.bola_basura.body.y = 0;
-                this.bola_basura.body.x = (window.innerWidth * 72) / 100;
-                this.bola_basura.body.velocity.x = 0;
-                this.bola_basura.body.velocity.y = 0;
-            }
-        }
-    },
-    tocandoTronco: function(tronco) {
-        if (!tronco.activado) {
-            this.troncos[tronco.name].activado = true;
-            switch (tronco.name) {
-                case 0:
-                    this.troncos[tronco.name].body.angle = 90;
-                    this.troncos[tronco.name].body.x = (window.innerWidth * 82.5) / 100;
-                    this.troncos[tronco.name].body.y = (window.innerHeight * 21) / 100;
-                    break;
-                case 1:
-                    this.troncos[tronco.name].body.angle = 90;
-                    this.troncos[tronco.name].body.x = (window.innerWidth * 25) / 100;
-                    this.troncos[tronco.name].body.y = (window.innerHeight * 30) / 100;
-                    break;
-                case 2:
-                    this.troncos[tronco.name].body.angle = 98;
-                    this.troncos[tronco.name].width = (window.innerWidth * 24) / 100;
-                    this.troncos[tronco.name].height = (window.innerHeight * 3.5) / 100;
-                    this.troncos[tronco.name].body.x = (window.innerWidth * 67) / 100;
-                    this.troncos[tronco.name].body.y = (window.innerHeight * 61) / 100;
-                    this.troncos[tronco.name].body.clearShapes();
-                    this.troncos[tronco.name].body.addRectangle((this.troncos[tronco.name].width * 96) / 100, (this.troncos[tronco.name].height * 75) / 100);
-                    if (this.isPixel2XL) {
-                        this.troncos[tronco.name].body.y += (window.innerHeight * 3) / 100;
-                    }
-                    break;
-                case 3:
-                    this.troncos[tronco.name].body.angle = 90;
-                    this.troncos[tronco.name].width = (window.innerWidth * 24) / 100;
-                    this.troncos[tronco.name].height = (window.innerHeight * 3.5) / 100;
-                    this.troncos[tronco.name].body.x = (window.innerWidth * 71) / 100;
-                    this.troncos[tronco.name].body.y = (window.innerHeight * 78) / 100;
-                    this.troncos[tronco.name].body.clearShapes();
-                    this.troncos[tronco.name].body.addRectangle((this.troncos[tronco.name].width * 96) / 100, (this.troncos[tronco.name].height * 75) / 100);
-                    if (this.isPixel2XL) {
-                        this.troncos[tronco.name].body.y = (window.innerHeight * 81) / 100;
-                    }
-                    break;
-                default:
-            }
-            tronco.activado = true;
-        } else {
-            this.troncos[tronco.name].activado = false;
-            switch (tronco.name) {
-                case 0:
-                    this.troncos[tronco.name].body.angle = -15;
-                    this.troncos[tronco.name].body.x = (window.innerWidth * 72.5) / 100;
-                    this.troncos[tronco.name].body.y = (window.innerHeight * 18.6) / 100;
-                    break;
-                case 1:
-                    this.troncos[tronco.name].body.angle = 34;
-                    this.troncos[tronco.name].body.x = (window.innerWidth * 14.5) / 100;
-                    this.troncos[tronco.name].body.y = (window.innerHeight * 34) / 100;
-                    break;
-                case 2:
-                    this.troncos[tronco.name].body.angle = -15;
-                    this.troncos[tronco.name].width = (window.innerWidth * 30) / 100;
-                    this.troncos[tronco.name].body.x = (window.innerWidth * 82) / 100;
-                    this.troncos[tronco.name].body.y = (window.innerHeight * 64) / 100;
-                    this.troncos[tronco.name].body.clearShapes();
-                    this.troncos[tronco.name].body.addRectangle((this.troncos[tronco.name].width * 96) / 100, (this.troncos[tronco.name].height * 75) / 100);
-                    if (this.isPixel2XL) {
-                        this.troncos[tronco.name].body.y = (window.innerHeight * 66) / 100;
-                    }
-                    break;
-                case 3:
-                    this.troncos[tronco.name].body.angle = -15;
-                    this.troncos[tronco.name].width = (window.innerWidth * 30) / 100;
-                    this.troncos[tronco.name].body.x = (window.innerWidth * 83) / 100;
-                    this.troncos[tronco.name].body.y = (window.innerHeight * 81) / 100;
-                    this.troncos[tronco.name].body.clearShapes();
-                    this.troncos[tronco.name].body.addRectangle((this.troncos[tronco.name].width * 96) / 100, (this.troncos[tronco.name].height * 75) / 100);
-                    if (this.isPixel2XL) {
-                        this.troncos[tronco.name].body.y = (window.innerHeight * 83) / 100;
-                    }
-                    break;
-                default:
-            }
-            tronco.activado = false;
-        }
-    },
-    getBounds: function(currentPlataform) {
-        return new Phaser.Rectangle(currentPlataform.left, currentPlataform.top, currentPlataform.width, currentPlataform.height);
-    },
-    isRectanglesOverlapping: function(rect1, rect2) {
-        if (rect1.x > rect2.x + rect2.width || rect2.x > rect1.x + rect1.width) {
-            return false;
-        }
-        if (rect1.y > rect2.y + rect2.height || rect2.y > rect1.y + rect1.height) {
-            return false;
-        }
-        return true;
-    },
-    render: function() {
-
-    },
-    onTap: function() {
-        flagArrangeBall = false;
-        flagDropBall = true;
-        game.physics.p2.enable(this.bola_basura);
-        this.bola_basura.body.setCircle(this.sizeBola / 2);
-        this.materialBola = game.physics.p2.createMaterial('materialBola');
-        this.bola_basura.body.setMaterial(this.materialBola);
-        this.bola_basura.allowRotation = true;
-        var plataformaBola = game.physics.p2.createContactMaterial(this.materialBola, this.materialPlataforma, { friction: -3 });
-        var troncoBola = game.physics.p2.createContactMaterial(this.materialBola, this.materialTronco, { friction: 1 });
-    },
-    increaseScore: function() {
-        if (this.tipoBola == 3 || this.tipoBola == 2) {
-            currentScore += 200;
-            this.scoreText.text = currentScore;
-        } else {
-            currentScore += 100;
-            this.scoreText.text = currentScore;
-        }
+          segundosLagarto = 0;
+      }
 
 
-    },
-    decreaseScore: function() {
-        if (this.tipoBola == 3 || this.tipoBola == 2) {
-            currentScore -= 200;
-            this.scoreText.text = currentScore;
-        } else {
-            currentScore -= 100;
-            this.scoreText.text = currentScore;
-        }
+      this.physics.p2.gravity.x = 0;
+      this.physics.p2.gravity.y = GRAVEDAD_Y;
 
-    },
+      var speedLaunch = 0;
+
+      //Checa colisiones con remolinos
+      for(var i=0; i<AMOUNT_REMOLINOS; i++){
+                  var rectBola = this.getBounds(this.bola_basura);
+                  var rectRemolino = this.getBounds(this.remolinos[i]);
+                  if(this.isRectanglesOverlapping(rectBola,rectRemolino)){
+                      if(i==0)
+                          speedLaunch = -500;
+                      else if(i==1)
+                          speedLaunch = 500;
+                  }
+              }
+      if(speedLaunch<1000)
+          this.physics.p2.gravity.x = speedLaunch;
+      else
+          this.physics.p2.gravity.y = speedLaunch;
+
+      for(var i=0;i<AMOUNT_REMOLINOS;i++)
+          this.remolinos[i].angle += 10;
+
+      if(!flagEndGame){
+          var rectBola;
+          var rectLagarto;
+          if(flagDropBall){
+              flagTimer = true;
+              for (var i = 0; i < AMOUNT_BASUREROS; i++) {
+                 rectBola=this.getBounds(this.bola_basura);
+                 var rectBas=this.getBounds(this.basureros[i]);
+
+                 if (this.isRectanglesOverlapping(rectBola,rectBas)) {
+                     if(flagSetNewBall){
+                     if(this.tipoBola==this.basureros[i].id){
+                       this.increaseScore();
+                       this.barraTiempo.width += 10;
+                       this.createBola();
+
+                      }
+                     else
+                        this.decreaseScore();
+                        this.barraTiempo.width -= 10;
+                        this.createBola();
+
+                     }
+                     flagArrangeBall = true;
+                     flagSetNewBall = true;
+                 }
+              }
+
+              if (this.bola_basura.body.velocity.x>0) {
+                  this.bola_basura.body.rotation+=0.1;
+              }
+              if (this.bola_basura.body.velocity.x<0) {
+                 this.bola_basura.body.rotation-=0.1;
+              }
+
+              //Checa colisiones con el lagarto
+              rectLagarto = this.getBounds(this.lagarto);
+              if(this.isRectanglesOverlapping(rectBola,rectLagarto)){
+                  currentScore = -1;
+                  this.state.start('final');
+              }
+
+          }
+          if(flagArrangeBall){
+              this.bola_basura.body.y = 0;
+              this.bola_basura.body.x = (window.innerWidth*72)/100;
+              this.bola_basura.body.velocity.x=0;
+              this.bola_basura.body.velocity.y=0;
+          }
+    }
+  },
+  tocandoTronco: function(tronco){
+                  if(!tronco.activado){
+                      this.troncos[tronco.name].activado = true;
+                      switch(tronco.name){
+                          case 0:
+                                  this.troncos[tronco.name].body.angle=90;
+                                  this.troncos[tronco.name].body.x=(window.innerWidth*82.5)/100;
+                                  this.troncos[tronco.name].body.y=(window.innerHeight*21)/100;
+                          break;
+                          case 1:
+                                  this.troncos[tronco.name].body.angle=90;
+                                  this.troncos[tronco.name].body.x=(window.innerWidth*25)/100;
+                                  this.troncos[tronco.name].body.y=(window.innerHeight*30)/100;
+                          break;
+                          case 2:
+                                  this.troncos[tronco.name].body.angle=98;
+                                  this.troncos[tronco.name].width= (window.innerWidth*24)/100;
+                                  this.troncos[tronco.name].height= (window.innerHeight*3.5)/100;
+                                  this.troncos[tronco.name].body.x=(window.innerWidth*67)/100;
+                                  this.troncos[tronco.name].body.y=(window.innerHeight*61)/100;
+                                  this.troncos[tronco.name].body.clearShapes();
+                                  this.troncos[tronco.name].body.addRectangle((this.troncos[tronco.name].width*96)/100,(this.troncos[tronco.name].height*75)/100);
+                                  if (this.isPixel2XL) {
+                                      this.troncos[tronco.name].body.y+=(window.innerHeight*3)/100;
+                                  }
+                          break;
+                          case 3:
+                                  this.troncos[tronco.name].body.angle=90;
+                                  this.troncos[tronco.name].width= (window.innerWidth*24)/100;
+                                  this.troncos[tronco.name].height= (window.innerHeight*3.5)/100;
+                                  this.troncos[tronco.name].body.x=(window.innerWidth*71)/100;
+                                  this.troncos[tronco.name].body.y=(window.innerHeight*78)/100;
+                                  this.troncos[tronco.name].body.clearShapes();
+                                  this.troncos[tronco.name].body.addRectangle((this.troncos[tronco.name].width*96)/100,(this.troncos[tronco.name].height*75)/100);
+                                  if (this.isPixel2XL) {
+                                      this.troncos[tronco.name].body.y=(window.innerHeight*81)/100;
+                                  }
+                          break;
+                          default:
+                      }
+                      tronco.activado = true;
+                  }else{
+                      this.troncos[tronco.name].activado = false;
+                      switch(tronco.name){
+                          case 0:
+                                  this.troncos[tronco.name].body.angle=-15;
+                                  this.troncos[tronco.name].body.x=(window.innerWidth*72.5)/100;
+                                  this.troncos[tronco.name].body.y=(window.innerHeight*18.6)/100;
+                          break;
+                          case 1:
+                                  this.troncos[tronco.name].body.angle=34;
+                                  this.troncos[tronco.name].body.x=(window.innerWidth*14.5)/100;
+                                  this.troncos[tronco.name].body.y=(window.innerHeight*34)/100;
+                          break;
+                          case 2:
+                                  this.troncos[tronco.name].body.angle=-15;
+                                  this.troncos[tronco.name].width = (window.innerWidth*30)/100;
+                                  this.troncos[tronco.name].body.x=(window.innerWidth*82)/100;
+                                  this.troncos[tronco.name].body.y=(window.innerHeight*64)/100;
+                                  this.troncos[tronco.name].body.clearShapes();
+                                  this.troncos[tronco.name].body.addRectangle((this.troncos[tronco.name].width*96)/100,(this.troncos[tronco.name].height*75)/100);
+                                  if (this.isPixel2XL) {
+                                      this.troncos[tronco.name].body.y=(window.innerHeight*66)/100;
+                                  }
+                          break;
+                          case 3:
+                                  this.troncos[tronco.name].body.angle=-15;
+                                  this.troncos[tronco.name].width = (window.innerWidth*30)/100;
+                                  this.troncos[tronco.name].body.x=(window.innerWidth*83)/100;
+                                  this.troncos[tronco.name].body.y=(window.innerHeight*81)/100;
+                                  this.troncos[tronco.name].body.clearShapes();
+                                  this.troncos[tronco.name].body.addRectangle((this.troncos[tronco.name].width*96)/100,(this.troncos[tronco.name].height*75)/100);
+                                  if (this.isPixel2XL) {
+                                      this.troncos[tronco.name].body.y=(window.innerHeight*83)/100;
+                                  }
+                          break;
+                          default:
+                      }
+                      tronco.activado = false;
+                  }
+  },
+  getBounds:function(currentPlataform){
+      return new Phaser.Rectangle(currentPlataform.left, currentPlataform.top, currentPlataform.width, currentPlataform.height);
+  },
+  isRectanglesOverlapping: function(rect1, rect2) {
+      if(rect1.x> rect2.x+rect2.width || rect2.x> rect1.x+rect1.width){
+          return false;
+      }
+      if(rect1.y> rect2.y+rect2.height || rect2.y> rect1.y+rect1.height){
+          return false;
+      }
+      return true;
+  },
+  render:function(){
+
+  },
+  onTap: function(){
+      flagArrangeBall = false;
+      flagDropBall=true;
+      game.physics.p2.enable(this.bola_basura);
+      this.bola_basura.body.setCircle(this.sizeBola/2);
+      this.materialBola = game.physics.p2.createMaterial('materialBola');
+      this.bola_basura.body.setMaterial(this.materialBola);
+      this.bola_basura.allowRotation=true;
+      var plataformaBola = game.physics.p2.createContactMaterial(this.materialBola, this.materialPlataforma, { friction: -3 });
+      var troncoBola=game.physics.p2.createContactMaterial(this.materialBola, this.materialTronco, { friction:1});
+  },
+  increaseScore:function(){
+    if(this.tipoBola==3||this.tipoBola==2){
+      currentScore+=200;
+      this.scoreText.text = currentScore;
+    }
+    else{
+      currentScore+=100;
+      this.scoreText.text = currentScore;
+    }
+
+
+  },
+  decreaseScore:function(){
+    if(this.tipoBola==3||this.tipoBola==2){
+      currentScore-=200;
+      this.scoreText.text = currentScore;
+    }
+    else{
+      currentScore-=100;
+      this.scoreText.text = currentScore;
+    }
+
+  },
 }
 var GamePlayManglarDesktop = {
     init: function() {
@@ -1145,11 +1148,11 @@ var nivel2 = {
         currentScore = 0;
         flagTimer = false;
     },
-    create: function() {
-        if (!music.isPlaying) {
-            music.play();
-            music.volume = 1;
-        }
+    create: function(){
+      if(music.isPlaying==true){
+        music.play();
+        music.volume=1;
+      }
 
         /********************************Materiales del juego*******************************************/
         if (game.scale.isGameLandscape) {
@@ -2099,9 +2102,9 @@ var nivel3 = {
             if (this.isRectanglesOverlapping(rectBola, rectRemolino)) {
                 if (i == 0)
                     speedLaunch = -20000;
-                else if (i == 1)
-                    speedLaunch = +2000;
-                else if (i == 3)
+                else if(i==1)
+                    speedLaunch = +1000;
+                else if(i==3)
                     colisionMorado = true;
             }
         }
@@ -2256,14 +2259,15 @@ var nivel3 = {
         this.bola_basura.body.motionState = 1;
         this.bola_basura.body.mass = 1;
     },
-    increaseScore: function() {
-        if (this.tipoBola == 3 || this.tipoBola == 0) {
-            currentScore += 200;
-            this.scoreText.text = currentScore;
-        } else {
-            currentScore += 100;
-            this.scoreText.text = currentScore;
-        }
+    increaseScore:function(){
+      if(this.tipoBola==2||this.tipoBola==0){
+        currentScore+=200;
+        this.scoreText.text = currentScore;
+      }
+      else{
+        currentScore+=300;
+        this.scoreText.text = currentScore;
+      }
 
     },
     decreaseScore: function() {
@@ -2350,12 +2354,15 @@ var estadoPrincipal = {
     mostrarInstrucciones: function() {
         game.state.start('instrucciones')
     },
-    toggleSound: function() {
-        if (music.isPlaying) {
-            music.stop();
-        } else {
-            music.play();
-        }
+    toggleSound:function(){
+      if (music.isPlaying) {
+        music.stop();
+        music.isPlaying=false;
+      }
+      else{
+        music.play();
+        music.isPlaying=true;
+      }
 
     },
 }
