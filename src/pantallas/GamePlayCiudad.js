@@ -6,6 +6,7 @@ var STATE_GAME_WIN = 4;
 var STATE_GAME_MENU = 5;
 var STATE_GAME_LEVEL1 = 6;
 var STATE_GAME_LEVEL2 = 7;
+var STATE_GAME_LEVEL3 = 8;
 var stateGame = STATE_GAME_NONE;
 
 
@@ -142,7 +143,7 @@ GamePlayCiudad = {
         }
 
         if (PuntajeLvl2 >= 700) {
-            this.nivel3 = game.add.button(window.innerWidth / 3.5, window.innerHeight / 1.3, 'nivelDesbloqueado', this.level2, this, 'desbloqueado001', 'desbloqueado001', 'desbloqueado002');
+            this.nivel3 = game.add.button(window.innerWidth / 3.5, window.innerHeight / 1.3, 'nivelDesbloqueado', this.level3, this, 'desbloqueado001', 'desbloqueado001', 'desbloqueado002');
         this.nivel3.inputEnabled = true;
         this.nivel3.scale.setTo(0.8);
         this.nivel3.anchor.setTo(0.5);
@@ -391,6 +392,10 @@ GamePlayCiudad = {
             this.currentScore += 150;
             this.textfield.text = this.currentScore.toString();
         }
+        else{
+            this.currentScore += 800;
+            this.textfield.text = this.currentScore.toString();
+        }
 
     },
 
@@ -468,7 +473,31 @@ GamePlayCiudad = {
 
             }
             console.log('lvl 2');
-        } else if (cantPersonas <= 16) {
+        } else if (cantPersonas <= 20) {
+            for (var i = 0; i < numeroPersonas; i++) {
+                let rumbo = game.rnd.integerInRange(0, 2);
+                 var tipoPersona = game.rnd.integerInRange(0, 1);
+                // let numberX = game.rnd.integerInRange(200, 500);
+                if(tipoPersona ==0){
+                    var personas = this.persona.create(window.innerWidth / 1.2, window.innerHeight + window.innerHeight / 64 + this.distancia, 'personajeCaminandoArriba');
+                }
+                else{
+                    var personas = this.persona.create(window.innerWidth / 1.2, window.innerHeight + window.innerHeight / 64 + this.distancia, 'personajeCaminandoArriba2');
+               
+                }
+                this.distancia += 35;
+                personas.name = "persona" + i;
+                personas.caminando = false;
+                personas.direccion = 0;
+                personas.rumbo = rumbo;
+                personas.aumentarY = 0;
+                personas.aumentarX = 0;
+                personas.anchor.setTo(0.5, 1);
+                personas.tipo = tipoPersona;
+                personas.giro=0;
+                
+            }
+
             console.log('lvl3');
 
         } else {
@@ -627,7 +656,38 @@ GamePlayCiudad = {
 
             }
 
-        } else if (numeroPersonas <= 16) {
+        } else if (numeroPersonas <= 20) {
+
+            for (var i = 0; i < numeroPersonas; i++) {
+                this.randomDesecho = game.rnd.integerInRange(0, 3);
+                if (this.randomDesecho == 0) {
+                    this.desechos = this.desecho.create(0, 0, 'manzana');
+                    this.desechos.name = "manzana";
+                    this.desechos.vida = 1;
+                    this.desechos.vidaInicial = 1;
+                    this.desechos.anchor.setTo(1);
+                    this.desechos.scale.setTo(0.08);
+                    this.desechos.kill();
+                } else if(this.randomDesecho == 1){
+                    this.desechos = this.desecho.create(0, 0, 'vasoCarton');
+                    this.desechos.name = "vasoCarton";
+                    this.desechos.vida = 2;
+                    this.desechos.vidaInicial = 2;
+                    this.desechos.anchor.setTo(1);
+                    this.desechos.scale.setTo(0.08);
+                    this.desechos.kill();
+                }
+                else{
+                    this.desechos = this.desecho.create(0, 0, 'celular');
+                    this.desechos.name = "botella";
+                    this.desechos.vida = 7;
+                    this.desechos.vidaInicial = 7;
+                    this.desechos.anchor.setTo(1);
+                    this.desechos.scale.setTo(0.08);
+                    this.desechos.kill();
+                }
+
+            }
             console.log('lvl3');
 
         } else {
@@ -652,6 +712,9 @@ GamePlayCiudad = {
         }
         else if(numeroPersonas==12){
             this.numeroP = game.rnd.integerInRange(0, 11);
+        }
+        else{
+            this.numeroP = game.rnd.integerInRange(0, 19); 
         }
        
 
@@ -822,6 +885,82 @@ GamePlayCiudad = {
 
     },
 
+
+
+    level3: function() {
+
+        this.fondo = game.add.sprite(0, 0, 'mapaLVL3');
+        this.fondo.anchor.setTo(0);
+        this.fondo.width = window.innerWidth;
+        this.fondo.height = window.innerHeight;
+
+        this.persona = game.add.group();
+        this.crearPersona(20);
+        this.desecho = game.add.group();
+        this.desecho.inputEnableChildren = true;
+        this.scoreF = game.add.sprite(window.innerWidth / 10, window.innerWidth / 6, 'scoreFondo');
+        this.scoreF.scale.setTo(0.8);
+        this.tiempo = game.add.sprite(window.innerWidth / 180, window.innerWidth / 36, 'tiempo');
+        this.tiempo.scale.setTo(0.8);
+        var style = {
+            font: 'bold 20pt Arial',
+            fill: 'white',
+            align: 'center'
+        }
+        this.currentScore = 700;
+        this.textfield = game.add.text(window.innerWidth / 3, window.innerHeight / 7.3, this.currentScore.toString(), style);
+        this.textfield.anchor.setTo(0.5)
+        this.bar = game.add.sprite(window.innerWidth / 6.8, window.innerHeight / 29, 'barraTiempo');
+        this.bar.scale.setTo(0.8);
+        this.bar.anchor.setTo(0);
+        // darle tamaÃ±o a la barra
+        this.bar.width = window.innerWidth / 2.6;
+        // this.bar.height = 20;
+
+        this.startLevel1();
+    },
+
+    startLevel3: function() { // Inicia el nivel 1
+        stateGame = STATE_GAME_LEVEL3;
+        
+        
+        if (reproducir) {
+            this.loopMusic.loop = true;
+            this.loopMusic.play();
+        }
+
+        this.bar.width = game.width;
+        this.personasRe = [];
+        this.personasMuertas = [];
+
+        game.time.events.loop(Phaser.Timer.SECOND, this.pintarDesecho, this);
+        for (i = 0; i < numeroPersonas; i++) {
+            if (this.persona.children[i].rumbo == 0) {
+                console.log("rumbo Arriba = 0 : " + this.persona.children[i].rumbo + " nombre : " + this.persona.children[i].name+ " direccio : " + this.persona.children[i].direccion);
+                this.moverPersonajeArriba(i);
+            } else if(this.persona.children[i].rumbo==1){
+                console.log("rumbo derecha = 1 : " + this.persona.children[i].rumbo + " nombre : " + this.persona.children[i].name+ " direccio : " + this.persona.children[i].direccion);
+                this.persona.children[i].reset(-50 - this.distancia, 226, 'personajeCaminandoDerecha');
+                this.distancia -= 50;
+            }
+            else if(this.persona.children[i].rumbo==2){{
+                console.log("rumbo DERECHA total = 2 : " + this.persona.children[i].rumbo + " nombre : " + this.persona.children[i].name+ " direccio : " + this.persona.children[i].direccion);
+               console.log('entro a rumbo3');
+               
+                this.persona.children[i].reset(-50 - this.distancia, window.innerHeight/1.17, 'personajeCaminandoDerecha');
+                this.distancia -= 50;
+            }
+        }
+
+        }
+
+        this.caminar();
+        this.quitarvida();
+        this.nivel1.visible = false;
+        this.nivel2.visible = false;
+        this.botonAtras.visible = false;
+    },
+
     //#endregion
 
     update: function() {
@@ -850,7 +989,7 @@ GamePlayCiudad = {
 
                 break;
             case STATE_GAME_LEVEL1:
-                this.barraTiempo(-0.15);
+                this.barraTiempo(-0.05);
                 //#region Mover personajes y cambiar orientacion
                 for (i = 0; i < numeroPersonas; i++) {
                     // console.log('direccion'+this.persona.children[i].direccion);
@@ -867,7 +1006,7 @@ GamePlayCiudad = {
                         this.persona.children[i].y -= this.persona.children[i].aumentarY;
                     } 
                     else {
-                        if (this.persona.children[i].direccion == 0) {
+                        if (this.persona.children[i].direccion == 0 ) {
                             this.moverPersonajeDerecha(i);
                             
                         }
@@ -929,6 +1068,38 @@ GamePlayCiudad = {
                        
                     }
                 }
+                break;
+                case STATE_GAME_LEVEL3:
+
+                this.barraTiempo(-0.05);
+                //#region Mover personajes y cambiar orientacion
+                for (i = 0; i < numeroPersonas; i++) {
+                    // console.log('direccion'+this.persona.children[i].direccion);
+                    if (this.persona.children[i].caminando  && this.persona.children[i].rumbo == 0) {
+                        this.persona.children[i].y -= this.persona.children[i].aumentarY;
+                    } 
+                    else if (this.persona.children[i].caminando && this.persona.children[i].x >= window.innerWidth/1.68 && this.persona.children[i].rumbo == 1) {
+                        if (this.persona.children[i].direccion == 1) {
+                   
+                            this.moverPersonajeArriba(i);
+                            this.persona.children[i].direccion = 0;
+                          
+                        }
+                        this.persona.children[i].y -= this.persona.children[i].aumentarY;
+                    } 
+                    else {
+                        if (this.persona.children[i].direccion == 0) {
+                            this.moverPersonajeDerecha(i);
+                            
+                        }
+                        
+                        this.persona.children[i].direccion = 1;
+                      
+                        direccion = 1;
+                        this.persona.children[i].x += this.persona.children[i].aumentarY;
+                    }
+                }
+
                 break;
         }
 

@@ -121,6 +121,7 @@ PantallaCarga.prototype = { //Cargar toda la pantalla
         //#region Mapas
         game.load.image('mapaLVL1', 'assets/img/recolectaBasura/mapa3.png');
         game.load.image('mapaLVL2', 'assets/img/recolectaBasura/mapaLVL2.png');
+        game.load.image('mapaLVL3', 'assets/img/recolectaBasura/mapaLVL3.jpg');
         //#endregion
         //#region Seleccion de niveles
         game.load.atlasJSONArray('nivelDesbloqueado', 'assets/img/recolectaBasura/nivelesDesbloqueados.png', 'assets/img/recolectaBasura/nivelesDesbloqueados.json');
