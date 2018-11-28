@@ -30,6 +30,7 @@ GamePlayCiudad = {
         game.load.image('estrellaVacia', 'assets/img/recolectaBasura/estrellaVacia.png');
         game.load.image('estrellaLlena', 'assets/img/recolectaBasura/estrella.png');
         //#endregion 
+        game.load.audio('loopMusic', 'assets/Sonidos/Principal.mp3');
     },
     create: function() {
         this.personasRe = [];
