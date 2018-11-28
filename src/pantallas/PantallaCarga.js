@@ -97,11 +97,17 @@ PantallaCarga.prototype = { //Cargar toda la pantalla
 
         //Ciudad
         //#region Personaje
-        game.load.atlasJSONArray('personajeCaminandoArriba', 'assets/img/recolectaBasura/personajeCaminandoArriba.png', 'assets/img/recolectaBasura/personajeCaminandoArriba.json');
-        game.load.atlasJSONArray('personajeCaminandoDerecha', 'assets/img/recolectaBasura/personajeCaminandoDerecha.png', 'assets/img/recolectaBasura/personajeCaminandoDerecha.json');
-        game.load.atlasJSONArray('personajeCaminandoIzquierda', 'assets/img/recolectaBasura/personajeCaminandoIzquierda.png', 'assets/img/recolectaBasura/personajeCaminandoIzquierda.json');
-        game.load.atlasJSONArray('personajeCaminandoAbajo', 'assets/img/recolectaBasura/PersonajeCaminandoAbajo.png', 'assets/img/recolectaBasura/PersonajeCaminandoAbajo.json');
-
+        // game.load.atlasJSONArray('personajeCaminandoArriba', 'assets/img/recolectaBasura/personajeCaminandoArriba.png', 'assets/img/recolectaBasura/personajeCaminandoArriba.json');
+        // game.load.atlasJSONArray('personajeCaminandoDerecha', 'assets/img/recolectaBasura/personajeCaminandoDerecha.png', 'assets/img/recolectaBasura/personajeCaminandoDerecha.json');
+        // game.load.atlasJSONArray('personajeCaminandoIzquierda', 'assets/img/recolectaBasura/personajeCaminandoIzquierda.png', 'assets/img/recolectaBasura/personajeCaminandoIzquierda.json');
+        // game.load.atlasJSONArray('personajeCaminandoAbajo', 'assets/img/recolectaBasura/PersonajeCaminandoAbajo.png', 'assets/img/recolectaBasura/PersonajeCaminandoAbajo.json');
+        game.load.atlasJSONArray('personajeCaminandoDerecha', 'assets/img/recolectaBasura/personaCaminandoDerecha.png', 'assets/img/recolectaBasura/personaCaminandoDerecha.json');
+        game.load.atlasJSONArray('personajeCaminandoArriba', 'assets/img/recolectaBasura/personaCaminandoArriba.png', 'assets/img/recolectaBasura/personaCaminandoArriba.json');
+        game.load.atlasJSONArray('personajeCaminandoArriba2', 'assets/img/recolectaBasura/personaCaminandoArriba2.png', 'assets/img/recolectaBasura/personaCaminandoArriba2.json');
+        game.load.atlasJSONArray('personajeCaminandoDerecha2', 'assets/img/recolectaBasura/personaCaminandoDerecha2.png', 'assets/img/recolectaBasura/personaCaminandoDerecha2.json');
+        game.load.atlasJSONArray('personajeCaminandoAbajo', 'assets/img/recolectaBasura/personaCaminandoAbajo.png', 'assets/img/recolectaBasura/personaCaminandoAbajo.json');
+        game.load.atlasJSONArray('personajeCaminandoAbajo2', 'assets/img/recolectaBasura/personaCaminandoAbajo2.png', 'assets/img/recolectaBasura/personaCaminandoAbajo2.json');
+       
         //#endregion 
         //#region Desechos
         game.load.image('manzana', 'assets/img/recolectaBasura/manzana.png');
