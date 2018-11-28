@@ -6,6 +6,7 @@ var STATE_GAME_WIN = 4;
 var STATE_GAME_MENU = 5;
 var STATE_GAME_LEVEL1 = 6;
 var STATE_GAME_LEVEL2 = 7;
+var STATE_GAME_LEVEL3 = 8;
 var stateGame = STATE_GAME_NONE;
 
 
@@ -43,13 +44,9 @@ GamePlayCiudad = {
         this.logo.anchor.setTo(0.5);
 
         this.estrellasMenuVacia = game.add.group();
-        console.log(this.estrellasMenuVacia.length);
-
-        // this.estrellasMenuVacia.anchor.setTo(0.5);
-        // this.estrellasMenuVacia.scale.setTo(0.5);
         this.estrellasMenuLlena = game.add.group();
         PuntajeLvl1 = localStorage.getItem("PuntajeLvl1");
-
+        PuntajeLvl2 = localStorage.getItem("PuntajeLvl2");
 
 
         this.nivel1 = game.add.button(window.innerWidth / 3.5, window.innerHeight / 2.2, 'nivelDesbloqueado', this.level1, this, 'desbloqueado001', 'desbloqueado001', 'desbloqueado002');
@@ -88,21 +85,87 @@ GamePlayCiudad = {
             this.nivel2.scale.setTo(0.8);
             this.nivel2.anchor.setTo(0.5);
         }
+         if (PuntajeLvl1 >= 100 && PuntajeLvl1 < 400) {
+            this.estrellaMenuLlena = this.estrellasMenuLlena.create(window.innerWidth / 6, window.innerHeight / 1.7, 'estrellaLlena');
+            this.estrellaMenuVacia = this.estrellasMenuVacia.create(window.innerWidth / 3.4, window.innerHeight / 1.7, 'estrellaVacia');
+            this.estrellaMenuVacia = this.estrellasMenuVacia.create(window.innerWidth / 2.4, window.innerHeight / 1.7, 'estrellaVacia');
 
-        this.estrellaMenuVacia = this.estrellasMenuVacia.create(window.innerWidth / 1.4, window.innerHeight / 1.7, 'estrellaVacia');
-        // this.estrellasMenuVacia.children[3].anchor.setTo(0.5);
-        // this.estrellasMenuVacia.children[3].scale.setTo(0.5);
-        this.estrellaMenuVacia = this.estrellasMenuVacia.create(window.innerWidth / 1.7, window.innerHeight / 1.7, 'estrellaVacia');
-        // this.estrellasMenuVacia.children[4].anchor.setTo(0.5);
-        // this.estrellasMenuVacia.children[4].scale.setTo(0.5);
-        this.estrellaMenuVacia = this.estrellasMenuVacia.create(window.innerWidth / 1.2, window.innerHeight / 1.7, 'estrellaVacia');
-        // this.estrellasMenuVacia.children[5].anchor.setTo(0.5);
-        // this.estrellasMenuVacia.children[5].scale.setTo(0.5);
+        } else if (PuntajeLvl1 >= 400 && PuntajeLvl1 < 700) {
+            this.estrellaMenuLlena = this.estrellasMenuLlena.create(window.innerWidth / 6, window.innerHeight / 1.7, 'estrellaLlena');
+            this.estrellaMenuLlena = this.estrellasMenuLlena.create(window.innerWidth / 3.4, window.innerHeight / 1.7, 'estrellaLlena');
+            this.estrellaMenuVacia = this.estrellasMenuVacia.create(window.innerWidth / 2.4, window.innerHeight / 1.7, 'estrellaVacia');
 
-        this.nivel3 = game.add.button(window.innerWidth / 3.5, window.innerHeight / 1.3, 'nivelBloqueado', this.level2, this, 'bloqueado001', 'bloqueado001', 'bloqueado002-13');
-        this.nivel3.inputEnabled = false;
+        } else if (PuntajeLvl1 >= 700) {
+            this.estrellaMenuLlena = this.estrellasMenuLlena.create(window.innerWidth / 6, window.innerHeight / 1.7, 'estrellaLlena');
+            this.estrellaMenuLlena = this.estrellasMenuLlena.create(window.innerWidth / 3.4, window.innerHeight / 1.7, 'estrellaLlena');
+            this.estrellaMenuLlena = this.estrellasMenuLlena.create(window.innerWidth / 2.4, window.innerHeight / 1.7, 'estrellaLlena');
+
+        } else {
+            this.estrellaMenuVacia = this.estrellasMenuVacia.create(window.innerWidth / 6, window.innerHeight / 1.7, 'estrellaVacia');
+            this.estrellaMenuVacia = this.estrellasMenuVacia.create(window.innerWidth / 3.4, window.innerHeight / 1.7, 'estrellaVacia');
+            this.estrellaMenuVacia = this.estrellasMenuVacia.create(window.innerWidth / 2.4, window.innerHeight / 1.7, 'estrellaVacia');
+
+        }
+
+        if (PuntajeLvl1 >= 700) {
+            this.nivel2 = game.add.button(window.innerWidth / 1.4, window.innerHeight / 2.2, 'nivelDesbloqueado', this.level2, this, 'desbloqueado001', 'desbloqueado001', 'desbloqueado002');
+            this.nivel2.inputEnabled = true;
+            this.nivel2.scale.setTo(0.8);
+            this.nivel2.anchor.setTo(0.5);
+        } else {
+            this.nivel2 = game.add.button(window.innerWidth / 1.4, window.innerHeight / 2.2, 'nivelBloqueado', this.level2, this, 'bloqueado001', 'bloqueado001', 'bloqueado002-13');
+            this.nivel2.inputEnabled = false;
+            this.nivel2.scale.setTo(0.8);
+            this.nivel2.anchor.setTo(0.5);
+        }
+
+
+
+        if (PuntajeLvl2 >= 100 && PuntajeLvl2 < 400) {
+            this.estrellaMenuLlena = this.estrellasMenuLlena.create(window.innerWidth / 1.7, window.innerHeight / 1.7, 'estrellaLlena');
+            this.estrellaMenuVacia = this.estrellasMenuVacia.create(window.innerWidth / 1.4, window.innerHeight / 1.7, 'estrellaVacia');
+            this.estrellaMenuVacia = this.estrellasMenuVacia.create(window.innerWidth / 1.2, window.innerHeight / 1.7, 'estrellaVacia');
+
+        } else if (PuntajeLvl2 >= 400 && PuntajeLvl2 < 700) {
+            this.estrellaMenuLlena = this.estrellasMenuLlena.create(window.innerWidth / 1.7, window.innerHeight / 1.7, 'estrellaLlena');
+            this.estrellaMenuLlena = this.estrellasMenuLlena.create(window.innerWidth / 1.4, window.innerHeight / 1.7, 'estrellaLlena');
+            this.estrellaMenuVacia = this.estrellasMenuVacia.create(window.innerWidth / 1.2, window.innerHeight / 1.7, 'estrellaVacia');
+
+        } else if (PuntajeLvl2 >= 700) {
+            this.estrellaMenuLlena = this.estrellasMenuLlena.create(window.innerWidth / 1.7, window.innerHeight / 1.7, 'estrellaLlena');
+            this.estrellaMenuLlena = this.estrellasMenuLlena.create(window.innerWidth / 1.4, window.innerHeight / 1.7, 'estrellaLlena');
+            this.estrellaMenuLlena = this.estrellasMenuLlena.create(window.innerWidth / 1.2, window.innerHeight / 1.7, 'estrellaLlena');
+
+        } else {
+            this.estrellaMenuVacia = this.estrellasMenuVacia.create(window.innerWidth / 1.7, window.innerHeight / 1.7, 'estrellaVacia');
+            this.estrellaMenuVacia = this.estrellasMenuVacia.create(window.innerWidth / 1.4, window.innerHeight / 1.7, 'estrellaVacia');
+            this.estrellaMenuVacia = this.estrellasMenuVacia.create(window.innerWidth / 1.2, window.innerHeight / 1.7, 'estrellaVacia');
+
+        }
+
+        if (PuntajeLvl2 >= 700) {
+            this.nivel3 = game.add.button(window.innerWidth / 3.5, window.innerHeight / 1.3, 'nivelDesbloqueado', this.level3, this, 'desbloqueado001', 'desbloqueado001', 'desbloqueado002');
+        this.nivel3.inputEnabled = true;
         this.nivel3.scale.setTo(0.8);
         this.nivel3.anchor.setTo(0.5);
+        } else {
+            this.nivel3 = game.add.button(window.innerWidth / 3.5, window.innerHeight / 1.3, 'nivelBloqueado', this.level2, this, 'bloqueado001', 'bloqueado001', 'bloqueado002-13');
+        this.nivel3.inputEnabled = true;
+        this.nivel3.scale.setTo(0.8);
+        this.nivel3.anchor.setTo(0.5);
+        }
+
+        // this.estrellaMenuVacia = this.estrellasMenuVacia.create(window.innerWidth / 1.4, window.innerHeight / 1.7, 'estrellaVacia');
+        // // this.estrellasMenuVacia.children[3].anchor.setTo(0.5);
+        // // this.estrellasMenuVacia.children[3].scale.setTo(0.5);
+        // this.estrellaMenuVacia = this.estrellasMenuVacia.create(window.innerWidth / 1.7, window.innerHeight / 1.7, 'estrellaVacia');
+        // // this.estrellasMenuVacia.children[4].anchor.setTo(0.5);
+        // // this.estrellasMenuVacia.children[4].scale.setTo(0.5);
+        // this.estrellaMenuVacia = this.estrellasMenuVacia.create(window.innerWidth / 1.2, window.innerHeight / 1.7, 'estrellaVacia');
+        // // this.estrellasMenuVacia.children[5].anchor.setTo(0.5);
+        // // this.estrellasMenuVacia.children[5].scale.setTo(0.5);
+
+        
         this.estrellaMenuVacia = this.estrellasMenuVacia.create(window.innerWidth / 3.4, window.innerHeight / 1.1, 'estrellaVacia');
         // this.estrellasMenuVacia.children[6].anchor.setTo(0.5);
         // this.estrellasMenuVacia.children[6].scale.setTo(0.5);
@@ -165,7 +228,7 @@ GamePlayCiudad = {
 
                     }
 
-                    console.log(stateGame);
+                   
                 } else {
                     this.instrucciones.visible = false;
                     menu = false;
@@ -177,7 +240,7 @@ GamePlayCiudad = {
 
 
                     }
-                    console.log(stateGame);
+                   
                 }
 
             }, this, 'ajustes1', 'ajustes1', 'ajustes2');
@@ -225,60 +288,93 @@ GamePlayCiudad = {
 
     gameOver: function() { // Metodo que termian el juego
         stateGame = STATE_GAME_GAME_OVER;
-        PuntajeLvl1 = this.currentScore;
+        if(numeroPersonas ==8){
+            PuntajeLvl1 = this.currentScore;
         localStorage.setItem("PuntajeLvl1", PuntajeLvl1);
+        }
+       else if(numeroPersonas ==12){
+            PuntajeLvl2 = this.currentScore;
+        localStorage.setItem("PuntajeLvl2", PuntajeLvl2);
+        }
+        
         this.desecho.kill();
         this.persona.kill();
         this.tiempo.kill();
         this.scoreF.kill();
         this.loopMusic.stop();
-        this.fondoInicio.alpha = 0.5;
+        this.fondogameOver = game.add.sprite(0, 0, 'inicioFondo');
+        this.fondogameOver.anchor.setTo(0);
+        this.fondogameOver.width = window.innerWidth;
+        this.fondogameOver.height = window.innerHeight;
+        this.fondogameOver.alpha = 1;
 
         // se reproduce el efecto de aplausos
         this.sfxGameOver.play();
         this.textfield.destroy();
-        this.fondo.alpha = 0;
+        // this.fondo.alpha = 0;
         this.statsFinal = game.add.sprite(window.innerWidth / 2, (window.innerHeight / 2) - 30, 'statsFinal');
         this.statsFinal.alpha = 0;
 
         game.add.tween(this.statsFinal).to({ alpha: 1 }, 2000, Phaser.Easing.Linear.None, true);
         this.statsFinal.anchor.setTo(0.5);
-        this.statsFinal.scale.setTo(0.5);
+        this.statsFinal.scale.setTo(1);
         this.desecho.scale.setTo(0.8);
         this.estrella = game.add.group();
 
-        this.estrella.scale.setTo(0.63);
+        this.estrella.scale.setTo(1);
+
+        this.estrellaVacia = game.add.group();
+
+        this.estrellaVacia.scale.setTo(1);
 
         var style = {
-            font: 'bold 25pt Arial',
+            font: 'bold 20pt Arial',
             fill: 'white',
             align: 'center'
         }
-        this.textfield = game.add.text(85, 475, "Puntaje: " + this.currentScore.toString(), style);
-        this.estrella.alpha = 0;
-        game.add.tween(this.estrella).to({ alpha: 5 }, 2000, Phaser.Easing.Linear.None, true);
-        if (this.currentScore >= 100 && this.currentScore <= 300) {
-            this.estrellas = this.estrella.create(window.innerWidth / 2.14, window.innerHeight / 1.37, 'estrella');
-            this.estrella.children[0].anchor.setTo(0.5);
-        } else if (this.currentScore >= 400 && this.currentScore <= 600) {
-            this.estrellas = this.estrella.create(window.innerWidth / 2.14, window.innerHeight / 1.37, 'estrella');
-            this.estrellas = this.estrella.create(window.innerWidth / 1.26, window.innerHeight / 1.45, 'estrella');
-            this.estrella.children[0].anchor.setTo(0.5);
-            this.estrella.children[1].anchor.setTo(0.5);
-            // this.estrella.children[1].scale.setTo(1.1);
-        } else if (this.currentScore >= 700) {
-            this.estrellas = this.estrella.create(window.innerWidth / 2.14, window.innerHeight / 1.37, 'estrella');
-            this.estrellas = this.estrella.create(window.innerWidth / 1.26, window.innerHeight / 1.45, 'estrella');
-            // this.estrella.children[1].scale.setTo(1.1);
-            this.estrellas = this.estrella.create(window.innerWidth / 0.9, window.innerHeight / 1.37, 'estrella');
-            this.estrella.children[0].anchor.setTo(0.5);
-            this.estrella.children[1].anchor.setTo(0.5);
-            this.estrella.children[1].scale.setTo(1.1);
-            this.estrella.children[2].anchor.setTo(0.5);
+        var styleVelocidad = {
+            font: 'bold 17pt Arial',
+            fill: 'yellow',
+            align: 'center'
         }
-        this.restarB = game.add.button(window.innerWidth / 1.9, window.innerHeight / 3.5, 'botonRecargar', this.level1, this, 1, 0, 1, 1);
-        this.restarB.scale.setTo(0.22);
+        this.textfield = game.add.text(window.innerWidth/4.5,window.innerHeight/1.29, "Puntaje: " + this.currentScore.toString(), style);
+        
+        this.estrella.alpha = 0;
+        this.estrellaVacia.alpha = 0;
+        game.add.tween(this.estrella).to({ alpha: 5 }, 2000, Phaser.Easing.Linear.None, true);
+        if (this.currentScore >= 100 && this.currentScore < 400) {
+            this.estrellas = this.estrella.create(window.innerWidth / 3, window.innerHeight / 2.1, 'estrella');
+            this.estrella.children[0].anchor.setTo(0.5);
+            this.estrellas = this.estrella.create(window.innerWidth / 2, window.innerHeight / 2.3, 'estrellaVacia');
+            this.estrella.children[1].anchor.setTo(0.5);
+            this.estrellas= this.estrella.create(window.innerWidth / 1.48, window.innerHeight / 2.1, 'estrellaVacia');
+            this.estrella.children[2].anchor.setTo(0.5);
+        } else if (this.currentScore >= 400 && this.currentScore < 700) {
+            this.estrellas = this.estrella.create(window.innerWidth / 3, window.innerHeight / 2.1, 'estrella');
+            this.estrella.children[0].anchor.setTo(0.5);
+            this.estrellas = this.estrella.create(window.innerWidth / 2, window.innerHeight / 2.3, 'estrella');
+            this.estrella.children[1].anchor.setTo(0.5);
+            this.estrellas= this.estrella.create(window.innerWidth / 1.48, window.innerHeight / 2.1, 'estrellaVacia');
+            this.estrella.children[2].anchor.setTo(0.5);
+        } else if (this.currentScore >= 700) {
+            this.estrellas = this.estrella.create(window.innerWidth / 3, window.innerHeight / 2.1, 'estrella');
+            this.estrella.children[0].anchor.setTo(0.5);
+            this.estrellas = this.estrella.create(window.innerWidth / 2, window.innerHeight / 2.3, 'estrella');
+            this.estrella.children[1].anchor.setTo(0.5);
+            this.estrellas= this.estrella.create(window.innerWidth / 1.48, window.innerHeight / 2.1, 'estrella');
+            this.estrella.children[2].anchor.setTo(0.5);
+            this.velocidad = game.add.text(window.innerWidth/1.6, window.innerHeight/1.72, "VELOCIDAD", styleVelocidad);
+        this.velocidad.anchor.setTo(0.5);
+        this.velocidadObtenida = game.add.text(window.innerWidth/1.6,window.innerHeight/1.48, "LIEBRE", style);
+        this.velocidadObtenida.anchor.setTo(0.5);
+        this.botonSiguienteNivel = game.add.button(window.innerWidth / 1.4, window.innerHeight / 1.1, 'botonAtras', function(){this.level2();this.botonSiguienteNivel.visible=false;this.restarB.visible=false;},this,'001-02','001-02','002-02');
+          this.botonSiguienteNivel.scale.setTo(-0.3,0.3);   
+          this.botonSiguienteNivel.anchor.setTo(0.5);  
+        }
+        this.restarB = game.add.button(window.innerWidth / 3, window.innerHeight / 1.1, 'BotonRecargar', function(){this.desecho.destroy();this.level1();this.restarB.visible=false;this.botonSiguienteNivel.visible=false;}, this, 'recargar1', 'recargar1', 'recargar2');
+        this.restarB.scale.setTo(0.15);
         this.restarB.anchor.setTo(0.5);
+             
 
 
     },
@@ -289,8 +385,16 @@ GamePlayCiudad = {
         if (nombre == "manzana") {
             this.currentScore += 50;
             this.textfield.text = this.currentScore.toString();
-        } else {
+        } else if(nombre == "vasoCarton"){
             this.currentScore += 100;
+            this.textfield.text = this.currentScore.toString();
+        }
+        else if(nombre == "botella"){
+            this.currentScore += 150;
+            this.textfield.text = this.currentScore.toString();
+        }
+        else{
+            this.currentScore += 800;
             this.textfield.text = this.currentScore.toString();
         }
 
@@ -323,9 +427,16 @@ GamePlayCiudad = {
         if (cantPersonas <= 8) {
             for (var i = 0; i < numeroPersonas; i++) {
                 let rumbo = game.rnd.integerInRange(0, 1);
+                 var tipoPersona = game.rnd.integerInRange(0, 1);
                 // let numberX = game.rnd.integerInRange(200, 500);
-                var personas = this.persona.create(window.innerWidth / 2.25, window.innerHeight + window.innerHeight / 64 + this.distancia, 'personajeCaminandoArriba');
-                this.distancia += 50;
+                if(tipoPersona ==0){
+                    var personas = this.persona.create(window.innerWidth / 2.25, window.innerHeight + window.innerHeight / 64 + this.distancia, 'personajeCaminandoArriba');
+                }
+                else{
+                    var personas = this.persona.create(window.innerWidth / 2.25, window.innerHeight + window.innerHeight / 64 + this.distancia, 'personajeCaminandoArriba2');
+               
+                }
+                this.distancia += 35;
                 personas.name = "persona" + i;
                 personas.caminando = false;
                 personas.direccion = 0;
@@ -333,6 +444,7 @@ GamePlayCiudad = {
                 personas.aumentarY = 0;
                 personas.aumentarX = 0;
                 personas.anchor.setTo(0.5, 1);
+                personas.tipo = tipoPersona;
                 console.log('lvl 1');
             }
         }
@@ -340,9 +452,16 @@ GamePlayCiudad = {
         else if (cantPersonas <= 12) {
             for (var i = 0; i < numeroPersonas; i++) {
                 let rumbo = game.rnd.integerInRange(0, 1);
+                var tipoPersona = game.rnd.integerInRange(0, 1);
                 // let numberX = game.rnd.integerInRange(200, 500);
-                var personas = this.persona.create(window.innerWidth / 1.68, window.innerHeight + window.innerHeight / 64 + this.distancia, 'personajeCaminandoArriba');
-                this.distancia += 50;
+                if(tipoPersona ==0){
+                    var personas = this.persona.create(window.innerWidth / 1.698, window.innerHeight + window.innerHeight / 64 + this.distancia, 'personajeCaminandoAbajo');
+                }
+                else{
+                    var personas = this.persona.create(window.innerWidth / 1.698, window.innerHeight + window.innerHeight / 64 + this.distancia, 'personajeCaminandoAbajo2');
+               
+                }
+                this.distancia += 30;
                 personas.name = "persona" + i;
                 personas.caminando = false;
                 personas.direccion = 0;
@@ -350,10 +469,36 @@ GamePlayCiudad = {
                 personas.aumentarY = 0;
                 personas.aumentarX = 0;
                 personas.anchor.setTo(0.5, 1);
+                personas.tipo = tipoPersona;
+                personas.giro=0;
 
             }
             console.log('lvl 2');
-        } else if (cantPersonas <= 16) {
+        } else if (cantPersonas <= 20) {
+            for (var i = 0; i < numeroPersonas; i++) {
+                let rumbo = game.rnd.integerInRange(0, 2);
+                 var tipoPersona = game.rnd.integerInRange(0, 1);
+                // let numberX = game.rnd.integerInRange(200, 500);
+                if(tipoPersona ==0){
+                    var personas = this.persona.create(window.innerWidth / 1.2, window.innerHeight + window.innerHeight / 64 + this.distancia, 'personajeCaminandoArriba');
+                }
+                else{
+                    var personas = this.persona.create(window.innerWidth / 1.2, window.innerHeight + window.innerHeight / 64 + this.distancia, 'personajeCaminandoArriba2');
+               
+                }
+                this.distancia += 35;
+                personas.name = "persona" + i;
+                personas.caminando = false;
+                personas.direccion = 0;
+                personas.rumbo = rumbo;
+                personas.aumentarY = 0;
+                personas.aumentarX = 0;
+                personas.anchor.setTo(0.5, 1);
+                personas.tipo = tipoPersona;
+                personas.giro=0;
+                
+            }
+
             console.log('lvl3');
 
         } else {
@@ -363,22 +508,74 @@ GamePlayCiudad = {
     },
 
     moverPersonajeArriba: function(personaje) { // Metodo que anima para que el personaje camine hacia arriba
-        this.persona.children[personaje].loadTexture("personajeCaminandoArriba");
-        this.persona.children[personaje].animations.add('personajeCaminandoArriba', Phaser.Animation.generateFrameNames('personajeCaminandoArriba', ['A1', 'A2', 'A4', 'A1']), 4, true);
+        if(this.persona.children[personaje].tipo==0){
+            this.persona.children[personaje].loadTexture("personajeCaminandoArriba");
+        this.persona.children[personaje].animations.add('personajeCaminandoArriba', Phaser.Animation.generateFrameNames('personajeCaminandoArriba', ['A1', 'A2', 'A4', 'A1']), 5, true);
         this.persona.children[personaje].animations.play('personajeCaminandoArriba');
+        this.persona.children[personaje].scale.setTo(0.3);
+        }
+        else{
+            this.persona.children[personaje].loadTexture("personajeCaminandoArriba2");
+            this.persona.children[personaje].animations.add('personajeCaminandoArriba2', Phaser.Animation.generateFrameNames('personajeCaminandoArriba', ['A1', 'A2', 'A4', 'A1']), 5, true);
+            this.persona.children[personaje].animations.play('personajeCaminandoArriba2');
+            this.persona.children[personaje].scale.setTo(0.3);
+        }
+        
+        
     },
     moverPersonajeDerecha: function(personaje) { // Metodo que anima para que el personaje camine hacia abajo
-        this.persona.children[personaje].loadTexture("personajeCaminandoDerecha");
-        this.persona.children[personaje].animations.add('personajeCaminandoDerecha', Phaser.Animation.generateFrameNames('personajeCaminandoDerecha', ['D1', 'D2', 'D4', 'D1']), 4, true);
+        if(this.persona.children[personaje].tipo==0){
+            
+            
+            this.persona.children[personaje].loadTexture("personajeCaminandoDerecha");
+        this.persona.children[personaje].animations.add('personajeCaminandoDerecha', Phaser.Animation.generateFrameNames('personajeCaminandoDerecha', ['D1', 'D2', 'D4', 'D1']), 5, true);
         this.persona.children[personaje].animations.play('personajeCaminandoDerecha');
+        this.persona.children[personaje].scale.setTo(0.3);
+        }
+        else{
+     
+            this.persona.children[personaje].loadTexture("personajeCaminandoDerecha2");
+        this.persona.children[personaje].animations.add('personajeCaminandoDerecha2', Phaser.Animation.generateFrameNames('personajeCaminandoDerecha', ['D1', 'D2', 'D4', 'D1']), 5, true);
+        this.persona.children[personaje].animations.play('personajeCaminandoDerecha2');
+        this.persona.children[personaje].scale.setTo(0.3);
+        }
+        
     },
     moverPersonajeIzquierda: function(personaje) { // Metodo que anima para que el personaje camine hacia abajo
 
-        this.persona.children[personaje].loadTexture("personajeCaminandoIzquierda");
+        if(this.persona.children[personaje].tipo==0){
+            
+            
+            this.persona.children[personaje].loadTexture("personajeCaminandoDerecha");
+        this.persona.children[personaje].animations.add('personajeCaminandoDerecha', Phaser.Animation.generateFrameNames('personajeCaminandoDerecha', ['D1', 'D2', 'D4', 'D1']), 5, true);
+        this.persona.children[personaje].animations.play('personajeCaminandoDerecha');
+        // this.persona.children[personaje].scale.setTo(0.3);
+        this.persona.children[personaje].scale.setTo(-0.3,0.3);
+        }
+        else{
+     
+            this.persona.children[personaje].loadTexture("personajeCaminandoDerecha2");
+        this.persona.children[personaje].animations.add('personajeCaminandoDerecha2', Phaser.Animation.generateFrameNames('personajeCaminandoDerecha', ['D1', 'D2', 'D4', 'D1']), 5, true);
+        this.persona.children[personaje].animations.play('personajeCaminandoDerecha2');
+        // this.persona.children[personaje].scale.setTo(0.3);
+        this.persona.children[personaje].scale.setTo(-0.3,0.3);
+        }
 
-        this.persona.children[personaje].animations.add('personajeCaminandoIzquierda', Phaser.Animation.generateFrameNames('personajeCaminandoDerecha', ['I1', 'I2', 'I4', 'I1']), 4, true);
-        this.persona.children[personaje].animations.play('personajeCaminandoIzquierda');
+    },
 
+   moverPersonajeAbajo:function(personaje){
+    if(this.persona.children[personaje].tipo==0){
+        this.persona.children[personaje].loadTexture("personajeCaminandoAbajo");
+    this.persona.children[personaje].animations.add('personajeCaminandoAbajo', Phaser.Animation.generateFrameNames('personajeCaminandoAbajo', ['Ab1', 'Ab2', 'Ab4', 'Ab1']), 5, true);
+    this.persona.children[personaje].animations.play('personajeCaminandoAbajo');
+    this.persona.children[personaje].scale.setTo(0.3);
+    }
+    else{
+        this.persona.children[personaje].loadTexture("personajeCaminandoAbajo2");
+        this.persona.children[personaje].animations.add('personajeCaminandoAbajo2', Phaser.Animation.generateFrameNames('personajeCaminandoAbajo2', ['Ab1', 'Ab2', 'Ab4', 'Ab1']), 5, true);
+        this.persona.children[personaje].animations.play('personajeCaminandoAbajo2');
+        this.persona.children[personaje].scale.setTo(0.3);
+        }
     },
 
     caminar: function() { // Metodo que hace caminar los personajes
@@ -391,8 +588,7 @@ GamePlayCiudad = {
                 this.persona.children[i].aumentarY = 0.7;
                 this.persona.children[i].caminando = true;
             } else {
-                console.log('esta caminando');
-                console.log(numeroY);
+                
             }
         }
 
@@ -430,8 +626,69 @@ GamePlayCiudad = {
         }
         // lvl1
         else if (numeroPersonas <= 12) {
-            console.log('lvl 2');
-        } else if (numeroPersonas <= 16) {
+            for (var i = 0; i < numeroPersonas; i++) {
+                this.randomDesecho = game.rnd.integerInRange(0, 2);
+                if (this.randomDesecho == 0) {
+                    this.desechos = this.desecho.create(0, 0, 'manzana');
+                    this.desechos.name = "manzana";
+                    this.desechos.vida = 1;
+                    this.desechos.vidaInicial = 1;
+                    this.desechos.anchor.setTo(1);
+                    this.desechos.scale.setTo(0.08);
+                    this.desechos.kill();
+                } else if(this.randomDesecho == 1){
+                    this.desechos = this.desecho.create(0, 0, 'vasoCarton');
+                    this.desechos.name = "vasoCarton";
+                    this.desechos.vida = 2;
+                    this.desechos.vidaInicial = 2;
+                    this.desechos.anchor.setTo(1);
+                    this.desechos.scale.setTo(0.08);
+                    this.desechos.kill();
+                }
+                else{
+                    this.desechos = this.desecho.create(0, 0, 'botella');
+                    this.desechos.name = "botella";
+                    this.desechos.vida = 3;
+                    this.desechos.vidaInicial = 3;
+                    this.desechos.anchor.setTo(1);
+                    this.desechos.scale.setTo(0.08);
+                    this.desechos.kill();
+                }
+
+            }
+
+        } else if (numeroPersonas <= 20) {
+
+            for (var i = 0; i < numeroPersonas; i++) {
+                this.randomDesecho = game.rnd.integerInRange(0, 3);
+                if (this.randomDesecho == 0) {
+                    this.desechos = this.desecho.create(0, 0, 'manzana');
+                    this.desechos.name = "manzana";
+                    this.desechos.vida = 1;
+                    this.desechos.vidaInicial = 1;
+                    this.desechos.anchor.setTo(1);
+                    this.desechos.scale.setTo(0.08);
+                    this.desechos.kill();
+                } else if(this.randomDesecho == 1){
+                    this.desechos = this.desecho.create(0, 0, 'vasoCarton');
+                    this.desechos.name = "vasoCarton";
+                    this.desechos.vida = 2;
+                    this.desechos.vidaInicial = 2;
+                    this.desechos.anchor.setTo(1);
+                    this.desechos.scale.setTo(0.08);
+                    this.desechos.kill();
+                }
+                else{
+                    this.desechos = this.desecho.create(0, 0, 'celular');
+                    this.desechos.name = "botella";
+                    this.desechos.vida = 7;
+                    this.desechos.vidaInicial = 7;
+                    this.desechos.anchor.setTo(1);
+                    this.desechos.scale.setTo(0.08);
+                    this.desechos.kill();
+                }
+
+            }
             console.log('lvl3');
 
         } else {
@@ -450,10 +707,18 @@ GamePlayCiudad = {
         this.crearDesecho();
 
         this.desechoP = this.desecho.getFirstDead();
-        // console.log("numero de personas: " +this.persona.length);
+     
+        if(numeroPersonas == 8){
+            this.numeroP = game.rnd.integerInRange(0, 7);
+        }
+        else if(numeroPersonas==12){
+            this.numeroP = game.rnd.integerInRange(0, 11);
+        }
+        else{
+            this.numeroP = game.rnd.integerInRange(0, 19); 
+        }
+       
 
-        this.numeroP = game.rnd.integerInRange(0, 7);
-        // console.log(this.numeroP);
         this.desechoP.reset(this.persona.children[this.numeroP].x, this.persona.children[this.numeroP].y);
 
 
@@ -462,7 +727,7 @@ GamePlayCiudad = {
 
     quitarvida: function() { // Metodo que le quita vida a los desechos
         this.desecho.onChildInputDown.add(function onDown(sprite) {
-            console.log(sprite.name + " vida:" + sprite.vida);
+           
             if (sprite.vida > 1) {
                 sprite.vida -= 1;
             } else {
@@ -510,7 +775,7 @@ GamePlayCiudad = {
             fill: 'white',
             align: 'center'
         }
-        this.currentScore = 0;
+        this.currentScore = 700;
         this.textfield = game.add.text(window.innerWidth / 3, window.innerHeight / 7.3, this.currentScore.toString(), style);
         this.textfield.anchor.setTo(0.5)
         this.bar = game.add.sprite(window.innerWidth / 6.8, window.innerHeight / 29, 'barraTiempo');
@@ -525,6 +790,8 @@ GamePlayCiudad = {
 
     startLevel1: function() { // Inicia el nivel 1
         stateGame = STATE_GAME_LEVEL1;
+        
+        
         if (reproducir) {
             this.loopMusic.loop = true;
             this.loopMusic.play();
@@ -534,13 +801,13 @@ GamePlayCiudad = {
         this.personasRe = [];
         this.personasMuertas = [];
 
-        game.time.events.loop(Phaser.Timer.SECOND, this.pintarDesecho, this);
+        game.time.events.loop(Phaser.Timer.SECOND*1.5, this.pintarDesecho, this);
         for (i = 0; i < numeroPersonas; i++) {
             if (this.persona.children[i].rumbo == 0) {
-                console.log("rumbo Arriba = 0 : " + this.persona.children[i].rumbo + " nombre : " + this.persona.children[i].name);
+                console.log("rumbo Arriba = 0 : " + this.persona.children[i].rumbo + " nombre : " + this.persona.children[i].name+ " direccio : " + this.persona.children[i].direccion);
                 this.moverPersonajeArriba(i);
             } else {
-                console.log("rumbo derecha = 1 : " + this.persona.children[i].rumbo + " nombre : " + this.persona.children[i].name);
+                console.log("rumbo derecha = 1 : " + this.persona.children[i].rumbo + " nombre : " + this.persona.children[i].name+ " direccio : " + this.persona.children[i].direccion);
                 this.persona.children[i].reset(-50 - this.distancia, 226, 'personajeCaminandoDerecha');
                 this.distancia -= 50;
             }
@@ -557,6 +824,7 @@ GamePlayCiudad = {
 
     //#region Nivel 2
     level2: function() {
+        
         this.fondolvl2 = game.add.sprite(0, 0, 'mapaLVL2');
         this.fondolvl2.anchor.setTo(0);
         this.fondolvl2.width = window.innerWidth;
@@ -574,7 +842,7 @@ GamePlayCiudad = {
             fill: 'white',
             align: 'center'
         }
-        this.currentScore = 0;
+        this.currentScore = 700;
         this.textfield = game.add.text(window.innerWidth / 3, window.innerHeight / 7.3, this.currentScore.toString(), style);
         this.textfield.anchor.setTo(0.5)
         this.bar = game.add.sprite(window.innerWidth / 6.8, window.innerHeight / 29, 'barraTiempo');
@@ -597,15 +865,15 @@ GamePlayCiudad = {
         this.bar.width = game.width;
         this.personasRe = [];
         this.personasMuertas = [];
-        // game.time.events.loop(Phaser.Timer.SECOND, this.pintarDesecho, this);
+        game.time.events.loop(Phaser.Timer.SECOND*1.5, this.pintarDesecho, this);
         for (i = 0; i < numeroPersonas; i++) {
             if (this.persona.children[i].rumbo == 0) {
-                console.log("rumbo Arriba = 0 : " + this.persona.children[i].rumbo + " nombre : " + this.persona.children[i].name);
+                console.log("rumbo Arriba = 0 : " + this.persona.children[i].rumbo + " nombre : " + this.persona.children[i].name+ " direccio : " + this.persona.children[i].direccion);
                 this.moverPersonajeArriba(i);
             } else {
-                console.log("rumbo derecha = 1 : " + this.persona.children[i].rumbo + " nombre : " + this.persona.children[i].name);
-                this.persona.children[i].reset(-50 - this.distancia, 226, 'personajeCaminandoIzquierda');
-                this.persona.children[i].scale.setTo(0.5);
+                console.log("rumbo abajo = 1 : " + this.persona.children[i].rumbo + " nombre : " + this.persona.children[i].name+ " direccio : " + this.persona.children[i].direccion);
+                this.persona.children[i].reset(window.innerWidth/2 , 0- this.distancia, 'personajeCaminandoAbajo');
+                this.moverPersonajeAbajo(i);
                 this.distancia -= 50;
             }
 
@@ -616,6 +884,82 @@ GamePlayCiudad = {
         this.nivel1.visible = false;
         this.nivel2.visible = false;
 
+    },
+
+
+
+    level3: function() {
+
+        this.fondo = game.add.sprite(0, 0, 'mapaLVL3');
+        this.fondo.anchor.setTo(0);
+        this.fondo.width = window.innerWidth;
+        this.fondo.height = window.innerHeight;
+
+        this.persona = game.add.group();
+        this.crearPersona(20);
+        this.desecho = game.add.group();
+        this.desecho.inputEnableChildren = true;
+        this.scoreF = game.add.sprite(window.innerWidth / 10, window.innerWidth / 6, 'scoreFondo');
+        this.scoreF.scale.setTo(0.8);
+        this.tiempo = game.add.sprite(window.innerWidth / 180, window.innerWidth / 36, 'tiempo');
+        this.tiempo.scale.setTo(0.8);
+        var style = {
+            font: 'bold 20pt Arial',
+            fill: 'white',
+            align: 'center'
+        }
+        this.currentScore = 700;
+        this.textfield = game.add.text(window.innerWidth / 3, window.innerHeight / 7.3, this.currentScore.toString(), style);
+        this.textfield.anchor.setTo(0.5)
+        this.bar = game.add.sprite(window.innerWidth / 6.8, window.innerHeight / 29, 'barraTiempo');
+        this.bar.scale.setTo(0.8);
+        this.bar.anchor.setTo(0);
+        // darle tamaÃ±o a la barra
+        this.bar.width = window.innerWidth / 2.6;
+        // this.bar.height = 20;
+
+        this.startLevel1();
+    },
+
+    startLevel3: function() { // Inicia el nivel 1
+        stateGame = STATE_GAME_LEVEL3;
+        
+        
+        if (reproducir) {
+            this.loopMusic.loop = true;
+            this.loopMusic.play();
+        }
+
+        this.bar.width = game.width;
+        this.personasRe = [];
+        this.personasMuertas = [];
+
+        game.time.events.loop(Phaser.Timer.SECOND, this.pintarDesecho, this);
+        for (i = 0; i < numeroPersonas; i++) {
+            if (this.persona.children[i].rumbo == 0) {
+                console.log("rumbo Arriba = 0 : " + this.persona.children[i].rumbo + " nombre : " + this.persona.children[i].name+ " direccio : " + this.persona.children[i].direccion);
+                this.moverPersonajeArriba(i);
+            } else if(this.persona.children[i].rumbo==1){
+                console.log("rumbo derecha = 1 : " + this.persona.children[i].rumbo + " nombre : " + this.persona.children[i].name+ " direccio : " + this.persona.children[i].direccion);
+                this.persona.children[i].reset(-50 - this.distancia, 226, 'personajeCaminandoDerecha');
+                this.distancia -= 50;
+            }
+            else if(this.persona.children[i].rumbo==2){{
+                console.log("rumbo DERECHA total = 2 : " + this.persona.children[i].rumbo + " nombre : " + this.persona.children[i].name+ " direccio : " + this.persona.children[i].direccion);
+               console.log('entro a rumbo3');
+               
+                this.persona.children[i].reset(-50 - this.distancia, window.innerHeight/1.17, 'personajeCaminandoDerecha');
+                this.distancia -= 50;
+            }
+        }
+
+        }
+
+        this.caminar();
+        this.quitarvida();
+        this.nivel1.visible = false;
+        this.nivel2.visible = false;
+        this.botonAtras.visible = false;
     },
 
     //#endregion
@@ -646,23 +990,30 @@ GamePlayCiudad = {
 
                 break;
             case STATE_GAME_LEVEL1:
-                this.barraTiempo(-0.1);
+                this.barraTiempo(-0.05);
                 //#region Mover personajes y cambiar orientacion
                 for (i = 0; i < numeroPersonas; i++) {
-                    if (this.persona.children[i].caminando && this.persona.children[i].y >= window.innerHeight / 1.4 && this.persona.children[i].rumbo == 0) {
+                    // console.log('direccion'+this.persona.children[i].direccion);
+                    if (this.persona.children[i].caminando && this.persona.children[i].y >= window.innerHeight/1.4 && this.persona.children[i].rumbo == 0) {
                         this.persona.children[i].y -= this.persona.children[i].aumentarY;
-                    } else if (this.persona.children[i].caminando && this.persona.children[i].x >= window.innerWidth / 1.68 && this.persona.children[i].rumbo == 1) {
+                    } 
+                    else if (this.persona.children[i].caminando && this.persona.children[i].x >= window.innerWidth/1.68 && this.persona.children[i].rumbo == 1) {
                         if (this.persona.children[i].direccion == 1) {
+                   
                             this.moverPersonajeArriba(i);
                             this.persona.children[i].direccion = 0;
+                          
                         }
                         this.persona.children[i].y -= this.persona.children[i].aumentarY;
-                    } else {
-                        if (this.persona.children[i].direccion == 0) {
+                    } 
+                    else {
+                        if (this.persona.children[i].direccion == 0 ) {
                             this.moverPersonajeDerecha(i);
-
+                            
                         }
+                        
                         this.persona.children[i].direccion = 1;
+                      
                         direccion = 1;
                         this.persona.children[i].x += this.persona.children[i].aumentarY;
                     }
@@ -670,25 +1021,86 @@ GamePlayCiudad = {
                 //#endregion
                 break;
             case STATE_GAME_LEVEL2:
-                this.barraTiempo(-0.2);
+                this.barraTiempo(-0.1);
+               var temp=0;
                 for (i = 0; i < numeroPersonas; i++) {
-                    if (this.persona.children[i].caminando && this.persona.children[i].y >= window.innerHeight / 1.5 && this.persona.children[i].rumbo == 0) {
+                  
+                    if (this.persona.children[i].caminando && this.persona.children[i].y >= window.innerHeight/1.5 && this.persona.children[i].rumbo == 0) {
                         this.persona.children[i].y -= this.persona.children[i].aumentarY;
-                    } else if (this.persona.children[i].caminando && this.persona.children[i].x >= window.innerWidth / 1.68 && this.persona.children[i].rumbo == 1) {
-                        if (this.persona.children[i].direccion == 1) {
-                            this.moverPersonajeArriba(i);
-                            this.persona.children[i].direccion = 0;
-                        }
-                        this.persona.children[i].y -= this.persona.children[i].aumentarY;
-                    } else {
-                        if (this.persona.children[i].direccion == 0) {
+                        
+                    } 
+                    else if (this.persona.children[i].caminando && this.persona.children[i].y <= window.innerHeight/3.36 && this.persona.children[i].rumbo == 1) {
+                        
+                   
+                        
+                        this.persona.children[i].y += this.persona.children[i].aumentarY;
+                       
+                        
+                    } 
+                   else if (this.persona.children[i].giro==1 && this.persona.children[i].rumbo==1) {
+                      
+                        this.persona.children[i].x += this.persona.children[i].aumentarY;
+                   
+                    }
+                    else {
+                        if (this.persona.children[i].direccion == 0 && this.persona.children[i].rumbo==0) {
+                            
                             this.moverPersonajeIzquierda(i);
+                            this.persona.children[i].direccion = 1;
+                            this.persona.children[i].giro=1;
+                            // this.persona.children[i].x -= this.persona.children[i].aumentarY;
+                           
                         }
-                        this.persona.children[i].direccion = 1;
-                        direccion = 1;
-                        this.persona.children[i].x -= this.persona.children[i].aumentarY;
+                        else if (this.persona.children[i].giro==1 && this.persona.children[i].rumbo==0) {
+                            this.persona.children[i].x -= this.persona.children[i].aumentarY;
+                        }
+                       
+                        
+                        else if(this.persona.children[i].direccion == 0 && this.persona.children[i].rumbo==1){
+                            this.moverPersonajeDerecha(i);
+                            this.persona.children[i].direccion = 1;
+                            this.persona.children[i].giro=1;
+                           
+                            
+                        }
+                       
+                   
+                        
+                       
                     }
                 }
+                break;
+                case STATE_GAME_LEVEL3:
+
+                this.barraTiempo(-0.05);
+                //#region Mover personajes y cambiar orientacion
+                for (i = 0; i < numeroPersonas; i++) {
+                    // console.log('direccion'+this.persona.children[i].direccion);
+                    if (this.persona.children[i].caminando  && this.persona.children[i].rumbo == 0) {
+                        this.persona.children[i].y -= this.persona.children[i].aumentarY;
+                    } 
+                    else if (this.persona.children[i].caminando && this.persona.children[i].x >= window.innerWidth/1.68 && this.persona.children[i].rumbo == 1) {
+                        if (this.persona.children[i].direccion == 1) {
+                   
+                            this.moverPersonajeArriba(i);
+                            this.persona.children[i].direccion = 0;
+                          
+                        }
+                        this.persona.children[i].y -= this.persona.children[i].aumentarY;
+                    } 
+                    else {
+                        if (this.persona.children[i].direccion == 0) {
+                            this.moverPersonajeDerecha(i);
+                            
+                        }
+                        
+                        this.persona.children[i].direccion = 1;
+                      
+                        direccion = 1;
+                        this.persona.children[i].x += this.persona.children[i].aumentarY;
+                    }
+                }
+
                 break;
         }
 
@@ -697,15 +1109,15 @@ GamePlayCiudad = {
 
 
     },
-    // render: function() {
+    render: function() {
 
-    //     // Input debug info
-    //     game.debug.inputInfo(32, 32);
-    //     // game.debug.spriteInputInfo(sprite, 32, 130);
-    //     game.debug.pointer( game.input.activePointer );
+        // Input debug info
+        game.debug.inputInfo(32, 32);
+        // game.debug.spriteInputInfo(sprite, 32, 130);
+        game.debug.pointer( game.input.activePointer );
 
 
-    // }
+    }
 }
 
 // Variables Globales
@@ -713,12 +1125,15 @@ var numeroX = 0;
 var numeroY = 0;
 var desecho;
 var personas;
+var personas1 = 0;
+var personas2= 0;
 var numeroPersonas;
 var direccion = 0;
 var sonido = true;
 var menu = false;
 var reproducir = true;
 var PuntajeLvl1;
+var PuntajeLvl2;
 // Variables Globales
 
 game.state.add("gameplayCiudad", GamePlayCiudad);

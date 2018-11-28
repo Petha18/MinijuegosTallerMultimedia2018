@@ -127,12 +127,20 @@ PantallaCarga.prototype = { //Cargar toda la pantalla
 
         //Ciudad
         //#region Personaje
-        game.load.atlasJSONArray('personajeCaminandoArriba', 'assets/img/recolectaBasura/personajeCaminandoArriba.png', 'assets/img/recolectaBasura/personajeCaminandoArriba.json');
-        game.load.atlasJSONArray('personajeCaminandoDerecha', 'assets/img/recolectaBasura/personajeCaminandoDerecha.png', 'assets/img/recolectaBasura/personajeCaminandoDerecha.json');
-        game.load.atlasJSONArray('personajeCaminandoIzquierda', 'assets/img/recolectaBasura/personajeCaminandoIzquierda.png', 'assets/img/recolectaBasura/personajeCaminandoIzquierda.json');
-        game.load.atlasJSONArray('personajeCaminandoAbajo', 'assets/img/recolectaBasura/PersonajeCaminandoAbajo.png', 'assets/img/recolectaBasura/PersonajeCaminandoAbajo.json');
 
-        //#endregion
+        // game.load.atlasJSONArray('personajeCaminandoArriba', 'assets/img/recolectaBasura/personajeCaminandoArriba.png', 'assets/img/recolectaBasura/personajeCaminandoArriba.json');
+        // game.load.atlasJSONArray('personajeCaminandoDerecha', 'assets/img/recolectaBasura/personajeCaminandoDerecha.png', 'assets/img/recolectaBasura/personajeCaminandoDerecha.json');
+        // game.load.atlasJSONArray('personajeCaminandoIzquierda', 'assets/img/recolectaBasura/personajeCaminandoIzquierda.png', 'assets/img/recolectaBasura/personajeCaminandoIzquierda.json');
+        // game.load.atlasJSONArray('personajeCaminandoAbajo', 'assets/img/recolectaBasura/PersonajeCaminandoAbajo.png', 'assets/img/recolectaBasura/PersonajeCaminandoAbajo.json');
+        game.load.atlasJSONArray('personajeCaminandoDerecha', 'assets/img/recolectaBasura/personaCaminandoDerecha.png', 'assets/img/recolectaBasura/personaCaminandoDerecha.json');
+        game.load.atlasJSONArray('personajeCaminandoArriba', 'assets/img/recolectaBasura/personaCaminandoArriba.png', 'assets/img/recolectaBasura/personaCaminandoArriba.json');
+        game.load.atlasJSONArray('personajeCaminandoArriba2', 'assets/img/recolectaBasura/personaCaminandoArriba2.png', 'assets/img/recolectaBasura/personaCaminandoArriba2.json');
+        game.load.atlasJSONArray('personajeCaminandoDerecha2', 'assets/img/recolectaBasura/personaCaminandoDerecha2.png', 'assets/img/recolectaBasura/personaCaminandoDerecha2.json');
+        game.load.atlasJSONArray('personajeCaminandoAbajo', 'assets/img/recolectaBasura/personaCaminandoAbajo.png', 'assets/img/recolectaBasura/personaCaminandoAbajo.json');
+        game.load.atlasJSONArray('personajeCaminandoAbajo2', 'assets/img/recolectaBasura/personaCaminandoAbajo2.png', 'assets/img/recolectaBasura/personaCaminandoAbajo2.json');
+       
+        //#endregion 
+
         //#region Desechos
         game.load.image('manzana', 'assets/img/recolectaBasura/manzana.png');
         game.load.image('celular', 'assets/img/recolectaBasura/celular.png');
@@ -145,6 +153,7 @@ PantallaCarga.prototype = { //Cargar toda la pantalla
         //#region Mapas
         game.load.image('mapaLVL1', 'assets/img/recolectaBasura/mapa3.png');
         game.load.image('mapaLVL2', 'assets/img/recolectaBasura/mapaLVL2.png');
+        game.load.image('mapaLVL3', 'assets/img/recolectaBasura/mapaLVL3.jpg');
         //#endregion
         //#region Seleccion de niveles
         game.load.atlasJSONArray('nivelDesbloqueado', 'assets/img/recolectaBasura/nivelesDesbloqueados.png', 'assets/img/recolectaBasura/nivelesDesbloqueados.json');
@@ -155,7 +164,8 @@ PantallaCarga.prototype = { //Cargar toda la pantalla
         game.load.image('instruccionesJuego', 'assets/img/recolectaBasura/instruccionesJuego.png');
         //#endregion
         //#region Botones
-        game.load.spritesheet("botonRecargar", 'assets/img/recolectaBasura/recargar.png', 2);
+        game.load.atlasJSONArray('BotonRecargar', 'assets/img/recolectaBasura/recargar.png', 'assets/img/recolectaBasura/recargar.json');
+
         game.load.atlasJSONArray('botonAtras', 'assets/img/recolectaBasura/btnAtras.png', 'assets/img/recolectaBasura/btnAtras.json');
 
         //#endregion
