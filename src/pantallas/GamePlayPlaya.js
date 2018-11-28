@@ -14,6 +14,10 @@ var first_click=false;
 var nivel=1;
 var dificultad=1;
 var music_play=false;
+var nivel_uno_complete=false;
+var nivel_dos_complete=false;
+var nivel_tres_complete=false;
+var nivel_cuatro_complete=false;
 
 var posiciones = {
     
@@ -129,9 +133,10 @@ GamePlayPlaya.prototype = {
         game.load.image('no', 'assets/img/playa/images/no.png');
         
         game.load.image('boton_nivel', 'assets/img/playa/images/nivel.png');
-        game.load.image('boton_nivel2', 'assets/img/playa/images/nivel2.png');
-        game.load.image('boton_nivel3', 'assets/img/playa/images/nivel3.png');
-        game.load.image('boton_nivel4', 'assets/img/playa/images/nivel4.png');
+
+        game.load.spritesheet('nivel2_bd', 'assets/img/playa/images/nivel2_bd.png', 83, 58);
+        game.load.spritesheet('nivel3_bd', 'assets/img/playa/images/nivel3_bd.png', 83, 58);
+        game.load.spritesheet('nivel4_bd', 'assets/img/playa/images/nivel4_bd.png', 83, 58);
 
         game.load.image('victoria0', 'assets/img/playa/images/victoria.png');
         game.load.image('victoria1', 'assets/img/playa/images/victoria1.png');
@@ -144,14 +149,14 @@ GamePlayPlaya.prototype = {
         game.load.image('derrota3', 'assets/img/playa/images/derrota3.png');
 
         game.load.audio('soundtrack', 'assets/img/playa/images/sonidos/sountrack.mp3');
-        game.load.audio('win_sound', 'assets/img/playa/images/sonidos/aplausos.wav');
+        game.load.audio('win_sound', 'assets/img/playa/images/sonidos/aplausos.mp3');
         game.load.audio('fail_sound', 'assets/img/playa/images/sonidos/buuuu.mp3');
     },
     
     create: function() {
 
-        this.win_sound = game.add.audio('win_sound');
         this.fail_sound = game.add.audio('fail_sound');
+        this.win_sound = game.add.audio('win_sound');
 
         if(music_play==false){
         this.musica = game.add.audio('soundtrack');
@@ -176,7 +181,7 @@ GamePlayPlaya.prototype = {
         boton_return_menu = game.add.button(window.innerWidth/1.12, (window.innerHeight/2)+210, 'home_principal', volverMenuPrincipalConfig, this);
 
         function volverMenuPrincipalConfig () {
-            game.state.start("MenuPrincipal", Phaser.Plugin.StateTransition.Out.SlideLeft, Phaser.Plugin.StateTransition.In.SlideBottom); 
+            game.state.start("MenuPrincipal"); 
             this.musica.stop();
             music_play=false;
         }
@@ -194,12 +199,12 @@ GamePlayPlaya.prototype = {
                 var tipo=[0,0,1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8];
              }else if(nivel==3){
                 var fondo = game.add.sprite(0, 0, 'background3');
-                this.totalTime = 260;/*260*/
+                this.totalTime = 290;/*260*/
                 dificultad=3;
                 var tipo=[0,0,1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8,9,9,10,10,11,11,12,12,13,13,14,14];
             }else if(nivel==4){
                 var fondo = game.add.sprite(0, 0, 'background4');
-                this.totalTime = 240;/*240*/
+                this.totalTime = 260;/*240*/
                 dificultad=3;
                 var tipo=[0,0,1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8,9,9,10,10,11,11,12,12,13,13,14,14];
             }else{
@@ -367,10 +372,11 @@ GamePlayPlaya.prototype = {
         fondo_seleccion.width = window.innerWidth;
         fondo_seleccion.height = window.innerHeight;
         boton_nivel1 = game.add.button((window.innerWidth/2)-150, (window.innerHeight/2)-10, 'boton_nivel', this.asig_nvl1, this);
-        boton_nivel2 = game.add.button((window.innerWidth/2)+30, (window.innerHeight/2)+80, 'boton_nivel2', this.asig_nvl2, this);
-        boton_nivel3 = game.add.button((window.innerWidth/2)+70, (window.innerHeight/2)-100, 'boton_nivel3', this.asig_nvl3, this);
-        boton_nivel4 = game.add.button((window.innerWidth/2)+115, (window.innerHeight/2)+35, 'boton_nivel4', this.asig_nvl4, this);
         
+        boton_nivel2 = game.add.button((window.innerWidth/2)+30, (window.innerHeight/2)+80, 'nivel2_bd', this.asig_nvl2, this);
+        boton_nivel3 = game.add.button((window.innerWidth/2)+70, (window.innerHeight/2)-100, 'nivel3_bd', this.asig_nvl3, this);
+        boton_nivel4 = game.add.button((window.innerWidth/2)+115, (window.innerHeight/2)+35, 'nivel4_bd', this.asig_nvl4, this);
+       
         boton_nivel1.scale.setTo(0.7);
         boton_nivel2.scale.setTo(0.8);
         boton_nivel3.scale.setTo(0.5);
@@ -380,6 +386,25 @@ GamePlayPlaya.prototype = {
         boton_nivel2.anchor.setTo(0.5);
         boton_nivel3.anchor.setTo(0.5);
         boton_nivel4.anchor.setTo(0.5);
+
+        if(nivel_uno_complete==false){
+            boton_nivel2.inputEnabled=false;
+            boton_nivel3.inputEnabled=false;
+            boton_nivel4.inputEnabled=false;
+            boton_nivel2.frame=1;
+            boton_nivel3.frame=1;
+            boton_nivel4.frame=1;
+        }if(nivel_dos_complete==false){
+            boton_nivel3.inputEnabled=false;
+            boton_nivel4.inputEnabled=false;
+            boton_nivel3.frame=1;
+            boton_nivel4.frame=1;
+        }if(nivel_tres_complete==false){
+            boton_nivel4.inputEnabled=false;
+            boton_nivel4.frame=1;
+        }if(nivel_cuatro_complete==false){
+            console.log("cuatro");
+        }
     },
     
     asig_nvl1:function(){
@@ -525,6 +550,16 @@ GamePlayPlaya.prototype = {
             boton_resume = game.add.button((window.innerWidth/2)-20, (window.innerHeight/2)+115, 'resume', this.create, this);
         }else{
             boton_home = game.add.button((window.innerWidth/2)+15, (window.innerHeight/2)+115, 'home', this.return_home, this);
+        }
+
+        if(nivel==1){
+            nivel_uno_complete=true;
+        }if(nivel==2){
+            nivel_dos_complete=true;
+        }if(nivel==3){
+            nivel_tres_complete=true;
+        }if(nivel==4){
+            nivel_cuatro_complete=true;
         }
     },
 
