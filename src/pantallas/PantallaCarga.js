@@ -131,7 +131,8 @@ PantallaCarga.prototype = { //Cargar toda la pantalla
         game.load.image('instruccionesJuego', 'assets/img/recolectaBasura/instruccionesJuego.png');
         //#endregion   
         //#region Botones
-        game.load.spritesheet("botonRecargar", 'assets/img/recolectaBasura/recargar.png', 2);
+        game.load.atlasJSONArray('BotonRecargar', 'assets/img/recolectaBasura/recargar.png', 'assets/img/recolectaBasura/recargar.json');
+
         game.load.atlasJSONArray('botonAtras', 'assets/img/recolectaBasura/btnAtras.png', 'assets/img/recolectaBasura/btnAtras.json');
 
         //#endregion
