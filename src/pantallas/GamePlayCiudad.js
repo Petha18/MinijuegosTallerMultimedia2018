@@ -142,13 +142,13 @@ GamePlayCiudad = {
         }
 
         if (PuntajeLvl2 >= 700) {
-            this.nivel3 = game.add.button(window.innerWidth / 3.5, window.innerHeight / 1.3, 'nivelBloqueado', this.level2, this, 'bloqueado001', 'bloqueado001', 'bloqueado002-13');
-        this.nivel3.inputEnabled = false;
+            this.nivel3 = game.add.button(window.innerWidth / 3.5, window.innerHeight / 1.3, 'nivelDesbloqueado', this.level2, this, 'desbloqueado001', 'desbloqueado001', 'desbloqueado002');
+        this.nivel3.inputEnabled = true;
         this.nivel3.scale.setTo(0.8);
         this.nivel3.anchor.setTo(0.5);
         } else {
             this.nivel3 = game.add.button(window.innerWidth / 3.5, window.innerHeight / 1.3, 'nivelBloqueado', this.level2, this, 'bloqueado001', 'bloqueado001', 'bloqueado002-13');
-        this.nivel3.inputEnabled = false;
+        this.nivel3.inputEnabled = true;
         this.nivel3.scale.setTo(0.8);
         this.nivel3.anchor.setTo(0.5);
         }
@@ -455,7 +455,7 @@ GamePlayCiudad = {
                     var personas = this.persona.create(window.innerWidth / 1.698, window.innerHeight + window.innerHeight / 64 + this.distancia, 'personajeCaminandoAbajo2');
                
                 }
-                this.distancia += 50;
+                this.distancia += 30;
                 personas.name = "persona" + i;
                 personas.caminando = false;
                 personas.direccion = 0;
@@ -711,7 +711,7 @@ GamePlayCiudad = {
             fill: 'white',
             align: 'center'
         }
-        this.currentScore = 0;
+        this.currentScore = 700;
         this.textfield = game.add.text(window.innerWidth / 3, window.innerHeight / 7.3, this.currentScore.toString(), style);
         this.textfield.anchor.setTo(0.5)
         this.bar = game.add.sprite(window.innerWidth / 6.8, window.innerHeight / 29, 'barraTiempo');
@@ -778,7 +778,7 @@ GamePlayCiudad = {
             fill: 'white',
             align: 'center'
         }
-        this.currentScore = 0;
+        this.currentScore = 700;
         this.textfield = game.add.text(window.innerWidth / 3, window.innerHeight / 7.3, this.currentScore.toString(), style);
         this.textfield.anchor.setTo(0.5)
         this.bar = game.add.sprite(window.innerWidth / 6.8, window.innerHeight / 29, 'barraTiempo');
@@ -881,15 +881,15 @@ GamePlayCiudad = {
                 //#endregion
                 break;
             case STATE_GAME_LEVEL2:
-                this.barraTiempo(-0.2);
+                this.barraTiempo(-0.1);
                var temp=0;
                 for (i = 0; i < numeroPersonas; i++) {
                   
-                    if (this.persona.children[i].caminando && this.persona.children[i].y >= window.innerHeight/1.4 && this.persona.children[i].rumbo == 0) {
+                    if (this.persona.children[i].caminando && this.persona.children[i].y >= window.innerHeight/1.5 && this.persona.children[i].rumbo == 0) {
                         this.persona.children[i].y -= this.persona.children[i].aumentarY;
                         
                     } 
-                    else if (this.persona.children[i].caminando && this.persona.children[i].y <= 200 && this.persona.children[i].rumbo == 1) {
+                    else if (this.persona.children[i].caminando && this.persona.children[i].y <= window.innerHeight/3.36 && this.persona.children[i].rumbo == 1) {
                         
                    
                         
@@ -937,15 +937,15 @@ GamePlayCiudad = {
 
 
     },
-    // render: function() {
+    render: function() {
 
-    //     // Input debug info
-    //     game.debug.inputInfo(32, 32);
-    //     // game.debug.spriteInputInfo(sprite, 32, 130);
-    //     game.debug.pointer( game.input.activePointer );
+        // Input debug info
+        game.debug.inputInfo(32, 32);
+        // game.debug.spriteInputInfo(sprite, 32, 130);
+        game.debug.pointer( game.input.activePointer );
 
 
-    // }
+    }
 }
 
 // Variables Globales
