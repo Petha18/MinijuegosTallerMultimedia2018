@@ -1,5 +1,6 @@
 var botonJugar, botonSalir, botonCreditos, botonConfig, escalarAncho, escalarAlto, posicionY, botonesX, botonJugarY, botonSalirY, botonConfigY;
 var tamanioBotonesH, tamanioBotonesW;
+var sonido = true;
 
 var MenuPrincipal = function() {};
 
@@ -16,8 +17,10 @@ MenuPrincipal.prototype = {
         this.optionCount = 1;
     },
     create: function() {
-
-
+        this.musicaMenu = game.add.audio('MenuMusica');
+        this.clickk = game.add.audio('clickk');
+        this.musicaMenu.loop = true;
+        this.musicaMenu.play();
         if (window.innerWidth < 630) {
             //Mobile
             escalarAncho = window.innerWidth;
@@ -80,22 +83,46 @@ MenuPrincipal.prototype = {
         botonJugar.scale.setTo(tamanioBotonesJugarSalir, tamanioBotonesJugarSalir);
         botonSalir.scale.setTo(tamanioBotonesJugarSalir, tamanioBotonesJugarSalir);
 
+        this.audioA = game.add.button(20, botonConfigY, 'botonConfiguracion', menuConfigClick, this);
+        //this.audioA.anchor.setTo(0.5);
+        // this.audioA.scale.setTo(0.8);
+        this.audioA.visible = true;
+        this.audioM = game.add.button(20, botonConfigY, 'botonConfiguracion2', menuConfigClick, this);
+        //this.audioM.anchor.setTo(0.5);
+        // this.audioM.scale.setTo(0.8);
+        this.audioM.visible = false;
 
-        botonConfig = game.add.button(20, botonConfigY, 'botonConfiguracion', menuConfigClick, this);
+        //botonConfig = game.add.button(20, botonConfigY, 'botonConfiguracion', menuConfigClick, this);
     },
 };
 
 function clickJugar() {
-    //game.state.start("PlanetasMenu", Phaser.Plugin.StateTransition.Out.SlideLeft, Phaser.Plugin.StateTransition.In.SlideLeft);
+    this.clickk.play();
     game.state.start("PlanetasMenu");
+    this.musicaMenu.stop();
 }
 
 function clickSalir() {
-    console.log("Salir");
+    this.clickk.play();
+    if (confirm("Deseas salir?")) {
+        game.destroy()
+    }
 }
 
 function menuConfigClick() {
-    //game.state.start("MenuConfiguracion");
+    this.clickk.play();
+    if (sonido) {
+        this.audioA.visible = false;
+        this.audioM.visible = true;
+        sonido = false;
+        this.musicaMenu.stop();
+    } else {
+        this.audioA.visible = true;
+        this.audioM.visible = false;
+        sonido = true;
+        this.musicaMenu.play();
+    }
+
 }
 
 //Phaser.Utils.mixinPrototype(MenuPrincipal.prototype);

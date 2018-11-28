@@ -6,9 +6,13 @@ var estado = "1";
 
 PlanetasMenu.prototype = {
 
-    init: function() {},
+    init: function() { estado = "1"; },
     create: function() {
         this.rectangles = [];
+        this.musicaMenu = game.add.audio('MenuMusica');
+        this.musicaMenu.loop = true;
+        this.musicaMenu.play();
+        this.clickk = game.add.audio('clickk');
 
         this.FondoInicio = game.add.sprite(0, 0, 'fondoPlanetaCiudad');
         this.FondoInicio2 = game.add.sprite(window.innerWidth, 0, 'fondoPlanetaParque');
@@ -76,6 +80,7 @@ PlanetasMenu.prototype = {
 
 function calcularMov(i, j) {
     var bool = true;
+    console.log(this.estado);
     if (i > j && this.estado == "1") //Corre derecha
     {
         //console.log(j + " " + window.innerWidth);
@@ -127,14 +132,17 @@ function planetas(i) {
 }
 
 function volverMenuPrincipalClick() {
+    this.clickk.play();
     game.state.start("MenuPrincipal");
     bloquearClick = true;
+    this.musicaMenu.stop();
 }
 
 function clickMundo01() {
     if (this.xInicial == this.xFinal) {
         game.state.start("GamePlayCiudad");
         game.state.start("gameplayCiudad");
+        this.musicaMenu.stop();
     }
 }
 
@@ -142,6 +150,7 @@ function clickMundo02() {
     if (this.xInicial == this.xFinal) {
         game.state.start("GamePlayParque");
         //game.state.start("InicioParque");
+        this.musicaMenu.stop();
     }
 }
 
@@ -149,6 +158,7 @@ function clickMundo03() {
     if (this.xInicial == this.xFinal) {
         game.state.start("GamePlayPlaya");
         game.state.start("gameplayPlaya");
+        this.musicaMenu.stop();
     }
 
 }
@@ -157,6 +167,7 @@ function clickMundo04() {
     if (this.xInicial == this.xFinal) {
         game.state.start("GamePlayManglar");
         game.state.start('inicio');
+        this.musicaMenu.stop();
     }
 }
 

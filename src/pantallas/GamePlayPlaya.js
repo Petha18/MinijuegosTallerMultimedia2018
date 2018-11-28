@@ -1,98 +1,99 @@
 /*Minijuego Memoria*/
 
-var clickUno = 0, clickDos = 0;
+var clickUno = 0,
+    clickDos = 0;
 var puntosGanar = 0;
-var timeUp=0;
+var timeUp = 0;
 var tapar = 1;
-var click1=0;
-var click2=0;
+var click1 = 0;
+var click2 = 0;
 var cartaClickeada1;
 var cartaClickeada1nombre;
-var mismaCarta=0;
-var play=false;
-var first_click=false;
-var nivel=1;
-var dificultad=1;
-var music_play=false;
+var mismaCarta = 0;
+var play = false;
+var first_click = false;
+var nivel = 1;
+var dificultad = 1;
+var music_play = false;
 
 var posiciones = {
-    
-    posXPosY: [
-        {x:(window.innerWidth/2)-100,y:(window.innerHeight/2)-180},
-        {x:(window.innerWidth/2)-60,y:(window.innerHeight/2)-180},
-        {x:(window.innerWidth/2)-20,y:(window.innerHeight/2)-180},
-        {x:(window.innerWidth/2)+20,y:(window.innerHeight/2)-180},
-        {x:(window.innerWidth/2)+60,y:(window.innerHeight/2)-180},
-        {x:(window.innerWidth/2)+100,y:(window.innerHeight/2)-180},
 
-        {x:(window.innerWidth/2)-100,y:(window.innerHeight/2)+140},
-        {x:(window.innerWidth/2)-60,y:(window.innerHeight/2)+140},
-        {x:(window.innerWidth/2)-20,y:(window.innerHeight/2)+140},
-        {x:(window.innerWidth/2)+20,y:(window.innerHeight/2)+140},
-        {x:(window.innerWidth/2)+60,y:(window.innerHeight/2)+140},
-        {x:(window.innerWidth/2)+100,y:(window.innerHeight/2)+140},
+    posXPosY: [
+        { x: (window.innerWidth / 2) - 100, y: (window.innerHeight / 2) - 180 },
+        { x: (window.innerWidth / 2) - 60, y: (window.innerHeight / 2) - 180 },
+        { x: (window.innerWidth / 2) - 20, y: (window.innerHeight / 2) - 180 },
+        { x: (window.innerWidth / 2) + 20, y: (window.innerHeight / 2) - 180 },
+        { x: (window.innerWidth / 2) + 60, y: (window.innerHeight / 2) - 180 },
+        { x: (window.innerWidth / 2) + 100, y: (window.innerHeight / 2) - 180 },
+
+        { x: (window.innerWidth / 2) - 100, y: (window.innerHeight / 2) + 140 },
+        { x: (window.innerWidth / 2) - 60, y: (window.innerHeight / 2) + 140 },
+        { x: (window.innerWidth / 2) - 20, y: (window.innerHeight / 2) + 140 },
+        { x: (window.innerWidth / 2) + 20, y: (window.innerHeight / 2) + 140 },
+        { x: (window.innerWidth / 2) + 60, y: (window.innerHeight / 2) + 140 },
+        { x: (window.innerWidth / 2) + 100, y: (window.innerHeight / 2) + 140 },
     ],
 
     posXPosY2: [
-        {x:(window.innerWidth/2)-100,y:(window.innerHeight/2)-180},
-        {x:(window.innerWidth/2)-60,y:(window.innerHeight/2)-180},
-        {x:(window.innerWidth/2)-20,y:(window.innerHeight/2)-180},
-        {x:(window.innerWidth/2)+20,y:(window.innerHeight/2)-180},
-        {x:(window.innerWidth/2)+60,y:(window.innerHeight/2)-180},
-        {x:(window.innerWidth/2)+100,y:(window.innerHeight/2)-180},
-        
-        {x:(window.innerWidth/2)-100,y:(window.innerHeight/2)-20},
-        {x:(window.innerWidth/2)-60,y:(window.innerHeight/2)-20},
-        {x:(window.innerWidth/2)-20,y:(window.innerHeight/2)-20},
-        {x:(window.innerWidth/2)+20,y:(window.innerHeight/2)-20},
-        {x:(window.innerWidth/2)+60,y:(window.innerHeight/2)-20},
-        {x:(window.innerWidth/2)+100,y:(window.innerHeight/2)-20},
+        { x: (window.innerWidth / 2) - 100, y: (window.innerHeight / 2) - 180 },
+        { x: (window.innerWidth / 2) - 60, y: (window.innerHeight / 2) - 180 },
+        { x: (window.innerWidth / 2) - 20, y: (window.innerHeight / 2) - 180 },
+        { x: (window.innerWidth / 2) + 20, y: (window.innerHeight / 2) - 180 },
+        { x: (window.innerWidth / 2) + 60, y: (window.innerHeight / 2) - 180 },
+        { x: (window.innerWidth / 2) + 100, y: (window.innerHeight / 2) - 180 },
 
-        {x:(window.innerWidth/2)-100,y:(window.innerHeight/2)+140},
-        {x:(window.innerWidth/2)-60,y:(window.innerHeight/2)+140},
-        {x:(window.innerWidth/2)-20,y:(window.innerHeight/2)+140},
-        {x:(window.innerWidth/2)+20,y:(window.innerHeight/2)+140},
-        {x:(window.innerWidth/2)+60,y:(window.innerHeight/2)+140},
-        {x:(window.innerWidth/2)+100,y:(window.innerHeight/2)+140},
+        { x: (window.innerWidth / 2) - 100, y: (window.innerHeight / 2) - 20 },
+        { x: (window.innerWidth / 2) - 60, y: (window.innerHeight / 2) - 20 },
+        { x: (window.innerWidth / 2) - 20, y: (window.innerHeight / 2) - 20 },
+        { x: (window.innerWidth / 2) + 20, y: (window.innerHeight / 2) - 20 },
+        { x: (window.innerWidth / 2) + 60, y: (window.innerHeight / 2) - 20 },
+        { x: (window.innerWidth / 2) + 100, y: (window.innerHeight / 2) - 20 },
+
+        { x: (window.innerWidth / 2) - 100, y: (window.innerHeight / 2) + 140 },
+        { x: (window.innerWidth / 2) - 60, y: (window.innerHeight / 2) + 140 },
+        { x: (window.innerWidth / 2) - 20, y: (window.innerHeight / 2) + 140 },
+        { x: (window.innerWidth / 2) + 20, y: (window.innerHeight / 2) + 140 },
+        { x: (window.innerWidth / 2) + 60, y: (window.innerHeight / 2) + 140 },
+        { x: (window.innerWidth / 2) + 100, y: (window.innerHeight / 2) + 140 },
     ],
 
     posXPosY3: [
-        {x:(window.innerWidth/2)-100,y:(window.innerHeight/2)-180},
-        {x:(window.innerWidth/2)-60,y:(window.innerHeight/2)-180},
-        {x:(window.innerWidth/2)-20,y:(window.innerHeight/2)-180},
-        {x:(window.innerWidth/2)+20,y:(window.innerHeight/2)-180},
-        {x:(window.innerWidth/2)+60,y:(window.innerHeight/2)-180},
-        {x:(window.innerWidth/2)+100,y:(window.innerHeight/2)-180},
-        
-        {x:(window.innerWidth/2)-100,y:(window.innerHeight/2)-100},
-        {x:(window.innerWidth/2)-60,y:(window.innerHeight/2)-100},
-        {x:(window.innerWidth/2)-20,y:(window.innerHeight/2)-100},
-        {x:(window.innerWidth/2)+20,y:(window.innerHeight/2)-100},
-        {x:(window.innerWidth/2)+60,y:(window.innerHeight/2)-100},
-        {x:(window.innerWidth/2)+100,y:(window.innerHeight/2)-100},
+        { x: (window.innerWidth / 2) - 100, y: (window.innerHeight / 2) - 180 },
+        { x: (window.innerWidth / 2) - 60, y: (window.innerHeight / 2) - 180 },
+        { x: (window.innerWidth / 2) - 20, y: (window.innerHeight / 2) - 180 },
+        { x: (window.innerWidth / 2) + 20, y: (window.innerHeight / 2) - 180 },
+        { x: (window.innerWidth / 2) + 60, y: (window.innerHeight / 2) - 180 },
+        { x: (window.innerWidth / 2) + 100, y: (window.innerHeight / 2) - 180 },
 
-        {x:(window.innerWidth/2)-100,y:(window.innerHeight/2)-20},
-        {x:(window.innerWidth/2)-60,y:(window.innerHeight/2)-20},
-        {x:(window.innerWidth/2)-20,y:(window.innerHeight/2)-20},
-        {x:(window.innerWidth/2)+20,y:(window.innerHeight/2)-20},
-        {x:(window.innerWidth/2)+60,y:(window.innerHeight/2)-20},
-        {x:(window.innerWidth/2)+100,y:(window.innerHeight/2)-20},
+        { x: (window.innerWidth / 2) - 100, y: (window.innerHeight / 2) - 100 },
+        { x: (window.innerWidth / 2) - 60, y: (window.innerHeight / 2) - 100 },
+        { x: (window.innerWidth / 2) - 20, y: (window.innerHeight / 2) - 100 },
+        { x: (window.innerWidth / 2) + 20, y: (window.innerHeight / 2) - 100 },
+        { x: (window.innerWidth / 2) + 60, y: (window.innerHeight / 2) - 100 },
+        { x: (window.innerWidth / 2) + 100, y: (window.innerHeight / 2) - 100 },
 
-        {x:(window.innerWidth/2)-100,y:(window.innerHeight/2)+60},
-        {x:(window.innerWidth/2)-60,y:(window.innerHeight/2)+60},
-        {x:(window.innerWidth/2)-20,y:(window.innerHeight/2)+60},
-        {x:(window.innerWidth/2)+20,y:(window.innerHeight/2)+60},
-        {x:(window.innerWidth/2)+60,y:(window.innerHeight/2)+60},
-        {x:(window.innerWidth/2)+100,y:(window.innerHeight/2)+60},
+        { x: (window.innerWidth / 2) - 100, y: (window.innerHeight / 2) - 20 },
+        { x: (window.innerWidth / 2) - 60, y: (window.innerHeight / 2) - 20 },
+        { x: (window.innerWidth / 2) - 20, y: (window.innerHeight / 2) - 20 },
+        { x: (window.innerWidth / 2) + 20, y: (window.innerHeight / 2) - 20 },
+        { x: (window.innerWidth / 2) + 60, y: (window.innerHeight / 2) - 20 },
+        { x: (window.innerWidth / 2) + 100, y: (window.innerHeight / 2) - 20 },
 
-        {x:(window.innerWidth/2)-100,y:(window.innerHeight/2)+140},
-        {x:(window.innerWidth/2)-60,y:(window.innerHeight/2)+140},
-        {x:(window.innerWidth/2)-20,y:(window.innerHeight/2)+140},
-        {x:(window.innerWidth/2)+20,y:(window.innerHeight/2)+140},
-        {x:(window.innerWidth/2)+60,y:(window.innerHeight/2)+140},
-        {x:(window.innerWidth/2)+100,y:(window.innerHeight/2)+140},
+        { x: (window.innerWidth / 2) - 100, y: (window.innerHeight / 2) + 60 },
+        { x: (window.innerWidth / 2) - 60, y: (window.innerHeight / 2) + 60 },
+        { x: (window.innerWidth / 2) - 20, y: (window.innerHeight / 2) + 60 },
+        { x: (window.innerWidth / 2) + 20, y: (window.innerHeight / 2) + 60 },
+        { x: (window.innerWidth / 2) + 60, y: (window.innerHeight / 2) + 60 },
+        { x: (window.innerWidth / 2) + 100, y: (window.innerHeight / 2) + 60 },
+
+        { x: (window.innerWidth / 2) - 100, y: (window.innerHeight / 2) + 140 },
+        { x: (window.innerWidth / 2) - 60, y: (window.innerHeight / 2) + 140 },
+        { x: (window.innerWidth / 2) - 20, y: (window.innerHeight / 2) + 140 },
+        { x: (window.innerWidth / 2) + 20, y: (window.innerHeight / 2) + 140 },
+        { x: (window.innerWidth / 2) + 60, y: (window.innerHeight / 2) + 140 },
+        { x: (window.innerWidth / 2) + 100, y: (window.innerHeight / 2) + 140 },
     ],
- }
+}
 
 var GamePlayPlaya = function() {};
 
@@ -108,7 +109,7 @@ GamePlayPlaya.prototype = {
         game.load.image('background2', 'assets/img/playa/images/fondo2.png');
         game.load.image('background3', 'assets/img/playa/images/fondo3.png');
         game.load.image('background4', 'assets/img/playa/images/fondo4.png');
-        
+
         game.load.image('background_inicio', 'assets/img/playa/images/start_screen.png');
         game.load.image('background_selector', 'assets/img/playa/images/menu_niveles.png');
 
@@ -121,13 +122,13 @@ GamePlayPlaya.prototype = {
         game.load.image('recarga', 'assets/img/playa/images/reload.png');
         game.load.image('home', 'assets/img/playa/images/home.png');
         game.load.image('home_principal', 'assets/img/playa/images/home_principal.png');
-        
+
         game.load.image('pausa', 'assets/img/playa/images/pausa.png');
         game.load.image('pausa_screen', 'assets/img/playa/images/pausa_screen.png');
         game.load.image('resume', 'assets/img/playa/images/resume.png');
         game.load.image('si', 'assets/img/playa/images/si.png');
         game.load.image('no', 'assets/img/playa/images/no.png');
-        
+
         game.load.image('boton_nivel', 'assets/img/playa/images/nivel.png');
         game.load.image('boton_nivel2', 'assets/img/playa/images/nivel2.png');
         game.load.image('boton_nivel3', 'assets/img/playa/images/nivel3.png');
@@ -147,230 +148,230 @@ GamePlayPlaya.prototype = {
         game.load.audio('win_sound', 'assets/img/playa/images/sonidos/aplausos.wav');
         game.load.audio('fail_sound', 'assets/img/playa/images/sonidos/buuuu.mp3');
     },
-    
+
     create: function() {
 
         this.win_sound = game.add.audio('win_sound');
         this.fail_sound = game.add.audio('fail_sound');
 
-        if(music_play==false){
-        this.musica = game.add.audio('soundtrack');
-        this.musica.loop = true;
-        this.musica.play();
-        music_play=true;
+        if (music_play == false) {
+            this.musica = game.add.audio('soundtrack');
+            this.musica.loop = true;
+            this.musica.play();
+            music_play = true;
         }
-    
+
         game.time.events.remove(this.timerGameOver);
-        game.paused=false;
+        game.paused = false;
         var style = {
             font: '20pt Impact',
             fill: '#FF4000'
-          }
-    
+        }
+
         var fondo_inicio = game.add.sprite(0, 0, 'background_inicio');
         fondo_inicio.width = window.innerWidth;
         fondo_inicio.height = window.innerHeight;
-        
-        boton_start = game.add.button(window.innerWidth/1.52, window.innerHeight/1.15, 'boton_start', this.mostrar_niveles, this);
-        boton_inst = game.add.button(window.innerWidth/1.12, window.innerHeight/1.15, 'boton_inst', this.showInstrucciones, this);
-        boton_return_menu = game.add.button(window.innerWidth/1.12, (window.innerHeight/2)+210, 'home_principal', volverMenuPrincipalConfig, this);
 
-        function volverMenuPrincipalConfig () {
-            game.state.start("MenuPrincipal"); 
+        boton_start = game.add.button(window.innerWidth / 1.52, window.innerHeight / 1.15, 'boton_start', this.mostrar_niveles, this);
+        boton_inst = game.add.button(window.innerWidth / 1.12, window.innerHeight / 1.15, 'boton_inst', this.showInstrucciones, this);
+        boton_return_menu = game.add.button(window.innerWidth / 1.12, (window.innerHeight / 2) + 210, 'home_principal', volverMenuPrincipalConfig, this);
+
+        function volverMenuPrincipalConfig() {
+            game.state.start("PlanetasMenu");
             this.musica.stop();
-            music_play=false;
+            music_play = false;
         }
-  
-        if(play){
-    
-            if(nivel==1){
+
+        if (play) {
+
+            if (nivel == 1) {
                 var fondo = game.add.sprite(0, 0, 'background1');
-                this.totalTime = 120;/*120*/
-                var tipo=[0,0,1,1,2,2,3,3,4,4,5,5];
-            }else if(nivel==2){
+                this.totalTime = 120; /*120*/
+                var tipo = [0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5];
+            } else if (nivel == 2) {
                 var fondo = game.add.sprite(0, 0, 'background2');
-                this.totalTime = 160;/*160*/
-                dificultad=2;
-                var tipo=[0,0,1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8];
-             }else if(nivel==3){
+                this.totalTime = 160; /*160*/
+                dificultad = 2;
+                var tipo = [0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8];
+            } else if (nivel == 3) {
                 var fondo = game.add.sprite(0, 0, 'background3');
-                this.totalTime = 260;/*260*/
-                dificultad=3;
-                var tipo=[0,0,1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8,9,9,10,10,11,11,12,12,13,13,14,14];
-            }else if(nivel==4){
+                this.totalTime = 260; /*260*/
+                dificultad = 3;
+                var tipo = [0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10, 10, 11, 11, 12, 12, 13, 13, 14, 14];
+            } else if (nivel == 4) {
                 var fondo = game.add.sprite(0, 0, 'background4');
-                this.totalTime = 240;/*240*/
-                dificultad=3;
-                var tipo=[0,0,1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8,9,9,10,10,11,11,12,12,13,13,14,14];
-            }else{
+                this.totalTime = 240; /*240*/
+                dificultad = 3;
+                var tipo = [0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10, 10, 11, 11, 12, 12, 13, 13, 14, 14];
+            } else {
                 console.log("Error al cargar");
             }
-    
-        fondo.width = window.innerWidth;
-        fondo.height = window.innerHeight;
-        this.cartas = game.add.group();
-        this.cartas.inputEnableChildren = true;
-        var numero=0;
 
-        if(dificultad==1){
-            do{
-                this.posicionCarta = Math.floor(Math.random() * (12 - 0)) + 0;
-            if(posiciones.posXPosY[numero]!=null && tipo[this.posicionCarta]!=null){
-                // console.log("x: "+posiciones.posXPosY[this.posicionCarta].x+" y: "+posiciones.posXPosY[this.posicionCarta].y);
-                this.carta = this.cartas.create(posiciones.posXPosY[numero].x, posiciones.posXPosY[numero].y, 'cuadros1');
-                this.carta.anchor.setTo(0.5);
-                this.carta.frame = 15;
-                this.carta.bloqueo = false;
-                this.carta.encontrada = false;
-                this.carta.inputEnabled = true;
-                this.carta.name="carta"+numero;
-                this.carta.scale.setTo(0.2);
-                this.carta.tipo = tipo[this.posicionCarta];
-                tipo[this.posicionCarta]=null;
-                numero++;
+            fondo.width = window.innerWidth;
+            fondo.height = window.innerHeight;
+            this.cartas = game.add.group();
+            this.cartas.inputEnableChildren = true;
+            var numero = 0;
+
+            if (dificultad == 1) {
+                do {
+                    this.posicionCarta = Math.floor(Math.random() * (12 - 0)) + 0;
+                    if (posiciones.posXPosY[numero] != null && tipo[this.posicionCarta] != null) {
+                        // console.log("x: "+posiciones.posXPosY[this.posicionCarta].x+" y: "+posiciones.posXPosY[this.posicionCarta].y);
+                        this.carta = this.cartas.create(posiciones.posXPosY[numero].x, posiciones.posXPosY[numero].y, 'cuadros1');
+                        this.carta.anchor.setTo(0.5);
+                        this.carta.frame = 15;
+                        this.carta.bloqueo = false;
+                        this.carta.encontrada = false;
+                        this.carta.inputEnabled = true;
+                        this.carta.name = "carta" + numero;
+                        this.carta.scale.setTo(0.2);
+                        this.carta.tipo = tipo[this.posicionCarta];
+                        tipo[this.posicionCarta] = null;
+                        numero++;
+                    }
+                } while (numero < 12);
             }
-        }while(numero<12);
-    }if(dificultad==2){
-        do{
-            this.posicionCarta = Math.floor(Math.random() * (18 - 0)) + 0;
-            // console.log(this.posicionCarta);
-            if(posiciones.posXPosY2[numero]!=null && tipo[this.posicionCarta]!=null){
-                // console.log("x: "+posiciones.posXPosY[this.posicionCarta].x+" y: "+posiciones.posXPosY[this.posicionCarta].y);
-                this.carta = this.cartas.create(posiciones.posXPosY2[numero].x, posiciones.posXPosY2[numero].y, 'cuadros1');
-                this.carta.anchor.setTo(0.5);
-                this.carta.frame = 15;
-                this.carta.bloqueo = false;
-                this.carta.encontrada = false;
-                this.carta.inputEnabled = true;
-                this.carta.name="carta"+numero;
-                this.carta.scale.setTo(0.2);
-                this.carta.tipo = tipo[this.posicionCarta];
-                tipo[this.posicionCarta]=null;
-                numero++;
+            if (dificultad == 2) {
+                do {
+                    this.posicionCarta = Math.floor(Math.random() * (18 - 0)) + 0;
+                    // console.log(this.posicionCarta);
+                    if (posiciones.posXPosY2[numero] != null && tipo[this.posicionCarta] != null) {
+                        // console.log("x: "+posiciones.posXPosY[this.posicionCarta].x+" y: "+posiciones.posXPosY[this.posicionCarta].y);
+                        this.carta = this.cartas.create(posiciones.posXPosY2[numero].x, posiciones.posXPosY2[numero].y, 'cuadros1');
+                        this.carta.anchor.setTo(0.5);
+                        this.carta.frame = 15;
+                        this.carta.bloqueo = false;
+                        this.carta.encontrada = false;
+                        this.carta.inputEnabled = true;
+                        this.carta.name = "carta" + numero;
+                        this.carta.scale.setTo(0.2);
+                        this.carta.tipo = tipo[this.posicionCarta];
+                        tipo[this.posicionCarta] = null;
+                        numero++;
+                    }
+                } while (numero < 18);
             }
-        }while(numero<18);
-    }if(dificultad==3){
-        do{
-            this.posicionCarta = Math.floor(Math.random() * (30 - 0)) + 0;
-            // console.log(this.posicionCarta);
-            if(posiciones.posXPosY3[numero]!=null && tipo[this.posicionCarta]!=null){
-                // console.log("x: "+posiciones.posXPosY[this.posicionCarta].x+" y: "+posiciones.posXPosY[this.posicionCarta].y);
-                this.carta = this.cartas.create(posiciones.posXPosY3[numero].x, posiciones.posXPosY3[numero].y, 'cuadros1');
-                this.carta.anchor.setTo(0.5);
-                this.carta.frame = 15;
-                this.carta.bloqueo = false;
-                this.carta.encontrada = false;
-                this.carta.inputEnabled = true;
-                this.carta.name="carta"+numero;
-                this.carta.scale.setTo(0.2);
-                this.carta.tipo = tipo[this.posicionCarta];
-                tipo[this.posicionCarta]=null;
-                numero++;
+            if (dificultad == 3) {
+                do {
+                    this.posicionCarta = Math.floor(Math.random() * (30 - 0)) + 0;
+                    // console.log(this.posicionCarta);
+                    if (posiciones.posXPosY3[numero] != null && tipo[this.posicionCarta] != null) {
+                        // console.log("x: "+posiciones.posXPosY[this.posicionCarta].x+" y: "+posiciones.posXPosY[this.posicionCarta].y);
+                        this.carta = this.cartas.create(posiciones.posXPosY3[numero].x, posiciones.posXPosY3[numero].y, 'cuadros1');
+                        this.carta.anchor.setTo(0.5);
+                        this.carta.frame = 15;
+                        this.carta.bloqueo = false;
+                        this.carta.encontrada = false;
+                        this.carta.inputEnabled = true;
+                        this.carta.name = "carta" + numero;
+                        this.carta.scale.setTo(0.2);
+                        this.carta.tipo = tipo[this.posicionCarta];
+                        tipo[this.posicionCarta] = null;
+                        numero++;
+                    }
+                } while (numero < 30);
             }
-        }while(numero<30);
-    }
-    
-        this.cartas.onChildInputDown.add(function onDown(sprite) {
-            // console.log(sprite.tipo);
-            // console.log(sprite.name);
-            sprite.loadTexture('cuadros1', sprite.tipo, false);
-                    if(click1==0 && click2==0 && sprite.encontrada==false){
-                    
-                        click1=1;
-                        mismaCarta=sprite.name; 
-                        console.log("primer Click: "+click1+"segundo Click: "+click2);
-                        cartaClickeada1 = sprite.tipo;
-                        cartaClickeada1nombre=sprite.name;
+
+            this.cartas.onChildInputDown.add(function onDown(sprite) {
+                // console.log(sprite.tipo);
+                // console.log(sprite.name);
+                sprite.loadTexture('cuadros1', sprite.tipo, false);
+                if (click1 == 0 && click2 == 0 && sprite.encontrada == false) {
+
+                    click1 = 1;
+                    mismaCarta = sprite.name;
+                    console.log("primer Click: " + click1 + "segundo Click: " + click2);
+                    cartaClickeada1 = sprite.tipo;
+                    cartaClickeada1nombre = sprite.name;
                     //    console.log( this.cartas);
-                    }
-                   else if(click1==1 /*&& click2==0*/ && sprite.encontrada==false && !sprite.bloqueo && mismaCarta!=sprite.name){
-                       click2=1;
-                       console.log("primer aaClick: "+click1+" segundo aaClick: "+click2);
+                } else if (click1 == 1 /*&& click2==0*/ && sprite.encontrada == false && !sprite.bloqueo && mismaCarta != sprite.name) {
+                    click2 = 1;
+                    console.log("primer aaClick: " + click1 + " segundo aaClick: " + click2);
                     // console.log(this.volteada1.frame+" "+this.volteada2.frame);
-                    if(cartaClickeada1 == sprite.tipo && sprite.encontrada==false){
+                    if (cartaClickeada1 == sprite.tipo && sprite.encontrada == false) {
                         this.increaseScore();
-                        for(var i=0; i<this.cartas.length;i++){
-                            if(this.cartas.children[i].name == cartaClickeada1nombre){
-                                this.cartas.children[i].encontrada =true;
-                                
+                        for (var i = 0; i < this.cartas.length; i++) {
+                            if (this.cartas.children[i].name == cartaClickeada1nombre) {
+                                this.cartas.children[i].encontrada = true;
+
                             }
-                           }
-                      
-                        sprite.encontrada=true;
-                        click1=0;
-                        click2=0;
-                        
-                     
-                    }
-                    else{
+                        }
+
+                        sprite.encontrada = true;
+                        click1 = 0;
+                        click2 = 0;
+
+
+                    } else {
                         this.pierdeTiempo();
-                        game.time.events.add(Phaser.Timer.SECOND/4,function(){
-                            if(click1==1 && click2 == 1 &&  sprite.encontrada==false){
-                                for(var i=0; i<this.cartas.length;i++){
-                                    if(this.cartas.children[i].name == cartaClickeada1nombre){
-                                        this.cartas.children[i].frame =15;
-                                        this.cartaClickeada1=null;/*Quiza sirva */
+                        game.time.events.add(Phaser.Timer.SECOND / 4, function() {
+                            if (click1 == 1 && click2 == 1 && sprite.encontrada == false) {
+                                for (var i = 0; i < this.cartas.length; i++) {
+                                    if (this.cartas.children[i].name == cartaClickeada1nombre) {
+                                        this.cartas.children[i].frame = 15;
+                                        this.cartaClickeada1 = null; /*Quiza sirva */
                                     }
-                                   }
-                                   sprite.frame=15;
-                                        click1=0;
-                                        click2=0;
+                                }
+                                sprite.frame = 15;
+                                click1 = 0;
+                                click2 = 0;
                             }
-                            
+
                         }, this);
-                        
-                      
+
+
                     }
-                   }
-                   this.cartaClickeada1=null;
-        }, this);
-    
-        this.currentScore = 0;
-        this.scoreText = game.add.text(window.innerWidth/4, 3, '0', style);
-        
-        boton_pausa = game.add.button(window.innerWidth/1.12, 2, 'pausa', this.stop_game, this);
+                }
+                this.cartaClickeada1 = null;
+            }, this);
 
-      this.pintarPuntos=  game.add.text(window.innerWidth/50, 2, 'Pares: ', style);
-       this.pintarTiempo= game.add.text(window.innerWidth/3.6, window.innerHeight-70, 'Tiempo: ', style);
-           
-       
+            this.currentScore = 0;
+            this.scoreText = game.add.text(window.innerWidth / 4, 3, '0', style);
 
-            this.timerText = game.add.text(window.innerWidth/1.7, window.innerHeight -70, this.totalTime+'', style);
-            this.timerGameOver = game.time.events.loop(Phaser.Timer.SECOND,function(){
+            boton_pausa = game.add.button(window.innerWidth / 1.12, 2, 'pausa', this.stop_game, this);
+
+            this.pintarPuntos = game.add.text(window.innerWidth / 50, 2, 'Pares: ', style);
+            this.pintarTiempo = game.add.text(window.innerWidth / 3.6, window.innerHeight - 70, 'Tiempo: ', style);
+
+
+
+            this.timerText = game.add.text(window.innerWidth / 1.7, window.innerHeight - 70, this.totalTime + '', style);
+            this.timerGameOver = game.time.events.loop(Phaser.Timer.SECOND, function() {
                 console.log("timer");
                 this.totalTime--;
-                this.timerText.text = this.totalTime+'';
-                if(this.totalTime<=0){
-                    this.timerText.visible=false;
-                    this.pintarTiempo.visible=false;
-                    this.pintarPuntos.visible=false;
-                    this.scoreText.visible=false;
-                     this.showFinalMessageFail()
-                     game.time.events.remove(this.timerGameOver);
-                     this.cartas.kill();
-                   
+                this.timerText.text = this.totalTime + '';
+                if (this.totalTime <= 0) {
+                    this.timerText.visible = false;
+                    this.pintarTiempo.visible = false;
+                    this.pintarPuntos.visible = false;
+                    this.scoreText.visible = false;
+                    this.showFinalMessageFail()
+                    game.time.events.remove(this.timerGameOver);
+                    this.cartas.kill();
+
                     //  this.endGame = true;
                 }
             }, this);
-    };
+        };
 
-        
-},
 
-    mostrar_niveles:function(){
+    },
 
-        boton_return_menu.inputEnabled=false;
-        boton_start.inputEnabled=false;
-        boton_inst.inputEnabled=false;
+    mostrar_niveles: function() {
+
+        boton_return_menu.inputEnabled = false;
+        boton_start.inputEnabled = false;
+        boton_inst.inputEnabled = false;
 
         var fondo_seleccion = game.add.sprite(0, 0, 'background_selector');
         fondo_seleccion.width = window.innerWidth;
         fondo_seleccion.height = window.innerHeight;
-        boton_nivel1 = game.add.button((window.innerWidth/2)-150, (window.innerHeight/2)-10, 'boton_nivel', this.asig_nvl1, this);
-        boton_nivel2 = game.add.button((window.innerWidth/2)+30, (window.innerHeight/2)+80, 'boton_nivel2', this.asig_nvl2, this);
-        boton_nivel3 = game.add.button((window.innerWidth/2)+70, (window.innerHeight/2)-100, 'boton_nivel3', this.asig_nvl3, this);
-        boton_nivel4 = game.add.button((window.innerWidth/2)+115, (window.innerHeight/2)+35, 'boton_nivel4', this.asig_nvl4, this);
-        
+        boton_nivel1 = game.add.button((window.innerWidth / 2) - 150, (window.innerHeight / 2) - 10, 'boton_nivel', this.asig_nvl1, this);
+        boton_nivel2 = game.add.button((window.innerWidth / 2) + 30, (window.innerHeight / 2) + 80, 'boton_nivel2', this.asig_nvl2, this);
+        boton_nivel3 = game.add.button((window.innerWidth / 2) + 70, (window.innerHeight / 2) - 100, 'boton_nivel3', this.asig_nvl3, this);
+        boton_nivel4 = game.add.button((window.innerWidth / 2) + 115, (window.innerHeight / 2) + 35, 'boton_nivel4', this.asig_nvl4, this);
+
         boton_nivel1.scale.setTo(0.7);
         boton_nivel2.scale.setTo(0.8);
         boton_nivel3.scale.setTo(0.5);
@@ -381,66 +382,66 @@ GamePlayPlaya.prototype = {
         boton_nivel3.anchor.setTo(0.5);
         boton_nivel4.anchor.setTo(0.5);
     },
-    
-    asig_nvl1:function(){
-        nivel=1;
-        boton_nivel1.inputEnabled=false;
-        boton_nivel2.inputEnabled=false;
-        boton_nivel3.inputEnabled=false;
-        boton_nivel4.inputEnabled=false;
+
+    asig_nvl1: function() {
+        nivel = 1;
+        boton_nivel1.inputEnabled = false;
+        boton_nivel2.inputEnabled = false;
+        boton_nivel3.inputEnabled = false;
+        boton_nivel4.inputEnabled = false;
         this.onTap();
     },
-    asig_nvl2:function(){
-        nivel=2;
-        boton_nivel1.inputEnabled=false;
-        boton_nivel2.inputEnabled=false;
-        boton_nivel3.inputEnabled=false;
-        boton_nivel4.inputEnabled=false;
+    asig_nvl2: function() {
+        nivel = 2;
+        boton_nivel1.inputEnabled = false;
+        boton_nivel2.inputEnabled = false;
+        boton_nivel3.inputEnabled = false;
+        boton_nivel4.inputEnabled = false;
         this.onTap();
     },
-    asig_nvl3:function(){
-        nivel=3;
-        boton_nivel1.inputEnabled=false;
-        boton_nivel2.inputEnabled=false;
-        boton_nivel3.inputEnabled=false;
-        boton_nivel4.inputEnabled=false;
+    asig_nvl3: function() {
+        nivel = 3;
+        boton_nivel1.inputEnabled = false;
+        boton_nivel2.inputEnabled = false;
+        boton_nivel3.inputEnabled = false;
+        boton_nivel4.inputEnabled = false;
         this.onTap();
     },
-    asig_nvl4:function(){
-        nivel=4;
-        boton_nivel1.inputEnabled=false;
-        boton_nivel2.inputEnabled=false;
-        boton_nivel3.inputEnabled=false;
-        boton_nivel4.inputEnabled=false;
+    asig_nvl4: function() {
+        nivel = 4;
+        boton_nivel1.inputEnabled = false;
+        boton_nivel2.inputEnabled = false;
+        boton_nivel3.inputEnabled = false;
+        boton_nivel4.inputEnabled = false;
         this.onTap();
     },
 
-    onTap:function(){
-        play=true;
-        if(first_click==false){
+    onTap: function() {
+        play = true;
+        if (first_click == false) {
             this.create();
-            first_click=true;
+            first_click = true;
             console.log("primerclick");
         };
-       
-        console.log("escucha el lalalala click "+play);
+
+        console.log("escucha el lalalala click " + play);
     },
 
-    stop_game:function(){
-        game.paused=true;
+    stop_game: function() {
+        game.paused = true;
         this.cartas.kill();
         this.show_pausa();
     },
 
-    continue_game:function(){
-        game.paused=false;
+    continue_game: function() {
+        game.paused = false;
         this.cartas.revive();
         boton_pausa.revive();
-        boton_pausa.inputEnabled=true;
+        boton_pausa.inputEnabled = true;
         boton_si.kill();
-        boton_si.inputEnabled=false;
+        boton_si.inputEnabled = false;
         boton_no.kill();
-        boton_no.inputEnabled=false;
+        boton_no.inputEnabled = false;
         pausa_screen.kill();
         boton_home.kill();
         boton_reload.kill();
@@ -448,173 +449,176 @@ GamePlayPlaya.prototype = {
         bg.kill();
     },
 
-    return_home:function(){
-        play=false;
-        first_click=false;
-        nivel=1;
-        dificultad=1;
+    return_home: function() {
+        play = false;
+        first_click = false;
+        nivel = 1;
+        dificultad = 1;
         this.musica.stop();
-        music_play=false;
+        music_play = false;
         this.create();
     },
 
-    pierdeTiempo:function(){
-        this.totalTime-=10;
-        this.timerText.text = this.totalTime+''
-        if(this.totalTime<=0){
+    pierdeTiempo: function() {
+        this.totalTime -= 10;
+        this.timerText.text = this.totalTime + ''
+        if (this.totalTime <= 0) {
             this.timerText.text = '0';
         }
-    
+
     },
 
-    increaseScore:function(){
-        this.currentScore+=1;
+    increaseScore: function() {
+        this.currentScore += 1;
         this.scoreText.text = this.currentScore;
-        
-        this.puntosGanar=this.currentScore;
 
-        if(this.puntosGanar==6 && dificultad==1){
+        this.puntosGanar = this.currentScore;
+
+        if (this.puntosGanar == 6 && dificultad == 1) {
             this.showFinalMessage()
             game.time.events.remove(this.timerGameOver);
-            this.timerText.visible=false;
-                this.pintarTiempo.visible=false;
-                this.pintarPuntos.visible=false;
-                this.scoreText.visible=false;
-                nivel+=1;
-        }if(this.puntosGanar==9 && dificultad==2){
+            this.timerText.visible = false;
+            this.pintarTiempo.visible = false;
+            this.pintarPuntos.visible = false;
+            this.scoreText.visible = false;
+            nivel += 1;
+        }
+        if (this.puntosGanar == 9 && dificultad == 2) {
             this.showFinalMessage()
             game.time.events.remove(this.timerGameOver);
-            this.timerText.visible=false;
-                this.pintarTiempo.visible=false;
-                this.pintarPuntos.visible=false;
-                this.scoreText.visible=false;
-                nivel+=1;
-        }if(this.puntosGanar==15 && dificultad==3){
+            this.timerText.visible = false;
+            this.pintarTiempo.visible = false;
+            this.pintarPuntos.visible = false;
+            this.scoreText.visible = false;
+            nivel += 1;
+        }
+        if (this.puntosGanar == 15 && dificultad == 3) {
             this.showFinalMessage()
             game.time.events.remove(this.timerGameOver);
-            this.timerText.visible=false;
-                this.pintarTiempo.visible=false;
-                this.pintarPuntos.visible=false;
-                this.scoreText.visible=false;
-                nivel+=1;
+            this.timerText.visible = false;
+            this.pintarTiempo.visible = false;
+            this.pintarPuntos.visible = false;
+            this.scoreText.visible = false;
+            nivel += 1;
         }
     },
 
-    showFinalMessage:function(msg){
+    showFinalMessage: function(msg) {
 
         this.musica.stop();
-        music_play=false;
+        music_play = false;
         this.win_sound.play();
 
         var bgAlpha = game.add.bitmapData(game.width, game.height);
         bgAlpha.ctx.fillStyle = '#000000';
-        bgAlpha.ctx.fillRect(0,0,game.width, game.height);
-        
-        var bg = game.add.sprite(0,0,bgAlpha);
+        bgAlpha.ctx.fillRect(0, 0, game.width, game.height);
+
+        var bg = game.add.sprite(0, 0, bgAlpha);
         bg.alpha = 0.5;
 
-        
+
         var num_pantalla = Math.floor((Math.random() * 3) + 0);
-        
-        var victoria_screen = game.add.sprite(window.innerWidth/2, window.innerHeight/2, 'victoria'+num_pantalla);
+
+        var victoria_screen = game.add.sprite(window.innerWidth / 2, window.innerHeight / 2, 'victoria' + num_pantalla);
         victoria_screen.anchor.setTo(0.5);
         boton_pausa.kill();
-        
-        if(nivel<=3){
-            boton_home = game.add.button((window.innerWidth/2)+15, (window.innerHeight/2)+115, 'home', this.return_home, this);
-            boton_resume = game.add.button((window.innerWidth/2)-20, (window.innerHeight/2)+115, 'resume', this.create, this);
-        }else{
-            boton_home = game.add.button((window.innerWidth/2)+15, (window.innerHeight/2)+115, 'home', this.return_home, this);
+
+        if (nivel <= 3) {
+            boton_home = game.add.button((window.innerWidth / 2) + 15, (window.innerHeight / 2) + 115, 'home', this.return_home, this);
+            boton_resume = game.add.button((window.innerWidth / 2) - 20, (window.innerHeight / 2) + 115, 'resume', this.create, this);
+        } else {
+            boton_home = game.add.button((window.innerWidth / 2) + 15, (window.innerHeight / 2) + 115, 'home', this.return_home, this);
         }
     },
 
-    showFinalMessageFail:function(msg){
+    showFinalMessageFail: function(msg) {
 
         this.musica.stop();
-        music_play=false;
+        music_play = false;
         this.fail_sound.play();
 
         var bgAlpha = game.add.bitmapData(game.width, game.height);
         bgAlpha.ctx.fillStyle = '#000000';
-        bgAlpha.ctx.fillRect(0,0,game.width, game.height);
-        
-        var bg = game.add.sprite(0,0,bgAlpha);
+        bgAlpha.ctx.fillRect(0, 0, game.width, game.height);
+
+        var bg = game.add.sprite(0, 0, bgAlpha);
         bg.alpha = 0.5;
 
-        
+
         var num_pantalla = Math.floor((Math.random() * 3) + 0);
 
         console.log(num_pantalla);
-        
-        var derrota_screen = game.add.sprite(window.innerWidth/2, window.innerHeight/2, 'derrota'+num_pantalla);
-        derrota_screen.anchor.setTo(0.5); 
 
-        boton_home = game.add.button((window.innerWidth/2)+15, (window.innerHeight/2)+115, 'home', this.return_home, this);
-        boton_reload = game.add.button((window.innerWidth/2)+49, (window.innerHeight/2)+115, 'recarga', this.create, this);
+        var derrota_screen = game.add.sprite(window.innerWidth / 2, window.innerHeight / 2, 'derrota' + num_pantalla);
+        derrota_screen.anchor.setTo(0.5);
+
+        boton_home = game.add.button((window.innerWidth / 2) + 15, (window.innerHeight / 2) + 115, 'home', this.return_home, this);
+        boton_reload = game.add.button((window.innerWidth / 2) + 49, (window.innerHeight / 2) + 115, 'recarga', this.create, this);
         boton_pausa.kill();
     },
 
-    showInstrucciones:function(msg){
+    showInstrucciones: function(msg) {
 
         var bgAlpha = game.add.bitmapData(game.width, game.height);
         bgAlpha.ctx.fillStyle = '#000000';
-        bgAlpha.ctx.fillRect(0,0,game.width, game.height);
-        
-        var bg = game.add.sprite(0,0,bgAlpha);
+        bgAlpha.ctx.fillRect(0, 0, game.width, game.height);
+
+        var bg = game.add.sprite(0, 0, bgAlpha);
         bg.alpha = 0.5;
-        
-        var instrucciones_screen = game.add.sprite(window.innerWidth/2, window.innerHeight/2, 'inst_screen');
+
+        var instrucciones_screen = game.add.sprite(window.innerWidth / 2, window.innerHeight / 2, 'inst_screen');
         instrucciones_screen.anchor.setTo(0.5);
         instrucciones_screen.width = window.innerWidth;
-        instrucciones_screen.height = window.innerHeight; 
+        instrucciones_screen.height = window.innerHeight;
 
-        boton_back = game.add.button(window.innerWidth/1.12, window.innerHeight/1.15, 'boton_back', this.create, this);
+        boton_back = game.add.button(window.innerWidth / 1.12, window.innerHeight / 1.15, 'boton_back', this.create, this);
     },
 
-    show_pausa:function(msg){
-        
+    show_pausa: function(msg) {
+
         var bgAlpha = game.add.bitmapData(game.width, game.height);
         bgAlpha.ctx.fillStyle = '#000000';
-        bgAlpha.ctx.fillRect(0,0,game.width, game.height);
+        bgAlpha.ctx.fillRect(0, 0, game.width, game.height);
 
-        bg = game.add.sprite(0,0,bgAlpha);
+        bg = game.add.sprite(0, 0, bgAlpha);
         bg.alpha = 0.5;
 
-        pausa_screen = game.add.sprite(window.innerWidth/2, window.innerHeight/2, 'pausa_screen');
+        pausa_screen = game.add.sprite(window.innerWidth / 2, window.innerHeight / 2, 'pausa_screen');
         pausa_screen.anchor.setTo(0.5);
-        boton_home = game.add.button((window.innerWidth/2)+20, (window.innerHeight/2)+115, 'home', this.return_home, this);
-        boton_reload = game.add.button((window.innerWidth/2)-15, (window.innerHeight/2)+115, 'recarga', this.create, this);
-        boton_resume = game.add.button((window.innerWidth/2)-49, (window.innerHeight/2)+115, 'resume', this.continue_game, this);
+        boton_home = game.add.button((window.innerWidth / 2) + 20, (window.innerHeight / 2) + 115, 'home', this.return_home, this);
+        boton_reload = game.add.button((window.innerWidth / 2) - 15, (window.innerHeight / 2) + 115, 'recarga', this.create, this);
+        boton_resume = game.add.button((window.innerWidth / 2) - 49, (window.innerHeight / 2) + 115, 'resume', this.continue_game, this);
 
-        boton_si = game.add.button((window.innerWidth/2), (window.innerHeight/2), 'si', seguir_musica, this);
+        boton_si = game.add.button((window.innerWidth / 2), (window.innerHeight / 2), 'si', seguir_musica, this);
         boton_si.scale.setTo(0.5);
-        boton_no = game.add.button((window.innerWidth/2)-129, (window.innerHeight/2), 'no', parar_musica, this);
+        boton_no = game.add.button((window.innerWidth / 2) - 129, (window.innerHeight / 2), 'no', parar_musica, this);
         boton_no.scale.setTo(0.5);
 
         function parar_musica() {
             this.musica.stop();
             this.continue_game();
         }
+
         function seguir_musica() {
             this.musica.play();
             this.continue_game();
         }
-           
+
         boton_pausa.input.stop();
         boton_pausa.kill();
     },
-    
+
     update: function() {
 
 
-    /*    cuadroAzul.scale.setTo(0.5,0.5);
-        this.cuadroAzul.scale.setTo(0.5,0.5);
-        cuadroRojo.scale.setTo(0.5,0.5);*/
+        /*    cuadroAzul.scale.setTo(0.5,0.5);
+            this.cuadroAzul.scale.setTo(0.5,0.5);
+            cuadroRojo.scale.setTo(0.5,0.5);*/
         //this.carta.scale.setTo(0.1,0.1);
     }
 }
 
 //var game = new Phaser.Game(500, 800, Phaser.CANVAS);
-    
+
 game.state.add("gameplayPlaya", GamePlayPlaya);
 //game.state.start("gameplay");
