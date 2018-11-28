@@ -68,7 +68,7 @@ PantallaCarga.prototype = { //Cargar toda la pantalla
         game.load.image('fondoDesktop', 'assets/img/mapaInteractivo/fondo/fondoPC.png');
 
         //Plataformas sprites
-        game.load.image('platLimpio0', 'assets/img/mapaInteractivo/plataformas/platLimpio0.png');
+
         game.load.image('platLimpio1', 'assets/img/mapaInteractivo/plataformas/platLimpio1.png');
         game.load.image('platLimpio2', 'assets/img/mapaInteractivo/plataformas/platLimpio2.png');
         game.load.image('platLimpio3', 'assets/img/mapaInteractivo/plataformas/platLimpio3.png');
