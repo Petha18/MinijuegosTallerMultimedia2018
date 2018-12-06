@@ -11,7 +11,11 @@ PlanetasMenu.prototype = {
         this.rectangles = [];
         this.musicaMenu = game.add.audio('MenuMusica');
         this.musicaMenu.loop = true;
-        this.musicaMenu.play();
+        this.musicaMenu.stop();
+        if (sone) {
+            this.musicaMenu.play();
+        }
+
         this.clickk = game.add.audio('clickk');
 
         this.FondoInicio = game.add.sprite(0, 0, 'fondoPlanetaCiudad');
@@ -80,12 +84,9 @@ PlanetasMenu.prototype = {
 
 function calcularMov(i, j) {
     var bool = true;
-    console.log(this.estado);
     if (i > j && this.estado == "1") //Corre derecha
     {
-        //console.log(j + " " + window.innerWidth);
         bool = true;
-        //smothScroll(j, window.innerWidth + 10, bool);
         this.game.camera.x = window.innerWidth + 10;
         this.estado = "2";
         return 0;
@@ -149,7 +150,6 @@ function clickMundo01() {
 function clickMundo02() {
     if (this.xInicial == this.xFinal) {
         game.state.start("GamePlayParque");
-        //game.state.start("InicioParque");
         this.musicaMenu.stop();
     }
 }

@@ -1,5 +1,6 @@
 var escalar;
 var PantallaCarga = function() {};
+var sone = true;
 
 PantallaCarga.prototype = { //Cargar toda la pantalla
 
@@ -138,7 +139,7 @@ PantallaCarga.prototype = { //Cargar toda la pantalla
         game.load.atlasJSONArray('personajeCaminandoDerecha2', 'assets/img/recolectaBasura/personaCaminandoDerecha2.png', 'assets/img/recolectaBasura/personaCaminandoDerecha2.json');
         game.load.atlasJSONArray('personajeCaminandoAbajo', 'assets/img/recolectaBasura/personaCaminandoAbajo.png', 'assets/img/recolectaBasura/personaCaminandoAbajo.json');
         game.load.atlasJSONArray('personajeCaminandoAbajo2', 'assets/img/recolectaBasura/personaCaminandoAbajo2.png', 'assets/img/recolectaBasura/personaCaminandoAbajo2.json');
-       
+
         //#endregion 
 
         //#region Desechos
