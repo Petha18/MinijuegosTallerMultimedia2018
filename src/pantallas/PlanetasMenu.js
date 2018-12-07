@@ -141,7 +141,7 @@ function volverMenuPrincipalClick() {
 
 function clickMundo01() {
     if (this.xInicial == this.xFinal) {
-        game.state.start("GamePlayCiudad");
+        // game.state.start("GamePlayCiudad");
         game.state.start("gameplayCiudad");
         this.musicaMenu.stop();
     }
