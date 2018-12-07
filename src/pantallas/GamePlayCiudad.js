@@ -1161,7 +1161,7 @@ GamePlayCiudad = {
 
                 break;
             case STATE_GAME_LEVEL1:
-                this.barraTiempo(-0.1);
+                this.barraTiempo(-0.5);
                 //#region Mover personajes y cambiar orientacion
                 for (i = 0; i < numeroPersonas; i++) {
                     // console.log('direccion'+this.persona.children[i].direccion);
@@ -1192,7 +1192,7 @@ GamePlayCiudad = {
                 //#endregion
                 break;
             case STATE_GAME_LEVEL2:
-                this.barraTiempo(-0.09);
+                this.barraTiempo(-0.9);
                
                 
                var temp=0;
@@ -1245,7 +1245,7 @@ GamePlayCiudad = {
                 break;
                 case STATE_GAME_LEVEL3:
                 // console.log('entro al level 3');
-                this.barraTiempo(-0.09);
+                this.barraTiempo(-0.9);
                 //#region Mover personajes y cambiar orientacion
                 for (i = 0; i < numeroPersonas; i++) {
                     // console.log('direccion'+this.persona.children[i].direccion);
